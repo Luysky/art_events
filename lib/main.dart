@@ -1,20 +1,26 @@
+import 'package:art_events/screens/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blueGrey,
-        appBar: AppBar(
-          title: Center(child: Text('Art Events')),
-          backgroundColor: Colors.blueGrey[900],
-        ),
-        body: Center(
-          child: Image(
-            image: NetworkImage('https://cdn.pixabay.com/photo/2016/12/15/20/21/texture-1909992_960_720.jpg'),
-          ),
-        ),
-      ),
-    ),
+    MyArtEvents()
   );
 }
+
+class MyArtEvents extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title: 'Header',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.pink[50],
+        backgroundColor: Colors.red[900],
+      ),
+      home: Home(),
+    );
+
+  }
+}
+
