@@ -19,11 +19,10 @@ class MyArtEvents extends StatelessWidget {
         primaryColor: Color(0xffFFF1F1),
         backgroundColor: Color(0xFFCC0022),
       ),
-      home: Home(),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => EventsList(),
-        Home.routeName: (ctx) => Home(),
+        '/': (ctx) => Home(),
+        '/events_list': (ctx) => EventsList(),
       },
     );
 
