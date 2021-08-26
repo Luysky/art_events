@@ -1,23 +1,26 @@
 
+import 'package:art_events/widgets/header.dart';
 import 'package:flutter/material.dart';
 
-class eventListScreen extends StatelessWidget {
-  const eventListScreen({Key? key}) : super(key: key);
+class EventsListScreen extends StatefulWidget{
 
-//TEST
-//Nouveau Test
+  
+  @override
+  _EventsListState createState() => _EventsListState();
+
+}
+
+class _EventsListState extends State<EventsListScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context){
     return Scaffold(
-      appBar: AppBar(
-        title: Text('EventListScreen'),
-        ),
-    body: Center(
-      child: Text(
-        'Liste d''évènement',
-      ),
-    ),
+      appBar: header(context, titleText: "Actualité"),
+      body: Text("List des evenements"),
     );
   }
 }

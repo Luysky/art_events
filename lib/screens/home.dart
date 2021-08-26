@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
               onPressed: (){
                 Navigator.push(
                   context, 
-                  MaterialPageRoute(builder: (context) => eventListScreen()),
+                  MaterialPageRoute(builder: (context) => EventsListScreen()),
                 );
               }, 
             child: Text('Allez vers Events'),
