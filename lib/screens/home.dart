@@ -48,8 +48,7 @@ class _HomeState extends State<Home> {
         ),
         alignment: Alignment.center,
         child: InkWell(
-          onTap: () => goToEventsList(context),
-          child: PageView(
+          child: Column(
             children: <Widget>[
               const Image(
                 image: AssetImage('assets/images/logo_avoir_vf.png'),
@@ -59,10 +58,36 @@ class _HomeState extends State<Home> {
                 style: TextStyle(
                   fontFamily: "Raleway-ExtraBold",
                   fontSize: 50.0,
-                  color: Colors.red[900],
+                  color: Theme.of(context).backgroundColor,
                 ),
               ),
-              EventsList(),
+              MaterialButton(
+                color: Theme.of(context).backgroundColor,
+                textColor: Colors.white,
+                child: Text(
+                  "Actualité",
+                  style: TextStyle(
+                    fontFamily: "Raleway-ExtraBold",
+                    fontSize: 30.0,
+                    color: Theme.of(context).backgroundColor,
+                  )
+                ),
+                onPressed: () => goToEventsList(context),
+              ),
+              MaterialButton(
+                height: 20.0,
+                color: Theme.of(context).backgroundColor,
+                textColor: Colors.white,
+                child: Text(
+                    "Créez votre profil",
+                    style: TextStyle(
+                      fontFamily: "Raleway-ExtraBold",
+                      fontSize: 10.0,
+                      color: Theme.of(context).backgroundColor,
+                    )
+                ),
+                onPressed: () => goToEventsList(context),
+              ),
             ],
           ),
         ),

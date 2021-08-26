@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
+AppBar header(context, {bool isAppTitle = false, String titleText = "text"}) {
   return AppBar(
     title: Text(
       isAppTitle ? "Bienvenu!" : titleText,
