@@ -1,3 +1,4 @@
+import 'package:art_events/screens/events_list.dart';
 import 'package:art_events/screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,11 @@ class MyArtEvents extends StatelessWidget {
         backgroundColor: Color(0xFFCC0022),
       ),
       home: Home(),
+      initialRoute: '/',
+      routes: {
+        '/': (ctx) => EventsList(),
+        Home.routeName: (ctx) => Home(),
+      },
     );
 
   }
