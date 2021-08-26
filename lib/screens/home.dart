@@ -1,5 +1,8 @@
 import 'package:art_events/screens/events_list.dart';
+import 'package:art_events/widgets/button_create.dart';
 import 'package:flutter/material.dart';
+
+import 'create_account.dart';
 
 class Home extends StatefulWidget {
   static const routeName = '/pages';
@@ -40,6 +43,10 @@ class _HomeState extends State<Home> {
     Navigator.of(context).pushNamed('/events_list');
   }
 
+  createAccountScreen(BuildContext context) {
+    Navigator.of(context).pushNamed('/create_account');
+  }
+
   Scaffold buildUnAuthScreen() {
     return Scaffold(
       body: Container(
@@ -62,31 +69,21 @@ class _HomeState extends State<Home> {
                 ),
               ),
               MaterialButton(
-                color: Theme.of(context).backgroundColor,
-                textColor: Colors.white,
+                color: Theme.of(context).primaryColor,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Theme.of(context).backgroundColor, width: 1)
+                ),
                 child: Text(
-                  "Actualité",
+                  "ACTUALITÉ",
                   style: TextStyle(
-                    fontFamily: "Raleway-ExtraBold",
-                    fontSize: 30.0,
+                    fontFamily: "Raleway-Regular",
+                    fontSize: 15.0,
                     color: Theme.of(context).backgroundColor,
                   )
                 ),
                 onPressed: () => goToEventsList(context),
               ),
-              MaterialButton(
-                height: 20.0,
-                color: Theme.of(context).backgroundColor,
-                textColor: Colors.white,
-                child: Text(
-                    "Créez votre profil",
-                    style: TextStyle(
-                      fontFamily: "Raleway-ExtraBold",
-                      fontSize: 10.0,
-                      color: Theme.of(context).backgroundColor,
-                    )
-                ),
-                onPressed: () => goToEventsList(context),
+              CustomButton( createAccountScreen(context),
               ),
             ],
           ),
@@ -100,4 +97,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return isAuth ? buildAuthScreen() : buildUnAuthScreen();
   }
+
+
 }

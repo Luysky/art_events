@@ -1,4 +1,6 @@
+import 'package:art_events/screens/create_account.dart';
 import 'package:art_events/screens/events_list.dart';
+import 'package:art_events/screens/create_account.dart';
 import 'package:art_events/screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +25,7 @@ class MyArtEvents extends StatelessWidget {
       routes: {
         '/': (ctx) => Home(),
         '/events_list': (ctx) => EventsList(),
+        '/create_account': (ctx) => CreateAccountScreen(),
       },
     );
 
