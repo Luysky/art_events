@@ -1,6 +1,5 @@
 
 import 'package:art_events/models/user.dart';
-import 'package:art_events/models/user.dart';
 
 import 'user.dart';
 

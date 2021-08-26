@@ -1,3 +1,4 @@
+import 'package:art_events/screens/events_list.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -44,6 +45,16 @@ class _HomeState extends State<Home> {
                 color: Colors.red[900],
               ),
             ),
+
+            ElevatedButton(
+              onPressed: (){
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => eventListScreen()),
+                );
+              }, 
+            child: Text('Allez vers Events'),
+            )
 
           ],
         ),
