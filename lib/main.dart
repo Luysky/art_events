@@ -15,12 +15,13 @@ class MyArtEvents extends StatelessWidget {
       title: 'Header',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.pink[50],
-        backgroundColor: Colors.red[900],
+        primaryColor: Color(0xffFFF1F1),
+        backgroundColor: Color(0xFFCC0022),
       ),
       home: Home(),
     );
 
   }
+
 }
 

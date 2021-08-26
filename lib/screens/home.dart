@@ -37,10 +37,10 @@ class _HomeState extends State<Home> {
               image: AssetImage('assets/images/logo_avoir_vf.png'),
             ),
             Text(
-              'Bienvenu!',
+              'Bienvenue!',
               style: TextStyle(
                 fontFamily: "Raleway-ExtraBold",
-                fontSize: 90.0,
+                fontSize: 50.0,
                 color: Colors.red[900],
               ),
             ),
