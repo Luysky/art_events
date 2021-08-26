@@ -1,4 +1,4 @@
-import 'package:art_events/screens/events_list.dart';
+import 'package:art_events/screens/eventslist_screen.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
