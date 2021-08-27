@@ -1,4 +1,6 @@
+import 'package:art_events/screens/event_details.dart';
 import 'package:flutter/material.dart';
+import 'package:art_events/screens/eventslist_screen.dart';
 
 
 class EventItem extends StatelessWidget {
@@ -15,12 +17,18 @@ class EventItem extends StatelessWidget {
       required this.place,
       required this.hour});
 
-  void selectEvent() {}
 
   @override
   Widget build(BuildContext context) {
+    print(name);
     return InkWell(
-      onTap: selectEvent,
+      onTap: (){
+        Navigator.pushNamed(
+          context,
+          '/eventDetails',
+          arguments: name,
+        );
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
