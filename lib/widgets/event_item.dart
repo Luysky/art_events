@@ -20,13 +20,15 @@ class EventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(name);
+
     return InkWell(
       onTap: (){
         Navigator.pushNamed(
-          context,
-          '/eventDetails',
-          arguments: name,
+            context,
+            ExtractArgumentsScreen.routeName,
+            arguments: ScreenArguments(
+            name, date, hour, place, image
+        ),
         );
       },
       child: Card(

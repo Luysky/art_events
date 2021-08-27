@@ -19,6 +19,8 @@ class MyArtEvents extends StatelessWidget {
       routes: {
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/eventDetails': (context) => const EventDetails(),
+        ExtractArgumentsScreen.routeName: (context) =>
+        const ExtractArgumentsScreen(),
 
       },
       debugShowCheckedModeBanner: false,

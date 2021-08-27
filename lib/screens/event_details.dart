@@ -5,6 +5,51 @@ import 'package:flutter/material.dart';
 import 'package:art_events/dummy_events.dart';
 import 'package:art_events/screens/eventslist_screen.dart';
 
+class ScreenArguments {
+  final String name;
+  final String date;
+  final String hour;
+  final String place;
+  final String image;
+
+
+
+  ScreenArguments(this.name, this.date, this.hour, this.place, this.image);
+}
+
+// A Widget that extracts the necessary arguments from
+// the ModalRoute.
+class ExtractArgumentsScreen extends StatelessWidget {
+  const ExtractArgumentsScreen({Key? key}) : super(key: key);
+
+  static const routeName = '/extractArguments';
+
+  @override
+  Widget build(BuildContext context) {
+    // Extract the arguments from the current ModalRoute
+    // settings and cast them as ScreenArguments.
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Events Details',
+
+      ),
+      ),
+      body: Center(
+
+
+        child: Image.asset(
+        args.image,
+        height: 250,
+        width: double.infinity,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+}
+
+
 class EventDetails extends StatelessWidget {
 
   const EventDetails({Key? key}) : super(key: key);
@@ -31,3 +76,4 @@ class EventDetails extends StatelessWidget {
     );
   }
 }
+
