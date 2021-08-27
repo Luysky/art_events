@@ -1,4 +1,4 @@
-import 'package:art_events/screens/events_list.dart';
+import 'package:art_events/screens/eventslist_screen.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
               onPressed: (){
                 Navigator.push(
                   context, 
-                  MaterialPageRoute(builder: (context) => eventListScreen()),
+                  MaterialPageRoute(builder: (context) => EventsListScreen()),
                 );
               }, 
             child: Text('Allez vers Events'),
