@@ -136,7 +136,7 @@ class CreateAccountScreen extends StatefulWidget {
               ],
             ),
             SizedBox(height: 20,),
-            CustomButton(()=> createProfile(context)),
+            CustomButton(()=> createProfile(context),'CRÉER',),
             SizedBox(height: 20,),
             Image.asset(
                   'assets/images/logo_avoir_vf.png',

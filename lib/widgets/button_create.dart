@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton(this.onPressed);
+  CustomButton(this.onPressed,this.buttonName);
+  final String buttonName;
   late final GestureTapCallback onPressed;
 
   @override
@@ -13,7 +14,7 @@ class CustomButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         side: BorderSide(color: Theme.of(context).backgroundColor, width: 1),
       ),
-      child: Text("CRÉER",
+      child: Text(buttonName,
           style: TextStyle(
             fontFamily: "Raleway-Bold",
             fontSize: 13.0,
