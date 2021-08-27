@@ -1,6 +1,6 @@
 import 'package:art_events/screens/create_account.dart';
-import 'package:art_events/screens/events_list.dart';
-import 'package:art_events/screens/home.dart';
+import 'package:art_events/screens/eventslist_screen.dart';
+import 'package:art_events/screens/home_screen.dart';
 import 'package:art_events/screens/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +24,7 @@ class MyArtEvents extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (ctx) => Home(),
-        '/events_list': (ctx) => EventsList(),
+        '/events_list': (ctx) => EventsListScreen(),
         '/create_account': (ctx) => CreateAccountScreen(),
         '/profile' : (ctx) => ProfilScreen(),
       },
