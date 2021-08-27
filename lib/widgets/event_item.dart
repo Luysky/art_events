@@ -74,15 +74,22 @@ class EventItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[               
                 Row(children: <Widget>[
-                  Icon(Icons.place,),
+                  Icon(Icons.place,
+                  color: Colors.red[900],),
+
                   SizedBox(width: 6,),
-                  Text('$place'),
+                  Text('$place',
+                    style: TextStyle(
+                    color: Colors.red[900],),),
                 ],
                 ),
                 Row(children: <Widget>[
-                  Icon(Icons.calendar_today,),
+                  Icon(Icons.calendar_today,
+                  color: Colors.red[900],),
                   SizedBox(width: 6,),
-                  Text('$date'),
+                  Text('$date',
+                  style: TextStyle(
+                  color: Colors.red[900],),),
                 ],
                 ),
               ],
