@@ -1,4 +1,4 @@
-import 'package:art_events/widgets/header.dart';
+import 'package:art_events/widgets/button_create.dart';
 import 'package:flutter/material.dart';
 
 class CreateAccountScreen extends StatefulWidget {
@@ -21,6 +21,10 @@ class CreateAccountScreen extends StatefulWidget {
   super.initState();
   }
 
+    createProfile(BuildContext context) {
+      Navigator.of(context).pushNamed('/profile');
+    }
+
   @override
   Widget build(context){
     return Scaffold(
@@ -32,18 +36,19 @@ class CreateAccountScreen extends StatefulWidget {
           Text(
             "Créez votre profil",
             style: TextStyle(
-              fontFamily: "Raleway-ExtraBold",
+              fontFamily: "Raleway-Regular",
               fontSize: 30.0,
               color: Theme.of(context).backgroundColor,
             ),
             textAlign: TextAlign.left,
           ),
+            SizedBox(height: 20,),
             TextFormField(
               decoration: InputDecoration(
                   labelText: 'Pseudo',
                   labelStyle: TextStyle(
                     fontFamily: "Raleway-Regular",
-                    fontSize: 10.0,
+                    fontSize: 14.0,
                     color: Theme.of(context).backgroundColor,
               ),
                 enabledBorder: UnderlineInputBorder(
@@ -60,12 +65,13 @@ class CreateAccountScreen extends StatefulWidget {
               textInputAction: TextInputAction.next,
               cursorColor: Theme.of(context).backgroundColor,
             ),
+            SizedBox(height: 20,),
             TextFormField(
               decoration: InputDecoration(
                 labelText: 'Adresse mail',
                 labelStyle: TextStyle(
                   fontFamily: "Raleway-Regular",
-                  fontSize: 10.0,
+                  fontSize: 14.0,
                   color: Theme.of(context).backgroundColor,
                 ),
                 enabledBorder: UnderlineInputBorder(
@@ -82,12 +88,13 @@ class CreateAccountScreen extends StatefulWidget {
               textInputAction: TextInputAction.next,
               cursorColor: Theme.of(context).backgroundColor,
             ),
+            SizedBox(height: 20,),
             TextFormField(
               decoration: InputDecoration(
                 labelText: 'Mot de passe',
                 labelStyle: TextStyle(
                   fontFamily: "Raleway-Regular",
-                  fontSize: 10.0,
+                  fontSize: 14.0,
                   color: Theme.of(context).backgroundColor,
                 ),
                 enabledBorder: UnderlineInputBorder(
@@ -104,15 +111,38 @@ class CreateAccountScreen extends StatefulWidget {
               textInputAction: TextInputAction.next,
               cursorColor: Theme.of(context).backgroundColor,
             ),
-           /* Checkbox(
-              checkColor: Colors.white,
-              value: isChecked,
-              onChanged: (bool? value){
-                setState((){
-                  isChecked = value!;
-                });
-              },
-            ),*/
+            SizedBox(height: 20,),
+            Row(
+              children: [
+                Text(
+                    'Exposant',
+                  style: TextStyle(
+                    fontFamily: "Raleway-Regular",
+                    fontSize: 15.0,
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                ),
+                Checkbox(
+                  fillColor: MaterialStateProperty.all<Color>(Theme.of(context).backgroundColor),
+                  focusColor: Theme.of(context).backgroundColor,
+                  checkColor: Colors.white,
+                  value: isChecked,
+                  onChanged: (bool? value){
+                    setState((){
+                      isChecked = value!;
+                    });
+                  },
+                ),
+              ],
+            ),
+            SizedBox(height: 20,),
+            CustomButton(()=> createProfile(context)),
+            SizedBox(height: 20,),
+            Image.asset(
+                  'assets/images/logo_avoir_vf.png',
+              width: 100,
+              height: 200,
+              ),
       ],
       ),
       ),

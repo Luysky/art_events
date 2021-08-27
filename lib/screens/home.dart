@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
                 ),
                 onPressed: () => goToEventsList(context),
               ),
-              CustomButton( createAccountScreen(context),
+              CustomButton(() => createAccountScreen(context),
               ),
             ],
           ),
