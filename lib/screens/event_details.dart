@@ -45,8 +45,9 @@ class ExtractArgumentsScreen extends StatelessWidget {
           ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
               child: Text(args.name,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -57,9 +58,7 @@ class ExtractArgumentsScreen extends StatelessWidget {
 
           ),
           Container(
-
               padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-
               child: Row(children: <Widget>[
                 Icon(Icons.place,
                   color: Colors.red[900],),
@@ -115,10 +114,12 @@ class ExtractArgumentsScreen extends StatelessWidget {
                         onPrimary: Colors.white, // foreground
                   ),
                 onPressed: (){
+                    print('ok');
                   //A remplir
                 },
                 child: Text('Participate',
                   style: TextStyle(
+                    fontSize: 20,
                   color: Colors.red[900],),
                 )
               )
