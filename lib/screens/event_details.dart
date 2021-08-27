@@ -31,19 +31,39 @@ class ExtractArgumentsScreen extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Events Details',
-
-      ),
-      ),
+      appBar: header(context, titleText: "Details"),
       body: Center(
+      child: Column(
+        children: [
 
-
-        child: Image.asset(
-        args.image,
-        height: 250,
-        width: double.infinity,
-        fit: BoxFit.cover,
+          Container(
+            child: Image.asset(
+            args.image,
+            height: 250,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+          ),
+          Container(
+              child: Text(args.name)
+          ),
+          Container(
+              child: Text(args.date)
+          ),
+          Container(
+              child: Text(args.hour)
+          ),
+          Container(
+              child :
+              ElevatedButton(
+                onPressed: (){
+                  //A remplir
+                },
+                child: Text('Participate'),
+              )
+          ),
+        ],
+        )
       ),
     );
   }
