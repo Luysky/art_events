@@ -1,4 +1,7 @@
+import 'package:art_events/screens/create_account.dart';
+import 'package:art_events/screens/eventslist_screen.dart';
 import 'package:art_events/screens/home_screen.dart';
+import 'package:art_events/screens/profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,9 +21,15 @@ class MyArtEvents extends StatelessWidget {
         primaryColor: Color(0xffFFF1F1),
         backgroundColor: Color(0xFFCC0022),
       ),
-      home: Home(),
+      initialRoute: '/',
+      routes: {
+        '/': (ctx) => Home(),
+        '/events_list': (ctx) => EventsListScreen(),
+        '/create_account': (ctx) => CreateAccountScreen(),
+        '/profile' : (ctx) => ProfilScreen(),
+      },
     );
-// Comments
+
   }
 
 }

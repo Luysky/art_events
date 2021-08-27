@@ -1,4 +1,5 @@
 import 'package:art_events/screens/eventslist_screen.dart';
+import 'package:art_events/widgets/button_create.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -23,6 +24,10 @@ class _HomeState extends State<Home> {
         alignment: Alignment.center,
       ),
     );
+  }
+
+  createAccountScreen(BuildContext context) {
+    Navigator.of(context).pushNamed('/create_account');
   }
 
   Scaffold buildUnAuthScreen() {
@@ -54,7 +59,8 @@ class _HomeState extends State<Home> {
                 );
               }, 
             child: Text('Allez vers Events'),
-            )
+            ),
+            CustomButton(()=> createAccountScreen(context)),
 
           ],
         ),
