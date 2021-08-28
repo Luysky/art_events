@@ -29,11 +29,15 @@ class _HomeState extends State<Home> {
     Navigator.of(context).pushNamed('/create_account');
   }
 
-   EventsListScreen(BuildContext context) {
-     Navigator.of(context).pushNamed('/eventslist_screen');
-   }
+  EventsListScreen(BuildContext context) {
+    Navigator.of(context).pushNamed('/eventslist_screen');
+  }
 
   Scaffold buildUnAuthScreen() {
+    final mediaQuery = MediaQuery.of(context);
+    var widthFav, heightFav;
+    widthFav = mediaQuery.size.width;
+    heightFav = mediaQuery.size.height;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -42,34 +46,40 @@ class _HomeState extends State<Home> {
         alignment: Alignment.center,
         child: Column(
           children: <Widget>[
-            const Image(
-              image: AssetImage('assets/images/logo_avoir_vf.png'),
-              //width: 200,
-              //height: 600,
+            Container(
+              //width: widthFav,
+              //height: heightFav,
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     fit: BoxFit.scaleDown,
+              //     image: AssetImage('assets/images/logo_avoir_vf.png'),
+              //   )
+              // ),
+              child: const Image(
+                image: AssetImage('assets/images/logo_avoir_vf.png'),
+              //   //width: 100,
+              //   //height: 100,
+               ),
             ),
-            Text(
-              'Bienvenue!',
-              style: TextStyle(
-                fontFamily: "Raleway-ExtraBold",
-                fontWeight: FontWeight.bold,
-                fontSize: 50.0,
-                //color: Colors.red[900],
-                color: Theme.of(context).backgroundColor,
+            Container(
+              child: Text(
+                'Bienvenue!',
+                style: TextStyle(
+                  fontFamily: "Raleway-ExtraBold",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 50.0,
+                  color: Theme.of(context).backgroundColor,
+                ),
               ),
             ),
-
-            // ElevatedButton(
-            //   onPressed: (){
-            //     Navigator.push(
-            //       context, 
-            //       MaterialPageRoute(builder: (context) => EventsListScreen()),
-            //     );
-            //   }, 
-            // child: Text('Allez vers Events'),
-            // ),
-            CustomButton(()=> EventsListScreen(context),'LOGIN',),
-            CustomButton(()=> createAccountScreen(context),'S''incrire',),
-
+            CustomButton(
+              () => EventsListScreen(context),
+              'LOGIN',
+            ),
+            CustomButton(
+              () => createAccountScreen(context),
+              'S' 'incrire',
+            ),
           ],
         ),
       ),
