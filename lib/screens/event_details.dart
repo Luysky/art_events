@@ -52,7 +52,7 @@ class ExtractArgumentsScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      color: Colors.red[900],
+                      color: Theme.of(context).backgroundColor,
                     ),
 
                   ),
@@ -62,13 +62,13 @@ class ExtractArgumentsScreen extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
                   child: Row(children: <Widget>[
                     Icon(Icons.place,
-                      color: Colors.red[900],),
+                      color: Theme.of(context).backgroundColor,),
                     SizedBox(width: 6,),
                     Text(
                       args.place,
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.red[900],
+                        color: Theme.of(context).backgroundColor,
                       ),
                     ),
                   ],
@@ -79,12 +79,12 @@ class ExtractArgumentsScreen extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
                   child: Row(children: <Widget>[
                     Icon(Icons.calendar_today,
-                      color: Colors.red[900],),
+                      color: Theme.of(context).backgroundColor,),
                     SizedBox(width: 6,),
                     Text(args.date,
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.red[900],
+                        color: Theme.of(context).backgroundColor,
                       ),
                     )
                   ],
@@ -94,12 +94,12 @@ class ExtractArgumentsScreen extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
                   child: Row(children: <Widget>[
                     Icon(Icons.watch_later,
-                      color: Colors.red[900],),
+                      color: Theme.of(context).backgroundColor,),
                     SizedBox(width: 6,),
                     Text(args.hour,
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.red[900],
+                        color: Theme.of(context).backgroundColor,
                       ),
                     )
                   ],
@@ -121,7 +121,7 @@ class ExtractArgumentsScreen extends StatelessWidget {
                         child: Text('Participate',
                           style: TextStyle(
                             fontSize: 20,
-                            color: Colors.red[900],),
+                            color: Theme.of(context).backgroundColor,),
                         )
                     )
                 ),
@@ -144,40 +144,3 @@ class ExtractArgumentsScreen extends StatelessWidget {
 }
 
 
-
-class EventDetails extends StatelessWidget {
-  static const routeName = '/eventDetails';
-
-  const EventDetails({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.name;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('EventDetaiiils'),
-      ),
-      body: Column(
-        children: [
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                // Navigate to the second screen when tapped.
-              },
-              child: const Text('Launch screen'),
-            ),
-          ),
-          SizedBox(
-            height: 400,
-            width: 300,
-            child: ListView(
-              children: DUMMY_USERS
-                  .map((elData) => UserProf(elData.id, elData.username))
-                  .toList(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
