@@ -20,7 +20,6 @@ class EventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return InkWell(
       onTap: (){
         Navigator.pushNamed(
@@ -72,12 +71,12 @@ class EventItem extends StatelessWidget {
                 ),
               ],
             ),
-                
-                
+
+
                  Padding(padding: EdgeInsets.all(20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[               
+              children: <Widget>[
                 Row(children: <Widget>[
                   Icon(Icons.place,
                   color: Theme.of(context).backgroundColor,),

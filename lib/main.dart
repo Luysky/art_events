@@ -5,8 +5,6 @@ import 'package:art_events/screens/event_details.dart';
 import 'package:art_events/screens/profile.dart';
 import 'package:flutter/material.dart';
 
-
-
 void main() {
   runApp(
     MyArtEvents()
@@ -30,7 +28,7 @@ class MyArtEvents extends StatelessWidget {
         '/': (ctx) => Home(),
         '/eventslist_screen': (ctx) => EventsListScreen(),
         '/extractArguments': (ctx) => const ExtractArgumentsScreen(),
-        '/create_account': (ctx) => CreateAccountScreen(), 
+        '/create_account': (ctx) => CreateAccountScreen(),
         '/profile' : (ctx) => ProfilScreen(),
       },
     );
@@ -38,3 +36,4 @@ class MyArtEvents extends StatelessWidget {
   }
 
 }
+
