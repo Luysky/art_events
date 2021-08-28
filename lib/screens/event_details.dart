@@ -33,98 +33,110 @@ class ExtractArgumentsScreen extends StatelessWidget {
     return Scaffold(
       appBar: header(context, titleText: "Details"),
       body: Center(
-          child: Column(
-            children: [
-              Container(
-                height: 300,
-                child: Image.asset(
-                  args.image,
-                  height: 250,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  height: 300,
+                  child: Image.asset(
+                    args.image,
+                    height: 250,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                child: Text(args.name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red[900],
+                Container(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  child: Text(args.name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red[900],
+                    ),
+
                   ),
 
                 ),
-
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                child: Row(children: <Widget>[
-                  Icon(Icons.place,
-                    color: Colors.red[900],),
-                  SizedBox(width: 6,),
-                  Text(
-                    args.place,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.red[900],
-                    ),
-                  ),
-                ],
-                ),
-
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                child: Row(children: <Widget>[
-                  Icon(Icons.calendar_today,
-                    color: Colors.red[900],),
-                  SizedBox(width: 6,),
-                  Text(args.date,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.red[900],
-                    ),
-                  )
-                ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                child: Row(children: <Widget>[
-                  Icon(Icons.watch_later,
-                    color: Colors.red[900],),
-                  SizedBox(width: 6,),
-                  Text(args.hour,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.red[900],
-                    ),
-                  )
-                ],
-                ),
-              ),
-              Container(
-                  child :
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        side:
-                        BorderSide(width: 1.0, color: Colors.red,),
-                        primary: Colors.white, // background
-                        onPrimary: Colors.white, // foreground
+                Container(
+                  padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
+                  child: Row(children: <Widget>[
+                    Icon(Icons.place,
+                      color: Colors.red[900],),
+                    SizedBox(width: 6,),
+                    Text(
+                      args.place,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.red[900],
                       ),
-                      onPressed: (){
-                        print('ok');
-                        //A remplir
-                      },
-                      child: Text('Participate',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.red[900],),
-                      )
-                  )
-              ),
-            ],
+                    ),
+                  ],
+                  ),
+
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
+                  child: Row(children: <Widget>[
+                    Icon(Icons.calendar_today,
+                      color: Colors.red[900],),
+                    SizedBox(width: 6,),
+                    Text(args.date,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.red[900],
+                      ),
+                    )
+                  ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
+                  child: Row(children: <Widget>[
+                    Icon(Icons.watch_later,
+                      color: Colors.red[900],),
+                    SizedBox(width: 6,),
+                    Text(args.hour,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.red[900],
+                      ),
+                    )
+                  ],
+                  ),
+                ),
+                Container(
+                    child :
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          side:
+                          BorderSide(width: 1.0, color: Colors.red,),
+                          primary: Colors.white, // background
+                          onPrimary: Colors.white, // foreground
+                        ),
+                        onPressed: (){
+                          print('ok');
+                          //A remplir
+                        },
+                        child: Text('Participate',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.red[900],),
+                        )
+                    )
+                ),
+                SizedBox(height: 20,),
+                SizedBox(
+                  height: 400,
+                  width: 300,
+                  child: ListView(
+                    children: DUMMY_USERS
+                        .map((elData) => UserProf(elData.id, elData.username))
+                        .toList(),
+                  ),
+                ),
+              ],
+            ),
           )
       ),
     );
