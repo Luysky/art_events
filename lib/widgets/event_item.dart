@@ -1,6 +1,6 @@
 import 'package:art_events/screens/event_details.dart';
 import 'package:flutter/material.dart';
-import 'package:art_events/screens/eventslist_screen.dart';
+
 
 class EventItem extends StatelessWidget {
   final String name;
@@ -17,13 +17,6 @@ class EventItem extends StatelessWidget {
     required this.place,
   });
 
-
-  // DateTime madate = DateTime.now();
-  // DateTime xxx = new DateTime(2017,9,7,17,30);
-
-  // String printDate() {
-  //   return(xxx.toString());
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -87,21 +80,21 @@ class EventItem extends StatelessWidget {
               children: <Widget>[               
                 Row(children: <Widget>[
                   Icon(Icons.place,
-                  color: Colors.red[900],),
+                  color: Theme.of(context).backgroundColor,),
 
                   SizedBox(width: 6,),
                   Text('$place',
                     style: TextStyle(
-                    color: Colors.red[900],),),
+                      color: Theme.of(context).backgroundColor,),),
                 ],
                 ),
                 Row(children: <Widget>[
                   Icon(Icons.calendar_today,
-                  color: Colors.red[900],),
+                  color: Theme.of(context).backgroundColor,),
                   SizedBox(width: 6,),
                   Text('$date',
                   style: TextStyle(
-                  color: Colors.red[900],),),
+                    color: Theme.of(context).backgroundColor,),),
                 ],
                   ),
                 ],

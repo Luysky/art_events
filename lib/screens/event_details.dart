@@ -1,9 +1,7 @@
 
-import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:flutter/material.dart';
-import 'package:art_events/dummy_events.dart';
-import 'package:art_events/screens/eventslist_screen.dart';
+
 
 class ScreenArguments {
   final String name;
@@ -20,6 +18,7 @@ class ScreenArguments {
 // A Widget that extracts the necessary arguments from
 // the ModalRoute.
 class ExtractArgumentsScreen extends StatelessWidget {
+  
   const ExtractArgumentsScreen({Key? key}) : super(key: key);
 
   static const routeName = '/extractArguments';
@@ -51,7 +50,7 @@ class ExtractArgumentsScreen extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.red[900],
+                    color: Theme.of(context).backgroundColor,
                 ),
 
               ),
@@ -61,13 +60,13 @@ class ExtractArgumentsScreen extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
               child: Row(children: <Widget>[
                 Icon(Icons.place,
-                  color: Colors.red[900],),
+                  color: Theme.of(context).backgroundColor,),
                 SizedBox(width: 6,),
                 Text(
                   args.place,
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.red[900],
+                    color: Theme.of(context).backgroundColor,
                   ),
                 ),
               ],
@@ -78,12 +77,12 @@ class ExtractArgumentsScreen extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
               child: Row(children: <Widget>[
                 Icon(Icons.calendar_today,
-                  color: Colors.red[900],),
+                  color: Theme.of(context).backgroundColor,),
                 SizedBox(width: 6,),
                 Text(args.date,
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.red[900],
+                    color: Theme.of(context).backgroundColor,
                   ),
                 )
               ],
@@ -93,12 +92,12 @@ class ExtractArgumentsScreen extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
               child: Row(children: <Widget>[
                 Icon(Icons.watch_later,
-                  color: Colors.red[900],),
+                  color: Theme.of(context).backgroundColor,),
                 SizedBox(width: 6,),
                 Text(args.hour,
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.red[900],
+                    color: Theme.of(context).backgroundColor,
                   ),
                 )
               ],
@@ -120,7 +119,7 @@ class ExtractArgumentsScreen extends StatelessWidget {
                 child: Text('Participate',
                   style: TextStyle(
                     fontSize: 20,
-                  color: Colors.red[900],),
+                  color: Theme.of(context).backgroundColor,),
                 )
               )
           ),
@@ -145,7 +144,7 @@ class EventDetails extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('EventDetaiiils'),
+        title: const Text('EventDetails'),
       ),
       body: Center(
         child: ElevatedButton(
