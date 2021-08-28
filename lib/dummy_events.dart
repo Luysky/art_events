@@ -2,8 +2,6 @@ import 'package:art_events/dummy_users.dart';
 import './models/event.dart';
 
 
-
-
 const DUMMY_EVENTS = const [
  Event(
    id: 'Ev1',

@@ -1,4 +1,6 @@
+import 'package:art_events/screens/event_details.dart';
 import 'package:flutter/material.dart';
+
 
 class EventItem extends StatelessWidget {
   final String name;
@@ -7,23 +9,25 @@ class EventItem extends StatelessWidget {
   final String place;
   final String image;
 
-  EventItem(
-      {required this.name,
-      required this.image,
-      required this.date,
-      required this.place,
-      required this.hour});
+  EventItem({
+    required this.name,
+    required this.image,
+    required this.date,
+    required this.hour,
+    required this.place,
+  });
 
-  void selectEvent() {}
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: (){
         Navigator.pushNamed(
-          context,
-          '/eventDetails',
-          arguments: name,
+            context,
+            ExtractArgumentsScreen.routeName,
+            arguments: ScreenArguments(
+            name, date, hour, place, image
+        ),
         );
       },
       child: Card(
@@ -48,6 +52,8 @@ class EventItem extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
+
+
                 Positioned(
                   bottom: 20,
                   right: 10,
@@ -65,32 +71,30 @@ class EventItem extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.place,
-                      ),
-                      SizedBox(
-                        width: 6,
-                      ),
-                      Text('$place'),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.calendar_today,
-                      ),
-                      SizedBox(
-                        width: 6,
-                      ),
-                      Text('$date'),
-                    ],
+
+
+                 Padding(padding: EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Row(children: <Widget>[
+                  Icon(Icons.place,
+                  color: Theme.of(context).backgroundColor,),
+
+                  SizedBox(width: 6,),
+                  Text('$place',
+                    style: TextStyle(
+                      color: Theme.of(context).backgroundColor,),),
+                ],
+                ),
+                Row(children: <Widget>[
+                  Icon(Icons.calendar_today,
+                  color: Theme.of(context).backgroundColor,),
+                  SizedBox(width: 6,),
+                  Text('$date',
+                  style: TextStyle(
+                    color: Theme.of(context).backgroundColor,),),
+                ],
                   ),
                 ],
               ),
