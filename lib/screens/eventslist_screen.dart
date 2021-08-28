@@ -6,7 +6,8 @@ import 'package:art_events/dummy_events.dart';
 
 class EventsListScreen extends StatefulWidget{
 
-  
+  static const routeName = '/eventslist_screen';
+
   @override
   _EventsListState createState() => _EventsListState();
 
@@ -17,6 +18,7 @@ class _EventsListState extends State<EventsListScreen> {
   void initState() {
     super.initState();
   }
+  
 
   @override
   Widget build(context){
@@ -27,8 +29,7 @@ class _EventsListState extends State<EventsListScreen> {
     final eventList = DUMMY_EVENTS;
     return Scaffold(
       appBar: header(context, titleText: "Actualité"),
-      body: ListView.builder(itemBuilder: (ctx,index){
-        //return Text(eventList[index].name);
+      body: ListView.builder(itemBuilder: (ctx,index,){
         return EventItem(name: eventList[index].name, 
         image: eventList[index].image, 
         date: eventList[index].date, 

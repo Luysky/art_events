@@ -20,12 +20,13 @@ class MyArtEvents extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xffFFF1F1),
         backgroundColor: Color(0xFFCC0022),
+        scaffoldBackgroundColor: Color(0xffFFF1F1),
       ),
       initialRoute: '/',
       routes: {
         '/': (ctx) => Home(),
-        '/events_list': (ctx) => EventsListScreen(),
-        '/create_account': (ctx) => CreateAccountScreen(),
+        '/eventslist_screen': (ctx) => EventsListScreen(),
+        '/create_account': (ctx) => CreateAccountScreen(), 
         '/profile' : (ctx) => ProfilScreen(),
       },
     );
