@@ -1,4 +1,6 @@
+import 'package:art_events/screens/event_details.dart';
 import 'package:flutter/material.dart';
+import 'package:art_events/screens/eventslist_screen.dart';
 
 class EventItem extends StatelessWidget {
   final String name;
@@ -15,7 +17,6 @@ class EventItem extends StatelessWidget {
     required this.place,
   });
 
-  void selectEvent() {}
 
   // DateTime madate = DateTime.now();
   // DateTime xxx = new DateTime(2017,9,7,17,30);
@@ -26,8 +27,17 @@ class EventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return InkWell(
-      onTap: selectEvent,
+      onTap: (){
+        Navigator.pushNamed(
+            context,
+            ExtractArgumentsScreen.routeName,
+            arguments: ScreenArguments(
+            name, date, hour, place, image
+        ),
+        );
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -50,6 +60,8 @@ class EventItem extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
+
+
                 Positioned(
                   bottom: 20,
                   right: 10,
@@ -67,33 +79,30 @@ class EventItem extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.place,
-                      ),
-                      SizedBox(
-                        width: 6,
-                      ),
-                      Text('$place'),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.calendar_today,
-                      ),
-                      SizedBox(
-                        width: 6,
-                      ),
-                      Text('$date'),
-                      //Text(printDate().toString()),
-                    ],
+                
+                
+                 Padding(padding: EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[               
+                Row(children: <Widget>[
+                  Icon(Icons.place,
+                  color: Colors.red[900],),
+
+                  SizedBox(width: 6,),
+                  Text('$place',
+                    style: TextStyle(
+                    color: Colors.red[900],),),
+                ],
+                ),
+                Row(children: <Widget>[
+                  Icon(Icons.calendar_today,
+                  color: Colors.red[900],),
+                  SizedBox(width: 6,),
+                  Text('$date',
+                  style: TextStyle(
+                  color: Colors.red[900],),),
+                ],
                   ),
                 ],
               ),
