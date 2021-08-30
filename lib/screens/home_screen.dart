@@ -47,21 +47,14 @@ class _HomeState extends State<Home> {
         child: Column(
           children: <Widget>[
             Container(
-              //width: widthFav,
-              //height: heightFav,
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     fit: BoxFit.scaleDown,
-              //     image: AssetImage('assets/images/logo_avoir_vf.png'),
-              //   )
-              // ),
+              width: widthFav * 0.8,
+              height: heightFav * 0.6,
               child: const Image(
                 image: AssetImage('assets/images/logo_avoir_vf.png'),
-              //   //width: 100,
-              //   //height: 100,
-               ),
+              ),
             ),
             Container(
+              height: heightFav * 0.2,
               child: Text(
                 'Bienvenue!',
                 style: TextStyle(
@@ -78,7 +71,7 @@ class _HomeState extends State<Home> {
             ),
             CustomButton(
               () => createAccountScreen(context),
-              'S' 'incrire',
+              "S'incrire",
             ),
           ],
         ),
