@@ -1,5 +1,5 @@
-import 'dart:html';
-
+//import 'dart:html';
+//import 'package:http/http.dart';
 import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/user_profile.dart';
@@ -39,51 +39,23 @@ class ExtractArgumentsScreen extends StatelessWidget {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-//    final List<Icon> iconsLocCalendHour = [Icon(Icons.place), Icon(Icons.calendar_today), Icon(Icons.watch_later),];
     final List<IconData> iconsLocCalendHour = [Icons.place, Icons.calendar_today, Icons.watch_later,];
     var dataLocCalendHour = [args.place, args.date, args.hour,];
 
 
 List<Widget> showLocCalendHour (context, iconsLocCalendHour) {
-//var children;
-//List<Container> retour ;
-                
-    //new Row (     
-/* return Row(
-  children: iconsLocCalendHour.map((icon) => {
-      Container(
-          padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-          //alignment: Alignment.center, 
-                
-            children: <Widget>[
-              Icon(IconData(icon),
-                color: Theme.of(context).backgroundColor, ),
-                
-              SizedBox(width: 6,),
-              Text(
-                  dataLocCalendHour.elementAt(iconsLocCalendHour.indexOf(icon)),
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Theme.of(context).backgroundColor,
-                  ),
-              ),
-            ]
-            
-      )   
-  }).toList();   
-    ); 
-*/
     List<Widget> list = [];
 
     for (int i = 0; i < iconsLocCalendHour.length; i++) {
       list.add(
-   //     new Row(
-          new Container(
-          padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-          //alignment: Alignment.center,  
-          child: Row(
-  //                  mainAxisAlignment: ,               
+  
+          new Wrap(
             children: <Widget>[
+			                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                 children: <Widget>[     
               new Icon(iconsLocCalendHour[i],
                 color: Theme.of(context).backgroundColor, ),
                 
@@ -94,9 +66,11 @@ List<Widget> showLocCalendHour (context, iconsLocCalendHour) {
                     fontSize: 20,
                     color: Theme.of(context).backgroundColor,
                   ),
-                  ),             
-            ]            
-      ) )  
+                  ), 
+                 ],    
+                    ),
+                    ),        
+          ]),            
   );}
         
     return list;
@@ -130,87 +104,33 @@ List<Widget> showLocCalendHour (context, iconsLocCalendHour) {
                   ),
 
                 ),
- //               showLocCalendHour (iconsLocCalendHour),
- /*               Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                  //alignment: Alignment.center,
-*/                  
- //                 child: Row(
-
-                    Container(
-
-                      child: Column(
-                        children: showLocCalendHour (context, iconsLocCalendHour)
-                      )),
- // */                  
-//<Widget>[
-
-                    
-  //                    showLocCalendHour (iconsLocCalendHour),
-
- /*                   Icon(Icons.place,
-                      color: Theme.of(context).backgroundColor,),
-                    SizedBox(width: 6,),
-                    Text(
-                      args.place,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                    ),
-                  ],
-                  ),
-
-                ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                  child: Row(children: <Widget>[
-                    Icon(Icons.calendar_today,
-                      color: Theme.of(context).backgroundColor,),
-                    SizedBox(width: 6,),
-                    Text(args.date,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                    )
-                  ],
-                  ),
-                ),
+
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                    children: showLocCalendHour (context, iconsLocCalendHour)
+                  )),
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                  child: Row(children: <Widget>[
-                    Icon(Icons.watch_later,
-                      color: Theme.of(context).backgroundColor,),
-                    SizedBox(width: 6,),
-                    Text(args.hour,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).backgroundColor,
+                  child :
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        side:
+                        BorderSide(width: 1.0, color: Colors.red,),
+                        primary: Colors.white, // background
+                        onPrimary: Colors.white, // foreground
                       ),
-                    )
-                  ],
- */  /*               ),
-                ),
-    */            Container(
-                    child :
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          side:
-                          BorderSide(width: 1.0, color: Colors.red,),
-                          primary: Colors.white, // background
-                          onPrimary: Colors.white, // foreground
-                        ),
-                        onPressed: (){
-                          print('ok');
-                          //A remplir
-                        },
-                        child: Text('Participate',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Theme.of(context).backgroundColor,),
-                        )
-                    )
+                      onPressed: (){
+                        print('ok');
+                        //A remplir
+                      },
+                      child: Text('Participate',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Theme.of(context).backgroundColor,),
+                      )
+                  )
                 ),
                 SizedBox(height: 20,),
                 SizedBox(
@@ -230,46 +150,5 @@ List<Widget> showLocCalendHour (context, iconsLocCalendHour) {
   }
 }
 
-/*
-class showHourDateLoc extends StatelessWidget {
-      Widget build (BuildContext context)
-      {
-        return Material(         
-            child : Row (
-              children: <Widget>[
 
-          Icon(iconeName,
-                      color: Theme.of(context).backgroundColor,),
-                    SizedBox(width: 6,),
-                    Text(
-                      value,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                    ),
-      ]));
-      }
-
-class showNameDateLoc (var context, var iconeName, var value) {
-      Widget build (BuildContext context)
-      {
-        return Material(         
-            child : Row (
-              children: <Widget>[
-
-          Icon(iconeName,
-                      color: Theme.of(context).backgroundColor,),
-                    SizedBox(width: 6,),
-                    Text(
-                      value,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                    ),
-      ]));
-      }
-
-*/
 
