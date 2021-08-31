@@ -45,10 +45,11 @@ class _HomeState extends State<Home> {
         ),
         alignment: Alignment.center,
         child: Column(
+          
           children: <Widget>[
             Container(
-              //width: widthFav,
-              //height: heightFav,
+              width: widthFav * 0.8,
+              height: heightFav * 0.6,
               // decoration: BoxDecoration(
               //   image: DecorationImage(
               //     fit: BoxFit.scaleDown,
@@ -61,8 +62,9 @@ class _HomeState extends State<Home> {
               //   //height: 100,
                ),
             ),
-            Container(
-              child: Text(
+            Container(             
+              height: heightFav * 0.2,
+                child : Text(
                 'Bienvenue!',
                 style: TextStyle(
                   fontFamily: "Raleway-ExtraBold",
@@ -71,15 +73,17 @@ class _HomeState extends State<Home> {
                   color: Theme.of(context).backgroundColor,
                 ),
               ),
-            ),
+
+                ),
             CustomButton(
               () => EventsListScreen(context),
               'LOGIN',
             ),
             CustomButton(
               () => createAccountScreen(context),
-              'S' 'incrire',
+              "S'incrire",
             ),
+
           ],
         ),
       ),

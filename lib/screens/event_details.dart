@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/user_profile.dart';
@@ -15,21 +17,91 @@ class ScreenArguments {
   final String image;
 
   ScreenArguments(this.name, this.date, this.hour, this.place, this.image);
+
+  
 }
+
+
 
 // A Widget that extracts the necessary arguments from
 // the ModalRoute.
 class ExtractArgumentsScreen extends StatelessWidget {
   const ExtractArgumentsScreen({Key? key}) : super(key: key);
 
+ 
+
+
   static const routeName = '/extractArguments';
+
 
   @override
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+//    final List<Icon> iconsLocCalendHour = [Icon(Icons.place), Icon(Icons.calendar_today), Icon(Icons.watch_later),];
+    final List<IconData> iconsLocCalendHour = [Icons.place, Icons.calendar_today, Icons.watch_later,];
+    var dataLocCalendHour = [args.place, args.date, args.hour,];
 
+
+List<Widget> showLocCalendHour (context, iconsLocCalendHour) {
+//var children;
+//List<Container> retour ;
+                
+    //new Row (     
+/* return Row(
+  children: iconsLocCalendHour.map((icon) => {
+      Container(
+          padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
+          //alignment: Alignment.center, 
+                
+            children: <Widget>[
+              Icon(IconData(icon),
+                color: Theme.of(context).backgroundColor, ),
+                
+              SizedBox(width: 6,),
+              Text(
+                  dataLocCalendHour.elementAt(iconsLocCalendHour.indexOf(icon)),
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Theme.of(context).backgroundColor,
+                  ),
+              ),
+            ]
+            
+      )   
+  }).toList();   
+    ); 
+*/
+    List<Widget> list = [];
+
+    for (int i = 0; i < iconsLocCalendHour.length; i++) {
+      list.add(
+   //     new Row(
+          new Container(
+          padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
+          //alignment: Alignment.center,  
+          child: Row(
+  //                  mainAxisAlignment: ,               
+            children: <Widget>[
+              new Icon(iconsLocCalendHour[i],
+                color: Theme.of(context).backgroundColor, ),
+                
+              new SizedBox(width: 6,),
+              new Text(
+                  dataLocCalendHour[i],
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                  ),             
+            ]            
+      ) )  
+  );}
+        
+    return list;
+  };
+    
     return Scaffold(
       appBar: header(context, titleText: "Details"),
       body: Center(
@@ -42,7 +114,7 @@ class ExtractArgumentsScreen extends StatelessWidget {
                     args.image,
                     height: 250,
                     width: double.infinity,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.none,
                   ),
                 ),
                 Container(
@@ -58,10 +130,25 @@ class ExtractArgumentsScreen extends StatelessWidget {
                   ),
 
                 ),
-                Container(
+ //               showLocCalendHour (iconsLocCalendHour),
+ /*               Container(
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                  child: Row(children: <Widget>[
-                    Icon(Icons.place,
+                  //alignment: Alignment.center,
+*/                  
+ //                 child: Row(
+
+                    Container(
+
+                      child: Column(
+                        children: showLocCalendHour (context, iconsLocCalendHour)
+                      )),
+ // */                  
+//<Widget>[
+
+                    
+  //                    showLocCalendHour (iconsLocCalendHour),
+
+ /*                   Icon(Icons.place,
                       color: Theme.of(context).backgroundColor,),
                     SizedBox(width: 6,),
                     Text(
@@ -103,9 +190,9 @@ class ExtractArgumentsScreen extends StatelessWidget {
                       ),
                     )
                   ],
-                  ),
+ */  /*               ),
                 ),
-                Container(
+    */            Container(
                     child :
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -143,4 +230,46 @@ class ExtractArgumentsScreen extends StatelessWidget {
   }
 }
 
+/*
+class showHourDateLoc extends StatelessWidget {
+      Widget build (BuildContext context)
+      {
+        return Material(         
+            child : Row (
+              children: <Widget>[
+
+          Icon(iconeName,
+                      color: Theme.of(context).backgroundColor,),
+                    SizedBox(width: 6,),
+                    Text(
+                      value,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).backgroundColor,
+                      ),
+                    ),
+      ]));
+      }
+
+class showNameDateLoc (var context, var iconeName, var value) {
+      Widget build (BuildContext context)
+      {
+        return Material(         
+            child : Row (
+              children: <Widget>[
+
+          Icon(iconeName,
+                      color: Theme.of(context).backgroundColor,),
+                    SizedBox(width: 6,),
+                    Text(
+                      value,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).backgroundColor,
+                      ),
+                    ),
+      ]));
+      }
+
+*/
 
