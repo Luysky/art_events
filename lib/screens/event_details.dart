@@ -1,3 +1,5 @@
+//import 'dart:html';
+//import 'package:http/http.dart';
 import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/user_profile.dart';
@@ -15,21 +17,65 @@ class ScreenArguments {
   final String image;
 
   ScreenArguments(this.name, this.date, this.hour, this.place, this.image);
+
+  
 }
+
+
 
 // A Widget that extracts the necessary arguments from
 // the ModalRoute.
 class ExtractArgumentsScreen extends StatelessWidget {
   const ExtractArgumentsScreen({Key? key}) : super(key: key);
 
+ 
+
+
   static const routeName = '/extractArguments';
+
 
   @override
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    final List<IconData> iconsLocCalendHour = [Icons.place, Icons.calendar_today, Icons.watch_later,];
+    var dataLocCalendHour = [args.place, args.date, args.hour,];
 
+
+List<Widget> showLocCalendHour (context, iconsLocCalendHour) {
+    List<Widget> list = [];
+
+    for (int i = 0; i < iconsLocCalendHour.length; i++) {
+      list.add(
+  
+          new Wrap(
+            children: <Widget>[
+			                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                 children: <Widget>[     
+              new Icon(iconsLocCalendHour[i],
+                color: Theme.of(context).backgroundColor, ),
+                
+              new SizedBox(width: 6,),
+              new Text(
+                  dataLocCalendHour[i],
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                  ), 
+                 ],    
+                    ),
+                    ),        
+          ]),            
+  );}
+        
+    return list;
+  };
+    
     return Scaffold(
       appBar: header(context, titleText: "Details"),
       body: Center(
@@ -42,7 +88,7 @@ class ExtractArgumentsScreen extends StatelessWidget {
                     args.image,
                     height: 250,
                     width: double.infinity,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.none,
                   ),
                 ),
                 Container(
@@ -60,70 +106,31 @@ class ExtractArgumentsScreen extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                  child: Row(children: <Widget>[
-                    Icon(Icons.place,
-                      color: Theme.of(context).backgroundColor,),
-                    SizedBox(width: 6,),
-                    Text(
-                      args.place,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                    ),
-                  ],
-                  ),
 
-                ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                    children: showLocCalendHour (context, iconsLocCalendHour)
+                  )),
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                  child: Row(children: <Widget>[
-                    Icon(Icons.calendar_today,
-                      color: Theme.of(context).backgroundColor,),
-                    SizedBox(width: 6,),
-                    Text(args.date,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).backgroundColor,
+                  child :
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        side:
+                        BorderSide(width: 1.0, color: Colors.red,),
+                        primary: Colors.white, // background
+                        onPrimary: Colors.white, // foreground
                       ),
-                    )
-                  ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                  child: Row(children: <Widget>[
-                    Icon(Icons.watch_later,
-                      color: Theme.of(context).backgroundColor,),
-                    SizedBox(width: 6,),
-                    Text(args.hour,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                    )
-                  ],
-                  ),
-                ),
-                Container(
-                    child :
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          side:
-                          BorderSide(width: 1.0, color: Colors.red,),
-                          primary: Colors.white, // background
-                          onPrimary: Colors.white, // foreground
-                        ),
-                        onPressed: (){
-                          print('ok');
-                          //A remplir
-                        },
-                        child: Text('Participate',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Theme.of(context).backgroundColor,),
-                        )
-                    )
+                      onPressed: (){
+                        print('ok');
+                        //A remplir
+                      },
+                      child: Text('Participate',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Theme.of(context).backgroundColor,),
+                      )
+                  )
                 ),
                 SizedBox(height: 20,),
                 SizedBox(
@@ -142,5 +149,6 @@ class ExtractArgumentsScreen extends StatelessWidget {
     );
   }
 }
+
 
 
