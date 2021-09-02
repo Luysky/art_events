@@ -28,7 +28,7 @@ class _EventsListState extends State<EventsListScreen> {
 
     final eventList = DUMMY_EVENTS;
     return Scaffold(
-      appBar: header(context, titleText: "Actualité"),
+      appBar: header(context, titleText: "Actualité", ),
       body: ListView.builder(itemBuilder: (ctx,index,){
         return EventItem(name: eventList[index].name, 
         image: eventList[index].image, 
