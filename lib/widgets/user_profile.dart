@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../dummy_users.dart';
-
 class UserProf extends StatelessWidget {
   final String id;
   final String username;
