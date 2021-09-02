@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+/*import 'package:popup_menu/popup_menu.dart';*/
 
 AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
   return AppBar(
@@ -20,19 +21,22 @@ AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
     /*Affichage du bouton de tri*/
     actions: <Widget>[
       if (titleText == 'Actualité')
-        IconButton(
-          padding: EdgeInsets.fromLTRB(0, 0, 40, 0),
-          icon: Icon(
-
-            Icons.filter_list,
-            size: 30.0,
-            color: Colors.white,
-          ),
-          onPressed: () {
-          },
+        PopupMenuButton(
+            padding: EdgeInsets.only(right:40.0),
+            icon: Icon(Icons.filter_list, color: Colors.white, size: 40.0,),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Text("Trier par date"),
+                value: 1,
+              ),
+              PopupMenuItem(
+                child: Text("Trier par nom"),
+                value: 2,
+              )
+            ]
         )
     ],
   );
-  
 }
+
 
