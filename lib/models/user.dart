@@ -1,3 +1,5 @@
+import 'event.dart';
+
 class User {
   final String id;
   final String username;
