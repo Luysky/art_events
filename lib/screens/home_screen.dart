@@ -45,6 +45,7 @@ class _HomeState extends State<Home> {
         ),
         alignment: Alignment.center,
         child: Column(
+          
           children: <Widget>[
             Container(
               width: widthFav * 0.8,
@@ -64,7 +65,8 @@ class _HomeState extends State<Home> {
                   color: Theme.of(context).backgroundColor,
                 ),
               ),
-            ),
+
+                ),
             CustomButton(
               () => EventsListScreen(context),
               'LOGIN',
@@ -73,6 +75,7 @@ class _HomeState extends State<Home> {
               () => createAccountScreen(context),
               "S'incrire",
             ),
+
           ],
         ),
       ),
