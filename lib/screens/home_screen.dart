@@ -7,7 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 final StorageReference storageRef = FirebaseStorage.instance.ref();
 final usersRef = Firestore.instance.collection('user');
-final postsRef = Firestore.instance.collection('event');
+final eventsRef = Firestore.instance.collection('event');
 
 class Home extends StatefulWidget {
   @override

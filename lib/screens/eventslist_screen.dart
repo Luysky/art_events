@@ -5,6 +5,8 @@ import 'package:art_events/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:art_events/dummy_events.dart';
 
+import 'add_event.dart';
+
 class EventsListScreen extends StatefulWidget{
 
   static const routeName = '/eventslist_screen';
@@ -46,6 +48,9 @@ class _EventsListState extends State<EventsListScreen> {
       eventList.sort((a,b) => a.date.compareTo(b.date));
     }
 
+    addEventScreen(BuildContext context){
+      Navigator.of(context).pushNamed('/add_event');
+    }
 
     return Scaffold(
       appBar: header(context, titleText: 'Actualité', ),
@@ -59,6 +64,11 @@ class _EventsListState extends State<EventsListScreen> {
           place: eventList[index].place,
         );
       }, itemCount: eventList.length,),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => addEventScreen(context),
+        child: const Icon(Icons.add),
+        backgroundColor: Theme.of(context).backgroundColor,
+    ),
     );
   }
 }
