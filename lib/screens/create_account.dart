@@ -1,8 +1,17 @@
+import 'dart:io';
+import 'package:art_events/widgets/progress.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:art_events/models/user.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+import 'package:art_events/screens/home_screen.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   static const routeName = '/create_account';
+  final User currentUser;
+
+  CreateAccountScreen({this.currentUser});
 
   @override
   _CreateAccountState createState() => _CreateAccountState();
@@ -10,13 +19,52 @@ class CreateAccountScreen extends StatefulWidget {
 
 class _CreateAccountState extends State<CreateAccountScreen> {
   bool isChecked = false;
+  bool isUploading = false;
+  TextEditingController pseudoController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  String userId = Uuid().v4();
+
   @override
   void initState() {
     super.initState();
   }
 
-  createProfile(BuildContext context) {
+  createProfile(BuildContext context) async {
+    await handleSubmit();
     Navigator.of(context).pushNamed('/profile');
+  }
+
+  createUserInFirestore({String pseudo, String email, String password, bool serviceProvider}){
+
+    usersRef
+        .add({
+   //   "id" : userId,
+      "username": pseudo,
+      "email" : email,
+      "password" : password,
+      "isServiceProvider" : serviceProvider,
+      "isSubscribed" : false,
+    });
+  }
+
+  handleSubmit() {
+    setState((){
+      isUploading = true;
+    });
+
+    createUserInFirestore(
+      pseudo: pseudoController.text,
+      email: emailController.text,
+      password: passwordController.text,
+    );
+    pseudoController.clear();
+    emailController.clear();
+    passwordController.clear();
+    setState((){
+      isUploading = false;
+      userId = Uuid().v4();
+    });
   }
 
   @override
@@ -27,6 +75,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
         child: ListView(
           padding: EdgeInsets.all(50),
           children: <Widget>[
+            isUploading ? linearProgress() : Text(""),
             Text(
               "Créez votre profil",
               style: TextStyle(
@@ -40,6 +89,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
               height: 20,
             ),
             TextFormField(
+              controller: pseudoController,
               decoration: InputDecoration(
                 labelText: 'Pseudo',
                 labelStyle: TextStyle(
@@ -65,6 +115,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
               height: 20,
             ),
             TextFormField(
+              controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Adresse mail',
                 labelStyle: TextStyle(
@@ -90,6 +141,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
               height: 20,
             ),
             TextFormField(
+              controller: passwordController,
               decoration: InputDecoration(
                 labelText: 'Mot de passe',
                 labelStyle: TextStyle(

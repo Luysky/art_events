@@ -203,8 +203,8 @@ class ScreenArguments {
                     if (snapshot.data == null) {
                       return circularProgress();
                     }
-                    final List<Text> children = snapshot.data.documents
-                        .map((doc) => Text(doc['username']))
+                    final List<UserProf> children = snapshot.data.documents
+                        .map((doc) => UserProf(doc['id'], doc['username']))
                         .toList();
                     return Container(
                       child: ListView(
