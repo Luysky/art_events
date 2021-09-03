@@ -1,4 +1,5 @@
 
+import 'package:art_events/models/event.dart';
 import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:flutter/material.dart';
@@ -15,26 +16,47 @@ class EventsListScreen extends StatefulWidget{
 
 class _EventsListState extends State<EventsListScreen> {
   @override
-  void initState() {
+  initState() {
     super.initState();
   }
-  
 
   @override
   Widget build(context){
 
-    //Mettre les filtres ici
-    //DUMMY_EVENTS.where...
+    //Crée la liste d'event avec DummyEvent
+    List<Event> eventList = DUMMY_EVENTS.toList();
 
-    final eventList = DUMMY_EVENTS;
+    //Récupère la donnée valueSort définit dans la page "header"
+    final valueSort = ModalRoute.of(context)!.settings.arguments;
+
+    //Converstion en string de l'objet valeur
+    Map toJson() => {
+      'valueSort': valueSort,
+    };
+
+    //On trie par nom
+    if(valueSort == '4')
+    {
+      eventList.sort((a,b) => a.name.compareTo(b.name));
+    }
+
+    //On trie par date
+    if(valueSort == '3')
+    {
+      eventList.sort((a,b) => a.date.compareTo(b.date));
+    }
+
+
     return Scaffold(
-      appBar: header(context, titleText: "Actualité"),
-      body: ListView.builder(itemBuilder: (ctx,index,){
-        return EventItem(name: eventList[index].name, 
-        image: eventList[index].image, 
-        date: eventList[index].date, 
-        hour: eventList[index].hour,
-        place: eventList[index].place,
+      appBar: header(context, titleText: 'Actualité', ),
+      body: ListView.builder(itemBuilder: (ctx,index,)
+      {
+        return EventItem(
+          name: eventList[index].name,
+          image: eventList[index].image,
+          date: eventList[index].date,
+          hour: eventList[index].hour,
+          place: eventList[index].place,
         );
       }, itemCount: eventList.length,),
     );

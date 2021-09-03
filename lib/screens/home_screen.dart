@@ -80,6 +80,7 @@ class _HomeState extends State<Home> {
                 color: Theme.of(context).backgroundColor,
               ),
             ),
+
             TextFormField(
               decoration: InputDecoration(
                 labelText: 'Adresse mail',
