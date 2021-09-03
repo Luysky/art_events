@@ -5,8 +5,11 @@ import 'package:art_events/screens/event_details.dart';
 import 'package:art_events/screens/profile.dart';
 import 'package:flutter/material.dart';
 
+
+
   void main() {
   runApp(
+    
     MyArtEvents(),
   );
 }

@@ -27,13 +27,13 @@ class _EventsListState extends State<EventsListScreen> {
     List<Event> eventList = DUMMY_EVENTS.toList();
 
     //Récupère la donnée valueSort définit dans la page "header"
-    final valueSort = ModalRoute.of(context)!.settings.arguments;
+    final valueSort = ModalRoute.of(context).settings.arguments;
 
     //Converstion en string de l'objet valeur
-    Map toJson() => {
+  /*  Map toJson() => {
       'valueSort': valueSort,
     };
-
+*/
     //On trie par nom
     if(valueSort == '4')
     {

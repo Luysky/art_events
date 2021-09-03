@@ -7,7 +7,14 @@ import 'package:flutter/material.dart';
 
 import '../dummy_users.dart';
 
-final usersRef = Firestore.instance.collection('user');
+// Before  >> for us in this app
+ Firestore firestore = Firestore();
+// Actual with higher dependencies' version
+ //FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+
+
+final usersRef = firestore.collection('user');
 
 class ScreenArguments {
   final String name;
@@ -200,8 +207,10 @@ class ScreenArguments {
                 body: StreamBuilder<QuerySnapshot>(
                   stream: usersRef.snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+
                     if (snapshot.data == null) {
-                      return circularProgress();
+                      //return circularProgress();
+                      return Text("no DATA here !!!");
                     }
                     final List<Text> children = snapshot.data.documents
                         .map((doc) => Text(doc['username']))
@@ -211,6 +220,7 @@ class ScreenArguments {
                         children: children,
                       ),
                     );
+
                   },
                 ),
               ),
