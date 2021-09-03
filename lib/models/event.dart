@@ -2,15 +2,14 @@ import 'package:art_events/models/user.dart';
 import 'user.dart';
 
 class Event {
-
   final String id;
-  final String	name;
-  final String	place;
+  final String name;
+  final String place;
   final String date;
   final String hour;
-  final List<User>	participants;
-  final User	responsable;
-  final String	image; 
+  final List<User> participants;
+  final User responsable;
+  final String image;
 
   const Event({
     required this.id,
@@ -21,7 +20,5 @@ class Event {
     required this.participants,
     required this.responsable,
     required this.image,
-});
-
-
+  });
 }
