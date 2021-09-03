@@ -9,12 +9,12 @@ class User {
   final String password;
 
   const User({
-    this.id,
-    this.username,
-    this.email,
-    this.isServiceProvider,
-    this.isSubscribed,
-    this.password,
+    required this.id,
+    required this.username,
+    required this.email,
+    required this.isServiceProvider,
+    required this.isSubscribed,
+    required this.password,
   });
   
 /*  User.fromJson(json)

@@ -4,17 +4,18 @@ import 'package:art_events/screens/home_screen.dart';
 import 'package:art_events/screens/event_details.dart';
 import 'package:art_events/screens/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 
 
-  void main() {
-  runApp(
+//   void main() {
+//   runApp(
     
-    MyArtEvents(),
-  );
-}
+//     MyArtEvents(),
+//   );
+// }
 
-/* Future <void> main() async {
+ Future <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
@@ -22,9 +23,7 @@ import 'package:flutter/material.dart';
   );
 }
 
-
-
- class App extends StatelessWidget {
+ class App extends StatefulWidget {
   _AppState createState() => _AppState();
  }
 
@@ -70,7 +69,7 @@ class _AppState extends State<App> {
     return MyArtEvents();
   }
 }
-*/
+
 
 class MyArtEvents extends StatelessWidget {
 

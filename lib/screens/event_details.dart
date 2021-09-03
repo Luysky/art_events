@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import '../dummy_users.dart';
 
 // Before  >> for us in this app
- Firestore firestore = Firestore();
+ //Firestore firestore = Firestore();
 // Actual with higher dependencies' version
- //FirebaseFirestore firestore = FirebaseFirestore.instance;
+ FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 
 
@@ -49,9 +49,9 @@ class ScreenArguments {
 
    getUserById() async {
      final String id = "tn5JSYircKOqEQldIr1A";
-     final DocumentSnapshot doc = await usersRef.document(id).get();
+     final DocumentSnapshot doc = await usersRef.doc(id).get();
      print(doc.data);
-     print(doc.documentID);
+     print(doc.id);
      print(doc.exists);
    }
 
@@ -61,7 +61,7 @@ class ScreenArguments {
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
-    final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
+    final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     
     return Scaffold(
       appBar: header(context, titleText: "Détails"),
@@ -212,7 +212,7 @@ class ScreenArguments {
                       //return circularProgress();
                       return Text("no DATA here !!!");
                     }
-                    final List<Text> children = snapshot.data.documents
+                    final List<Text> children = snapshot.data!.docs
                         .map((doc) => Text(doc['username']))
                         .toList();
                     return Container(
