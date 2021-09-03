@@ -1,9 +1,13 @@
 
 import 'package:art_events/widgets/header.dart';
+import 'package:art_events/widgets/progress.dart';
 import 'package:art_events/widgets/user_profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../dummy_users.dart';
+
+final usersRef = Firestore.instance.collection('user');
 
 class ScreenArguments {
   final String name;
@@ -17,24 +21,40 @@ class ScreenArguments {
   
 }
 
-
-
 // A Widget that extracts the necessary arguments from
 // the ModalRoute.
-class ExtractArgumentsScreen extends StatelessWidget {
-  const ExtractArgumentsScreen({Key? key}) : super(key: key);
+ class ExtractArgumentsScreen extends StatefulWidget {
+   // const ExtractArgumentsScreen({Key? key}) : super(key: key);
+   static const routeName = '/extractArguments';
 
- 
+   @override
+   _ExtractArgumentsState createState() => _ExtractArgumentsState();
 
+ }
 
-  static const routeName = '/extractArguments';
+ class _ExtractArgumentsState extends State<ExtractArgumentsScreen> {
+
+   @override
+   void initState() {
+     getUserById();
+     super.initState();
+   }
+
+   getUserById() async {
+     final String id = "tn5JSYircKOqEQldIr1A";
+     final DocumentSnapshot doc = await usersRef.document(id).get();
+     print(doc.data);
+     print(doc.documentID);
+     print(doc.exists);
+   }
+
 
 
   @override
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
     
     return Scaffold(
       appBar: header(context, titleText: "Détails"),
@@ -176,10 +196,23 @@ class ExtractArgumentsScreen extends StatelessWidget {
             SizedBox(
               height: 400,
               width: 300,
-              child: ListView(
-                children: DUMMY_USERS
-                    .map((elData) => UserProf(elData.id, elData.username))
-                    .toList(),
+              child: Scaffold(
+                body: StreamBuilder<QuerySnapshot>(
+                  stream: usersRef.snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.data == null) {
+                      return circularProgress();
+                    }
+                    final List<Text> children = snapshot.data.documents
+                        .map((doc) => Text(doc['username']))
+                        .toList();
+                    return Container(
+                      child: ListView(
+                        children: children,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ],

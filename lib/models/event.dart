@@ -12,13 +12,15 @@ class Event {
   final String image;
 
   const Event({
-    required this.id,
-    required this.name,
-    required this.place,
-    required this.date,
-    required this.hour,
-    required this.participants,
-    required this.responsable,
-    required this.image,
+
+    this.id,
+    this.name,
+    this.place,
+    this.date,
+    this.hour,
+    this.participants,
+    this.responsable,
+    this.image,
+
   });
 }
