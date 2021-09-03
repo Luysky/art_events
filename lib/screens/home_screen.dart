@@ -1,5 +1,13 @@
 import 'package:art_events/widgets/button_create.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+
+final StorageReference storageRef = FirebaseStorage.instance.ref();
+final usersRef = Firestore.instance.collection('user');
+final postsRef = Firestore.instance.collection('event');
 
 class Home extends StatefulWidget {
   @override
@@ -25,6 +33,8 @@ class _HomeState extends State<Home> {
     );
   }
 
+
+
   createAccountScreen(BuildContext context) {
     Navigator.of(context).pushNamed('/create_account');
   }
@@ -39,42 +49,88 @@ class _HomeState extends State<Home> {
     widthFav = mediaQuery.size.width;
     heightFav = mediaQuery.size.height;
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-        ),
-        alignment: Alignment.center,
-        child: Column(
-          
+      body: Form(
+        child: ListView(
+          padding: EdgeInsets.all(50),
           children: <Widget>[
-            Container(
-              width: widthFav * 0.8,
-              height: heightFav * 0.6,
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     fit: BoxFit.scaleDown,
-              //     image: AssetImage('assets/images/logo_avoir_vf.png'),
-              //   )
-              // ),
-              child: const Image(
-                image: AssetImage('assets/images/logo_avoir_vf.png'),
-              //   //width: 100,
-              //   //height: 100,
-               ),
+            Image.asset(
+              'assets/images/logo_avoir_vf.png',
+              width: 150,
+              height: 200,
             ),
-            Container(             
-              height: heightFav * 0.2,
-                child : Text(
-                'Bienvenue!',
-                style: TextStyle(
-                  fontFamily: "Raleway-ExtraBold",
-                  fontWeight: FontWeight.bold,
-                  fontSize: 50.0,
+            Padding(
+              padding: EdgeInsets.only(top: 10.0),
+            ),
+            Text(
+              'Bienvenue !',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontFamily: "Raleway-ExtraBold",
+                fontWeight: FontWeight.bold,
+                fontSize: 30.0,
+                color: Theme.of(context).backgroundColor,
+              ),
+            ),
+            Text(
+              'Entrez votre login',
+              style: TextStyle(
+                fontFamily: "Raleway-Regular",
+                fontWeight: FontWeight.normal,
+                fontSize: 15.0,
+                color: Theme.of(context).backgroundColor,
+              ),
+            ),
+
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Adresse mail',
+                labelStyle: TextStyle(
+                  fontFamily: "Raleway-Regular",
+                  fontSize: 14.0,
                   color: Theme.of(context).backgroundColor,
                 ),
-              ),
-
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
                 ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              textInputAction: TextInputAction.next,
+              cursorColor: Theme.of(context).backgroundColor,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Mot de passe',
+                labelStyle: TextStyle(
+                  fontFamily: "Raleway-Regular",
+                  fontSize: 14.0,
+                  color: Theme.of(context).backgroundColor,
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              textInputAction: TextInputAction.next,
+              cursorColor: Theme.of(context).backgroundColor,
+            ),
+            SizedBox(
+              height: 20,
+            ),
             CustomButton(
               () => EventsListScreen(context),
               'LOGIN',
@@ -83,7 +139,6 @@ class _HomeState extends State<Home> {
               () => createAccountScreen(context),
               "S'incrire",
             ),
-
           ],
         ),
       ),
