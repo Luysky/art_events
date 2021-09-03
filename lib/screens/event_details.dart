@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import '../dummy_users.dart';
 
 // Before  >> for us in this app
- Firestore firestore = Firestore();
+ Firestore firestore = Firestore.instance;
 // Actual with higher dependencies' version
  //FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -209,8 +209,8 @@ class ScreenArguments {
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
 
                     if (snapshot.data == null) {
-                      //return circularProgress();
-                      return Text("no DATA here !!!");
+                      return circularProgress();
+                      // return Text("no DATA here !!!");
                     }
                     final List<Text> children = snapshot.data.documents
                         .map((doc) => Text(doc['username']))
