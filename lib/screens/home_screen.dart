@@ -1,6 +1,13 @@
 import 'package:art_events/widgets/button_create.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+
+final StorageReference storageRef = FirebaseStorage.instance.ref();
+final usersRef = Firestore.instance.collection('user');
+final postsRef = Firestore.instance.collection('event');
 
 class Home extends StatefulWidget {
   @override
@@ -25,6 +32,8 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+
 
   createAccountScreen(BuildContext context) {
     Navigator.of(context).pushNamed('/create_account');

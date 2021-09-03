@@ -9,11 +9,11 @@ class EventItem extends StatelessWidget {
   final String image;
 
   EventItem({
-    required this.name,
-    required this.image,
-    required this.date,
-    required this.hour,
-    required this.place,
+    this.name,
+    this.image,
+    this.date,
+    this.hour,
+    this.place,
   });
 
   @override
