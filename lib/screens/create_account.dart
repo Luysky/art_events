@@ -4,12 +4,20 @@ import 'package:flutter/material.dart';
 class CreateAccountScreen extends StatefulWidget {
   static const routeName = '/create_account';
 
+   
+
   @override
   _CreateAccountState createState() => _CreateAccountState();
 }
 
 class _CreateAccountState extends State<CreateAccountScreen> {
   bool isChecked = false;
+
+  final _key = GlobalKey<FormState>();
+
+  TextEditingController _emailContoller = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +48,13 @@ class _CreateAccountState extends State<CreateAccountScreen> {
               height: 20,
             ),
             TextFormField(
+              controller: _emailContoller,
+                        validator: (value) {
+                          if (value == '') {
+                            return 'Email cannot be empty';
+                          } else
+                            return null;
+                        },
               decoration: InputDecoration(
                 labelText: 'Pseudo',
                 labelStyle: TextStyle(
@@ -132,7 +147,11 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                   value: isChecked,
                   onChanged: (bool? value) {
                     setState(() {
+<<<<<<< Updated upstream
                       isChecked = value!;
+=======
+                      isChecked = value;
+>>>>>>> Stashed changes
                     });
                   },
                 ),

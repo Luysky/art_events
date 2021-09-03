@@ -14,11 +14,31 @@ environment:
 dependencies:
   provider: "^6.0.0" 
   flutter:
+<<<<<<< Updated upstream
       sdk: flutter
   shared_preferences: "^2.0.6"
   firebase_core: "^1.4.0"
   cloud_firestore: "^2.4.0"
   firebase_auth: "^3.0.1"
+=======
+    sdk: flutter
+  cloud_firestore: ^0.9.7+2
+  image_picker: ^0.6.0+2
+  firebase_storage: ^2.1.0+1
+  firebase_core: any
+  firebase_auth: ^0.8.3
+  google_sign_in: ^4.0.1+1
+  geolocator: 5.0.1
+  uuid: ^2.0.0
+  image: ^2.0.7
+  animator: 0.1.4
+  cupertino_icons: ^0.1.2
+  path_provider: ^0.5.0+1
+  firebase_messaging: ^4.0.0+1
+  timeago: 2.0.17
+  cached_network_image:
+  flutter_svg:
+>>>>>>> Stashed changes
   
 
   # The following adds the Cupertino Icons font to your application.

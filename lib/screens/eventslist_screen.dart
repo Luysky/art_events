@@ -23,8 +23,34 @@ class _EventsListState extends State<EventsListScreen> {
   @override
   Widget build(context){
 
+<<<<<<< Updated upstream
     //Mettre les filtres ici
     //DUMMY_EVENTS.where...
+=======
+    //Crée la liste d'event avec DummyEvent
+    List<Event> eventList = DUMMY_EVENTS.toList();
+
+    //Récupère la donnée valueSort définit dans la page "header"
+    final valueSort = ModalRoute.of(context).settings.arguments;
+
+    //Converstion en string de l'objet valeur
+    Map toJson() => {
+      'valueSort': valueSort,
+    };
+
+    //On trie par nom
+    if(valueSort == '4')
+    {
+      eventList.sort((a,b) => a.name.compareTo(b.name));
+    }
+
+    //On trie par date
+    if(valueSort == '3')
+    {
+      eventList.sort((a,b) => a.date.compareTo(b.date));
+    }
+
+>>>>>>> Stashed changes
 
     final eventList = DUMMY_EVENTS;
     return Scaffold(
