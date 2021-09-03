@@ -145,13 +145,9 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                   focusColor: Theme.of(context).backgroundColor,
                   checkColor: Colors.white,
                   value: isChecked,
-                  onChanged: (bool? value) {
+                  onChanged: (bool ?value) {
                     setState(() {
-<<<<<<< Updated upstream
-                      isChecked = value!;
-=======
-                      isChecked = value;
->>>>>>> Stashed changes
+                      isChecked == value;
                     });
                   },
                 ),

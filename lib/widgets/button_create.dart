@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   CustomButton(this.onPressed,this.buttonName);
   final String buttonName;
-  late final GestureTapCallback onPressed;
+  final GestureTapCallback onPressed;
 
   @override
   Widget build(BuildContext context) {

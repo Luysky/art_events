@@ -12,6 +12,7 @@ class Event {
   final String image;
 
   const Event({
+
     required this.id,
     required this.name,
     required this.place,
@@ -20,5 +21,6 @@ class Event {
     required this.participants,
     required this.responsable,
     required this.image,
+
   });
 }
