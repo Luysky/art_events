@@ -4,7 +4,7 @@ import 'package:art_events/models/user.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart'as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -28,8 +28,10 @@ class _AddEventState extends State<AddEventScreen> {
 
   bool isUploading = false;
   String eventId = Uuid().v4();
-  File file;
+  File ? file;
   TextEditingController eventNameController = TextEditingController();
+
+  get eventsRef => null;
 
 
   @override
@@ -40,24 +42,24 @@ class _AddEventState extends State<AddEventScreen> {
   compressImage() async {
     final tempDir = await getTemporaryDirectory();
     final path = tempDir.path;
-    Im.Image imageFile = Im.decodeImage(file.readAsBytesSync());
+    Im.Image? imageFile = Im.decodeImage(file!.readAsBytesSync());
     final compressedImageFile = File('$path/img_$eventId.jpg')
-      ..writeAsBytesSync(Im.encodeJpg(imageFile, quality: 85));
+      ..writeAsBytesSync(Im.encodeJpg(imageFile!, quality: 85));
     setState(() {
       file = compressedImageFile;
     });
   }
 
   Future<String> uploadImage(imageFile) async {
-    StorageUploadTask uploadTask =
+    firebase_storage.UploadTask uploadTask =
     storageRef.child("post_$eventId.jpg").putFile(imageFile);
-    StorageTaskSnapshot storageSnap = await uploadTask.onComplete;
+    firebase_storage.TaskSnapshot storageSnap = await uploadTask.whenComplete(() => null);
     String downloadUrl = await storageSnap.ref.getDownloadURL();
     return downloadUrl;
   }
 
   createPostInFirestore(
-      {String mediaUrl, String eventName}) {
+      {required String mediaUrl, required String eventName}) {
     eventsRef
        .add({
       "date" : DateTime.now(),
@@ -98,14 +100,18 @@ class _AddEventState extends State<AddEventScreen> {
 
   handleChooseFromGallery() async {
     Navigator.pop(context);
-    File file = await ImagePicker.pickImage(source: ImageSource.gallery);
+    File file = File(await ImagePicker().getImage(source: ImageSource.gallery).then((pickedFile) => pickedFile!.path));
+  //  File file = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       this.file = file;
     });
   }
 
-  handleTakePhoto() async {
+ /* handleTakePhoto() async {
     Navigator.pop(context);
+    File file = File(await ImagePicker().getImage(source: ImageSource.camera).then((pickedFile) => pickedFile!.path),
+      maxHeight: 675,
+      maxWidth: 960,);
     File file = await ImagePicker.pickImage(
       source: ImageSource.camera,
       maxHeight: 675,
@@ -114,7 +120,7 @@ class _AddEventState extends State<AddEventScreen> {
     setState(() {
       this.file = file;
     });
-  }
+  } */
 
 
   selectImage(parentContext) {
@@ -124,8 +130,8 @@ class _AddEventState extends State<AddEventScreen> {
           return SimpleDialog(
             title: Text("Create Post"),
             children: <Widget>[
-              SimpleDialogOption(
-                  child: Text("Photo with Camera"), onPressed: handleTakePhoto),
+             /* SimpleDialogOption(
+                  child: Text("Photo with Camera"), onPressed: handleTakePhoto),*/
               SimpleDialogOption(
                   child: Text("Image from Gallery"),
                   onPressed: handleChooseFromGallery),
@@ -196,7 +202,7 @@ class _AddEventState extends State<AddEventScreen> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: FileImage(file),
+                      image: FileImage(file!),
                     ),
                   ),
                 ),
