@@ -2,10 +2,13 @@ import 'package:art_events/widgets/button_create.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 
 //final StorageReference storageRef = FirebaseStorage.instance.ref();
+
+final firebase_storage.Reference storageRef = firebase_storage.FirebaseStorage.instance
+    .ref();
 
 final usersRef = FirebaseFirestore.instance.collection('user');
 final postsRef = FirebaseFirestore.instance.collection('event');

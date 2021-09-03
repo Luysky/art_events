@@ -212,7 +212,7 @@ class ScreenArguments {
                       return circularProgress();
                       // return Text("no DATA here !!!");
                     }
-                    final List<UserProf> children = snapshot.data.documents
+                    final List<UserProf> children = snapshot.data!.docs
                         .map((doc) => UserProf(doc['id'], doc['username']))
                         .toList();
                     return Container(
