@@ -133,6 +133,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                   onChanged: (bool value) {
                     setState(() {
                       isChecked = value;
+
                     });
                   },
                 ),
