@@ -7,7 +7,14 @@ import 'package:flutter/material.dart';
 
 import '../dummy_users.dart';
 
-final usersRef = Firestore.instance.collection('user');
+// Before  >> for us in this app
+ //Firestore firestore = Firestore();
+// Actual with higher dependencies' version
+ FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+
+
+final usersRef = firestore.collection('user');
 
 class ScreenArguments {
   final String name;
@@ -42,9 +49,9 @@ class ScreenArguments {
 
    getUserById() async {
      final String id = "tn5JSYircKOqEQldIr1A";
-     final DocumentSnapshot doc = await usersRef.document(id).get();
+     final DocumentSnapshot doc = await usersRef.doc(id).get();
      print(doc.data);
-     print(doc.documentID);
+     print(doc.id);
      print(doc.exists);
    }
 
@@ -54,7 +61,7 @@ class ScreenArguments {
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
-    final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
+    final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     
     return Scaffold(
       appBar: header(context, titleText: "Détails"),
@@ -200,8 +207,10 @@ class ScreenArguments {
                 body: StreamBuilder<QuerySnapshot>(
                   stream: usersRef.snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+
                     if (snapshot.data == null) {
                       return circularProgress();
+                      // return Text("no DATA here !!!");
                     }
                     final List<UserProf> children = snapshot.data.documents
                         .map((doc) => UserProf(doc['id'], doc['username']))
