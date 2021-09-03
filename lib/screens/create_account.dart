@@ -35,7 +35,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
     Navigator.of(context).pushNamed('/profile');
   }
 
-  createUserInFirestore({String pseudo, String email, String password, bool serviceProvider}){
+  createUserInFirestore({String pseudo, String email, String password}){
 
     usersRef
         .add({
@@ -43,7 +43,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
       "username": pseudo,
       "email" : email,
       "password" : password,
-      "isServiceProvider" : serviceProvider,
+      "isServiceProvider" : false,
       "isSubscribed" : false,
     });
   }

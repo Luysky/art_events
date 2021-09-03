@@ -17,7 +17,7 @@ class User {
     this.password,
   });
   
-  User.fromJson(json)
+/*  User.fromJson(json)
     : this(
       id: json.id,
       username: (json.data()['username'] != null
@@ -55,7 +55,7 @@ String toString() {
 }
 
 
-
+*/
 
 }
 
