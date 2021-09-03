@@ -8,11 +8,7 @@ import 'package:flutter/material.dart';
 import '../dummy_users.dart';
 
 // Before  >> for us in this app
-<<<<<<< HEAD
  //Firestore firestore = Firestore();
-=======
- Firestore firestore = Firestore.instance;
->>>>>>> master
 // Actual with higher dependencies' version
  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
