@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:art_events/widgets/progress.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:art_events/models/user.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +9,10 @@ import 'package:art_events/screens/home_screen.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   static const routeName = '/create_account';
-  final User currentUser;
+//  final User currentUser;
+//  User testUser = const User(id: "01", username: "testUser", email: "email", password: "123", isSubscribed: false, isServiceProvider: false);
 
-  CreateAccountScreen({this.currentUser});
+//  CreateAccountScreen({this.currentUser = const testUser});
 
   @override
   _CreateAccountState createState() => _CreateAccountState();
@@ -35,7 +36,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
     Navigator.of(context).pushNamed('/profile');
   }
 
-  createUserInFirestore({String pseudo, String email, String password}){
+  createUserInFirestore({required String pseudo, required String email, required String password}){
 
     usersRef
         .add({
@@ -182,9 +183,9 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                   focusColor: Theme.of(context).backgroundColor,
                   checkColor: Colors.white,
                   value: isChecked,
-                  onChanged: (bool value) {
+                  onChanged: (bool ?value) {
                     setState(() {
-                      isChecked = value;
+                      isChecked == value;
 
                     });
                   },
