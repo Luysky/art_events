@@ -213,9 +213,12 @@ class ScreenArguments {
                       return circularProgress();
                       // return Text("no DATA here !!!");
                     }
-                    final List<UserProf> children = snapshot.data!.docs
-                        .map((doc) => UserProf(doc['id'], doc['username']))
+                    final List<Text> children = snapshot.data!.docs
+                        .map((doc) => Text(doc['username']))
                         .toList();
+                    //final List<UserProf> children = snapshot.data!.docs
+                      //  .map((doc) => UserProf(doc['id'], doc['username']))
+                        //.toList();
                     return Container(
                       child: ListView(
                         children: children,
