@@ -15,9 +15,9 @@ import 'package:art_events/screens/home_screen.dart';
 class AddEventScreen extends StatefulWidget {
   static const routeName = '/add_event';
 
-  final User currentUser;
+  //final User currentUser;
 
-  AddEventScreen({this.currentUser});
+  AddEventScreen(/*{this.currentUser}*/);
 
 
   @override
