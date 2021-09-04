@@ -51,6 +51,7 @@ class ScreenArguments {
      final String id = "tn5JSYircKOqEQldIr1A";
      final DocumentSnapshot doc = await usersRef.doc(id).get();
      print(doc.data);
+     print(doc.toString());
      print(doc.id);
      print(doc.exists);
    }
