@@ -11,7 +11,7 @@ final firebase_storage.Reference storageRef = firebase_storage.FirebaseStorage.i
     .ref();
 
 final usersRef = FirebaseFirestore.instance.collection('user');
-final postsRef = FirebaseFirestore.instance.collection('event');
+final eventsRef = FirebaseFirestore.instance.collection('event');
 
 class Home extends StatefulWidget {
   @override

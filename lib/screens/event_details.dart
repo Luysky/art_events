@@ -51,6 +51,7 @@ class ScreenArguments {
      final String id = "tn5JSYircKOqEQldIr1A";
      final DocumentSnapshot doc = await usersRef.doc(id).get();
      print(doc.data);
+     print(doc.toString());
      print(doc.id);
      print(doc.exists);
    }
@@ -213,8 +214,11 @@ class ScreenArguments {
                       // return Text("no DATA here !!!");
                     }
                     final List<UserProf> children = snapshot.data!.docs
-                        .map((doc) => UserProf(doc['id'], doc['username']))
+                        .map((doc) => UserProf(doc['username']))
                         .toList();
+                    //final List<UserProf> children = snapshot.data!.docs
+                      //  .map((doc) => UserProf(doc['id'], doc['username']))
+                        //.toList();
                     return Container(
                       child: ListView(
                         children: children,

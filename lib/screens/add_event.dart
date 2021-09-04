@@ -15,9 +15,11 @@ import 'package:art_events/screens/home_screen.dart';
 class AddEventScreen extends StatefulWidget {
   static const routeName = '/add_event';
 
-  //final User currentUser;
 
-  AddEventScreen(/*{this.currentUser}*/);
+ /* final User currentUser;
+
+  AddEventScreen({this.currentUser}); */
+
 
 
   @override
@@ -30,8 +32,6 @@ class _AddEventState extends State<AddEventScreen> {
   String eventId = Uuid().v4();
   File ? file;
   TextEditingController eventNameController = TextEditingController();
-
-  get eventsRef => null;
 
 
   @override
@@ -128,15 +128,15 @@ class _AddEventState extends State<AddEventScreen> {
         context: parentContext,
         builder: (context) {
           return SimpleDialog(
-            title: Text("Create Post"),
+            title: Text("Choisissez l'image de votre evenement"),
             children: <Widget>[
              /* SimpleDialogOption(
                   child: Text("Photo with Camera"), onPressed: handleTakePhoto),*/
               SimpleDialogOption(
-                  child: Text("Image from Gallery"),
+                  child: Text("Image de la Gallery"),
                   onPressed: handleChooseFromGallery),
               SimpleDialogOption(
-                child: Text("Cancel"),
+                child: Text("Annuler"),
                 onPressed: () => Navigator.pop(context),
               )
             ],

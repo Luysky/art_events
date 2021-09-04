@@ -9,10 +9,10 @@ import 'package:art_events/screens/home_screen.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   static const routeName = '/create_account';
- // final User currentUser;
+//  final User currentUser;
 //  User testUser = const User(id: "01", username: "testUser", email: "email", password: "123", isSubscribed: false, isServiceProvider: false);
 
-  CreateAccountScreen(/*{this.currentUser = const testUser}*/);
+//  CreateAccountScreen({this.currentUser = const testUser});
 
   @override
   _CreateAccountState createState() => _CreateAccountState();
