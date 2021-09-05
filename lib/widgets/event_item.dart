@@ -8,12 +8,27 @@ class EventItem extends StatelessWidget {
   final String place;
   final String image;
 
-  EventItem({
+  // EventItem(
+  //   this.name,
+  //   this.image,
+  //   this.date,
+  //   this.hour,
+  //   this.place,
+  // );
+
+  // final String name;
+  // final String date;
+  // final String hour;
+  // final String place;
+  // final String image;
+
+
+  const EventItem({
     required this.name,
+    required this.place,
     required this.image,
     required this.date,
     required this.hour,
-    required this.place,
   });
 
   @override
