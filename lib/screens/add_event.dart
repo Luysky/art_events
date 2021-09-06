@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:image/image.dart' as Im;
 import 'package:art_events/screens/home_screen.dart';
+import 'dart:async';
 
 class AddEventScreen extends StatefulWidget {
   static const routeName = '/add_event';
@@ -30,6 +31,22 @@ class _AddEventState extends State<AddEventScreen> {
   String eventId = Uuid().v4();
   File ? file;
   TextEditingController eventNameController = TextEditingController();
+  TextEditingController eventLocationController = TextEditingController();
+  TextEditingController eventDateController = TextEditingController();
+
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
 
 
   @override
@@ -57,14 +74,15 @@ class _AddEventState extends State<AddEventScreen> {
   }
 
   createPostInFirestore(
-      {required String mediaUrl, required String eventName}) {
+      {required String mediaUrl, required String eventName, required String location, required DateTime dateTime}) {
     eventsRef
        .add({
-      "date" : DateTime.now(),
+      "date" : dateTime,
       "image" : mediaUrl,
       "name" : eventName,
-      "place" : "Sion",
+      "place" : location,
       "responsable": "managertest",
+      "participants" : null,
 
     });
   }
@@ -87,6 +105,8 @@ class _AddEventState extends State<AddEventScreen> {
     createPostInFirestore(
       mediaUrl: mediaUrl,
       eventName: eventNameController.text,
+      location: eventLocationController.text,
+      dateTime: selectedDate,
     );
     eventNameController.clear();
     setState(() {
@@ -142,14 +162,24 @@ class _AddEventState extends State<AddEventScreen> {
         });
   }
 
+
   Container buildAddEventForm(){
     return Container(
       color: Theme.of(context).primaryColor,
       child: Scaffold(
-        body: Column(
+        appBar:  header(context, titleText: "Ajout") ,
+        body: ListView(
+          padding: EdgeInsets.all(30),
           children: <Widget>[
-            header(context, titleText: "Ajout"),
             isUploading ? linearProgress() : Text(""),
+            Text(
+              "Entrez les information pour votre art event",
+              style: TextStyle(
+                fontFamily: "Raleway-Regular",
+                fontSize: 30.0,
+                color: Theme.of(context).backgroundColor,
+              ),
+            ),
             TextFormField(
               controller: eventNameController,
               decoration: InputDecoration(
@@ -173,6 +203,69 @@ class _AddEventState extends State<AddEventScreen> {
               textInputAction: TextInputAction.next,
               cursorColor: Theme.of(context).backgroundColor,
             ),
+            SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              controller: eventLocationController,
+              decoration: InputDecoration(
+                labelText: 'Lieu',
+                labelStyle: TextStyle(
+                  fontFamily: "Raleway-Regular",
+                  fontSize: 14.0,
+                  color: Theme.of(context).backgroundColor,
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              textInputAction: TextInputAction.next,
+              cursorColor: Theme.of(context).backgroundColor,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text("${selectedDate.toLocal()}".split(' ')[0],
+              style: TextStyle(
+                fontFamily: "Raleway-Regular",
+                fontSize: 15.0,
+                color: Theme.of(context).backgroundColor,
+              ),
+            ),
+            SizedBox(height: 20.0,),
+            CustomButton(
+               () => _selectDate(context),
+              'Select date'),
+            /*TextFormField(
+              controller: eventDateController,
+              decoration: InputDecoration(
+                labelText: 'Date',
+                labelStyle: TextStyle(
+                  fontFamily: "Raleway-Regular",
+                  fontSize: 14.0,
+                  color: Theme.of(context).backgroundColor,
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              textInputAction: TextInputAction.next,
+              cursorColor: Theme.of(context).backgroundColor,
+            ), */
             SizedBox(
               height: 20,
             ),
