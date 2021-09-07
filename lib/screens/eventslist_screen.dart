@@ -14,7 +14,7 @@ final eventsRef = FirebaseFirestore.instance.collection('event');
 
 class EventsListScreen extends StatefulWidget{
 
-  static const routeName = '/eventslist_screen';
+  // static const routeName = '/eventslist_screen';
 
   @override
   _EventsListState createState() => _EventsListState();
@@ -30,7 +30,8 @@ class _EventsListState extends State<EventsListScreen> {
   @override
   Widget build(context){
 
-    final eventsRef = FirebaseFirestore.instance.collection('event');
+    //final eventsRef = FirebaseFirestore.instance.collection('event');
+     List<Event> eventsList;
 
     //Crée la liste d'event avec DummyEvent
     List<EventItem> eventList = DUMMY_EVENTS.toList();
@@ -43,17 +44,19 @@ class _EventsListState extends State<EventsListScreen> {
       'valueSort': valueSort,
     };
 */
-    //On trie par nom
-    if(valueSort == '4')
-    {
-      eventList.sort((a,b) => a.name.compareTo(b.name));
-    }
+  //   //On trie par nom
+  //   if(valueSort == '4' || valueSort == 'name')
+  //   {
+  //    EventQuery.alphabAsc;
+  // //    eventList.sort((a,b) => a.name.compareTo(b.name));
+  //   }
 
-    //On trie par date
-    if(valueSort == '3')
-    {
-      eventList.sort((a,b) => a.date.compareTo(b.date));
-    }
+  //   //On trie par date
+  //   if(valueSort == '3' || valueSort == 'name')
+  //   {
+  //     EventQuery.date;
+  //     //eventList.sort((a,b) => a.date.compareTo(b.date));
+  //   }
 
     addEventScreen(BuildContext context){
       Navigator.of(context).pushNamed('/add_event');
@@ -69,47 +72,44 @@ class _EventsListState extends State<EventsListScreen> {
           }
           if (snapshot.data == null) {
             return circularProgress();
-          }
-   //       final events = /*await */ eventsRef.get();
-        /*  final List<Text> childrenE = snapshot.data!.docs
-          // .map((doc) => Event(Event.fromJson(doc.data())).toList();
-          .map( (doc) => Text(doc['name']) ).toList();
-         */ 
-          final List<EventFirBz> childrenE = snapshot.data!.docs
-              // .map( (doc) => Event.fromJson( doc.data() ) )
-              .map((doc) => EventFirBz(date: doc['date'],image:  doc['image'], name: doc['name'], place: doc['place'], responsable: doc['responsable']))
+          } 
+    addEventScreen(BuildContext context){
+      Navigator.of(context).pushNamed('/add_event');
+    }
+    
+          eventsList = snapshot.data!.docs              
+              .map((doc) => 
+              Event(date: doc['date'], hour:"ICI sera l'HEURE", image:  doc['image'],  name: doc['name'], place: doc['place'], responsable: doc['responsable']))
               .toList();
-              
-          //final List<UserProf> children = snapshot.data!.docs
-            //  .map((doc) => UserProf(doc['id'], doc['username']))
-              //.toList();
+    if(valueSort == 'nameAsc')
+    {
+  //    eventList.sort((a,b) => a.name.compareTo(b.name));
+     eventsList.sort((a,b) => a.name.compareTo(b.name));
+    }
+
+    //On trie par date
+    if(valueSort == 'date')
+    {
+      eventsList.sort((a,b) => a.date.compareTo(b.date));
+      //eventList.sort((a,b) => a.date.compareTo(b.date));
+    }
+
           return Container(
             child: ListView.builder(itemBuilder: (ctx,index,)
             {
-              return EventItem(
-                name: childrenE[index].name,
-//                name: childrenE.elementAt(index).toString(),
-                image: eventList[index].image,
-                date: eventList[index].date,
+              return Event(
+                name: eventsList[index].name,
+                image: eventsList[index].image,
+                date: eventsList[index].date,
                 hour: eventList[index].hour,
-                place: eventList[index].place,
+                place: eventsList[index].place,
+                responsable: eventsList[index].responsable,
               );
             }, itemCount: eventList.length,),
-            
           );
         },
       ),
- /*     body: ListView.builder(itemBuilder: (ctx,index,)
-      {
-        return EventItem(
-          name: eventList[index].name,
-          image: eventList[index].image,
-          date: eventList[index].date,
-          hour: eventList[index].hour,
-          place: eventList[index].place,
-        );
-      }, itemCount: eventList.length,),
- */     floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () => addEventScreen(context),
         child: const Icon(Icons.add),
         backgroundColor: Theme.of(context).backgroundColor,

@@ -1,7 +1,10 @@
 import 'package:art_events/screens/event_details.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class EventItem extends StatelessWidget {
+ 
+ 
   final String name;
   final String date;
   final String hour;
@@ -42,7 +45,7 @@ class EventItem extends StatelessWidget {
         Navigator.pushNamed(
           context,
           ExtractArgumentsScreen.routeName,
-          arguments: ScreenArguments(name, date, hour, place, image),
+          arguments: ScreenArguments(name, date, /* hour, */ place, image),
         );
       },
       child: Card(

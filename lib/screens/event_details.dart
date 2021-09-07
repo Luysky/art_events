@@ -21,13 +21,13 @@ final eventsRef = firestore.collection('event');
 class ScreenArguments {
   final String name;
   final String date;
-  final String hour;
+  //final String hour;
   final String place;
   final String image;
 
  
 
-  ScreenArguments(this.name, this.date, this.hour, this.place, this.image);
+  ScreenArguments(this.name, this.date, /*this.hour,*/ this.place, this.image);
 
 //  final eventsRef = FirebaseFirestore.instance.collection('event');
 //          Event targetEvent = await eventsRef.doc.where; 
@@ -84,15 +84,15 @@ class ScreenArguments {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              height: 300,
-              child: Image.asset(
-                args.image,
-                height: 250,
-                width: double.infinity,
-                fit: BoxFit.none,
-              ),
-            ),
+            // Container(
+            //   height: 300,
+            //   child: Image.asset(
+            //     args.image.toString(),
+            //     height: 250,
+            //     width: double.infinity,
+            //     fit: BoxFit.none,
+            //   ),
+            // ),
             Container(
               padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
               child: Text(
@@ -149,7 +149,8 @@ class ScreenArguments {
                           width: 5,
                         ),
                         Text(
-                          args.date,
+                          //args.date,
+                          "${args.date}",
                           style: TextStyle(
                             //fontSize: 20,
                             color: Theme.of(context).backgroundColor,
@@ -174,7 +175,8 @@ class ScreenArguments {
                           width: 5,
                         ),
                         Text(
-                          args.hour,
+                          //args.hour,
+                          "ICI sera l'HEURE",
                           style: TextStyle(
                             //fontSize: 20,
                             color: Theme.of(context).backgroundColor,
