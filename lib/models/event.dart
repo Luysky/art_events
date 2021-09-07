@@ -1,5 +1,6 @@
-import 'dart:html';
+import 'dart:io';
 import 'package:art_events/screens/event_details.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:art_events/models/user.dart';
 import 'package:art_events/widgets/user_profile.dart';
@@ -106,25 +107,14 @@ final eventsRef =
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                   ),
-                //  child: (image != null)
-                // ? Image.network(image+".jpg",
-                // height: 250,
-                //     //width: widthFav*0.7,
-                //     width: double.infinity,
-                //     fit: BoxFit.none)
-                // : Image.network('https://i.imgur.com/sUFH1Aq.png',
-                // height: 250,
-                //     //width: widthFav*0.7,
-                //     width: double.infinity,
-                //     fit: BoxFit.none),
-                //     // height: 250,
-                //     // //width: widthFav*0.7,
-                //     // width: double.infinity,
-                //     // fit: BoxFit.none
-                //   // ),
-               child: Image.network(
-                        firebase_storage.TaskSnapshot.ref(image).getDownloadURL(),
-                        fit: BoxFit.fill),
+                ),
+                CachedNetworkImage(
+                 imageUrl: image,
+                 fit: BoxFit.fill,
+                 placeholder: (context, url) => Padding(
+                   child: CircularProgressIndicator(),
+                   padding: EdgeInsets.all(20.0),
+                 ),
                 ),
                 Positioned(
                   bottom: 20,

@@ -39,25 +39,6 @@ class _EventsListState extends State<EventsListScreen> {
     //Récupère la donnée valueSort définit dans la page "header"
     final valueSort = ModalRoute.of(context)?.settings.arguments;
 
-    //Converstion en string de l'objet valeur
-  /*  Map toJson() => {
-      'valueSort': valueSort,
-    };
-*/
-  //   //On trie par nom
-  //   if(valueSort == '4' || valueSort == 'name')
-  //   {
-  //    EventQuery.alphabAsc;
-  // //    eventList.sort((a,b) => a.name.compareTo(b.name));
-  //   }
-
-  //   //On trie par date
-  //   if(valueSort == '3' || valueSort == 'name')
-  //   {
-  //     EventQuery.date;
-  //     //eventList.sort((a,b) => a.date.compareTo(b.date));
-  //   }
-
     addEventScreen(BuildContext context){
       Navigator.of(context).pushNamed('/add_event');
     }
