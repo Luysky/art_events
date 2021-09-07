@@ -1,4 +1,5 @@
 
+import 'package:art_events/models/event.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:art_events/widgets/user_profile.dart';
@@ -15,24 +16,32 @@ import '../dummy_users.dart';
 
 
 final usersRef = firestore.collection('user');
+final eventsRef = firestore.collection('event');
 
 class ScreenArguments {
   final String name;
   final String date;
-  final String hour;
+  //final String hour;
   final String place;
   final String image;
 
-  ScreenArguments(this.name, this.date, this.hour, this.place, this.image);
+ 
 
-  
+  ScreenArguments(this.name, this.date, /*this.hour,*/ this.place, this.image);
+
+//  final eventsRef = FirebaseFirestore.instance.collection('event');
+//          Event targetEvent = await eventsRef.doc.where; 
 }
+
 
 // A Widget that extracts the necessary arguments from
 // the ModalRoute.
  class ExtractArgumentsScreen extends StatefulWidget {
    // const ExtractArgumentsScreen({Key? key}) : super(key: key);
-   static const routeName = '/extractArguments';
+  static const routeName = '/extractArguments';
+
+  
+
 
    @override
    _ExtractArgumentsState createState() => _ExtractArgumentsState();
@@ -40,7 +49,7 @@ class ScreenArguments {
  }
 
  class _ExtractArgumentsState extends State<ExtractArgumentsScreen> {
-
+/*
    @override
    void initState() {
      getUserById();
@@ -55,6 +64,7 @@ class ScreenArguments {
      print(doc.id);
      print(doc.exists);
    }
+*/
 
 
 
@@ -64,6 +74,8 @@ class ScreenArguments {
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     
+//Event targetEvent = eventsRef.doc.where; 
+
     return Scaffold(
       appBar: header(context, titleText: "Détails"),
       body: Center(
@@ -72,15 +84,15 @@ class ScreenArguments {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              height: 300,
-              child: Image.asset(
-                args.image,
-                height: 250,
-                width: double.infinity,
-                fit: BoxFit.none,
-              ),
-            ),
+            // Container(
+            //   height: 300,
+            //   child: Image.asset(
+            //     args.image.toString(),
+            //     height: 250,
+            //     width: double.infinity,
+            //     fit: BoxFit.none,
+            //   ),
+            // ),
             Container(
               padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
               child: Text(
@@ -137,7 +149,8 @@ class ScreenArguments {
                           width: 5,
                         ),
                         Text(
-                          args.date,
+                          //args.date,
+                          "${args.date}",
                           style: TextStyle(
                             //fontSize: 20,
                             color: Theme.of(context).backgroundColor,
@@ -162,7 +175,8 @@ class ScreenArguments {
                           width: 5,
                         ),
                         Text(
-                          args.hour,
+                          //args.hour,
+                          "ICI sera l'HEURE",
                           style: TextStyle(
                             //fontSize: 20,
                             color: Theme.of(context).backgroundColor,
@@ -214,8 +228,11 @@ class ScreenArguments {
                       // return Text("no DATA here !!!");
                     }
                     final List<UserProf> children = snapshot.data!.docs
-                        .map((doc) => UserProf(doc['id'], doc['username']))
+                        .map((doc) => UserProf(doc['username']))
                         .toList();
+                    //final List<UserProf> children = snapshot.data!.docs
+                      //  .map((doc) => UserProf(doc['id'], doc['username']))
+                        //.toList();
                     return Container(
                       child: ListView(
                         children: children,

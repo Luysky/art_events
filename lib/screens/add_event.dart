@@ -16,9 +16,11 @@ import 'dart:async';
 class AddEventScreen extends StatefulWidget {
   static const routeName = '/add_event';
 
+
  /* final User currentUser;
 
   AddEventScreen({this.currentUser}); */
+
 
 
   @override
