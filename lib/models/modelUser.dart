@@ -77,7 +77,7 @@ Future<void> save() async {
       isServiceProvider: json['isServiceProvider']! as bool,
       isSubscribed: json['isSubscribed']! as bool,
       //  reference: json['reference']! as Uuid,
-      id: json['id'] as String,
+      //id: json['id'] as String,
     );
 
 

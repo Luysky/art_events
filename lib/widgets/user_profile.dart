@@ -48,7 +48,7 @@ class UserProf extends StatelessWidget {
                 ),
                 SizedBox(width: 10,),
                 Text(
-                  user.email.toString(),
+                  '${user.email}',
                   style: TextStyle(
                     fontFamily: "Raleway-Regular",
                     fontSize: 20.0,

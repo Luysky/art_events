@@ -15,13 +15,7 @@ final eventsRef = FirebaseFirestore.instance.collection('event')
       .withConverter<Event>(
       fromFirestore: (snapshots, _) => Event.fromJson(snapshots.data()!),
       toFirestore: (event, _) => event.toJson(),
-    );
-
-final attendeesRef = FirebaseFirestore.instance.collection('user')
-      .withConverter<ModelUser>(
-      fromFirestore: (snapshots, _) => ModelUser.fromJson(snapshots.data()!),
-      toFirestore: (user, _) => user.toJson(),
-    );    
+    );  
 
 enum EventQuery {
   date,
@@ -97,10 +91,16 @@ class _EventsListState extends State<EventsListScreen> {
     
           eventsList = snapshot.data!.docs              
               .map((doc) => 
-              Event(date: doc['date'], hour:"ICI sera l'HEURE", 
+              Event(date: DateTime.parse(doc['date'].toDate().toString()),
+                    hour: doc['hour'].toString(), 
                     image:  doc['image'],  name: doc['name'], 
                     place: doc['place'], participants: doc['participants'], 
                     responsable: doc['responsable'],
+              // Event(date: DateTime.parse(doc['date'].toDate().toString()),
+              //       hour: doc['hour'].toString(), 
+              //       image:  doc['image'],  name: doc['name'], 
+              //       place: doc['place'], participants: doc['participants'], 
+              //       responsable: doc['responsable'],
                     /* id: doc['Uuid']*/))
               .toList();
     if(valueSort == 'nameAsc')
@@ -123,7 +123,7 @@ class _EventsListState extends State<EventsListScreen> {
               return EventItem(
                 name: eventsList[index].name,
                 image: eventsList[index].image,
-                date: eventsList[index].date.toString(),
+                date: eventsList[index].date,
                 hour: eventsList[index].hour,
                 place: eventsList[index].place,
                 participants: eventsList[index].participants,                

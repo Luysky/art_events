@@ -8,7 +8,7 @@ class Event {
   final String image;
   final String name;
   final String place;
-  final List<UserProf> participants;
+  final List<dynamic> participants;
   final String responsable;
 
 
@@ -36,7 +36,7 @@ Event.fromJson(Map<String, Object?> json)
           date: json['date']! as DateTime,
           hour: json['hour']! as String,
           place: json['place']! as String,
-          participants: json['participants']! as List<UserProf>,
+          participants: json['participants']! as List<dynamic>,
           responsable: json['responsable']! as String,
           image: json['image']! as String,
         //  reference: json['reference']! as Uuid,
