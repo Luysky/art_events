@@ -1,6 +1,6 @@
 
 import 'package:art_events/models/event.dart';
-import 'package:art_events/models/user.dart';
+import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
@@ -17,8 +17,8 @@ final eventsRef = FirebaseFirestore.instance.collection('event')
     );
 
 final attendeesRef = FirebaseFirestore.instance.collection('user')
-      .withConverter<User>(
-      fromFirestore: (snapshots, _) => User.fromJson(snapshots.data()!),
+      .withConverter<modelUser>(
+      fromFirestore: (snapshots, _) => modelUser.fromJson(snapshots.data()!),
       toFirestore: (user, _) => user.toJson(),
     );    
 
