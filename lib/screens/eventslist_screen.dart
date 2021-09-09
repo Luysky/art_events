@@ -1,5 +1,4 @@
 
-import 'package:art_events/models/EventFirBz.dart';
 import 'package:art_events/models/event.dart';
 import 'package:art_events/models/user.dart';
 import 'package:art_events/widgets/event_item.dart';
@@ -52,7 +51,7 @@ extension on Query<Event> {
 
 class EventsListScreen extends StatefulWidget{
 
-  // static const routeName = '/eventslist_screen';
+   static const routeName = '/eventslist_screen';
 
   @override
   _EventsListState createState() => _EventsListState();
@@ -68,7 +67,6 @@ class _EventsListState extends State<EventsListScreen> {
   @override
   Widget build(context){
 
-    //final eventsRef = FirebaseFirestore.instance.collection('event');
      List<Event> eventsList;
 
     //Crée la liste d'event avec DummyEvent
@@ -101,7 +99,7 @@ class _EventsListState extends State<EventsListScreen> {
               Event(date: doc['date'], hour:"ICI sera l'HEURE", 
                     image:  doc['image'],  name: doc['name'], 
                     place: doc['place'], responsable: doc['responsable'],
-                    id: doc['Uuid']))
+                    /* id: doc['Uuid']*/))
               .toList();
     if(valueSort == 'nameAsc')
     {
@@ -126,7 +124,7 @@ class _EventsListState extends State<EventsListScreen> {
                 hour: eventsList[index].hour,
                 place: eventsList[index].place,
                 responsable: eventsList[index].responsable,
-                id: eventsList[index].id,
+                //id: eventsList[index].id,
               );
             }, itemCount: eventsList.length,),
           );
