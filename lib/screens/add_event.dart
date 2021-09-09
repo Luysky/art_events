@@ -258,37 +258,10 @@ class _AddEventState extends State<AddEventScreen> {
             SizedBox(height: 20.0,),
             CustomButton(
                () => _selectDate(context),
-<<<<<<< HEAD
-              'Sélectionner la date'),
-            /*TextFormField(
-              controller: eventDateController,
-              decoration: InputDecoration(
-                labelText: 'Date',
-                labelStyle: TextStyle(
-                  fontFamily: "Raleway-Regular",
-                  fontSize: 14.0,
-                  color: Theme.of(context).backgroundColor,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  ),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-              textInputAction: TextInputAction.next,
-              cursorColor: Theme.of(context).backgroundColor,
-            ), */
-=======
               'Choisissez la date date'),
             CustomButton(
                 () => _selectTime(context), "Choisissez l'heur",
             ),
->>>>>>> 6940b371988bcfa80cad84b84788e95b0a8745b5
             SizedBox(
               height: 20,
             ),

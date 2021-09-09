@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Event {
-<<<<<<< HEAD
-
-  final Timestamp date;
-=======
   // final String id;
   final DateTime date;
->>>>>>> 6940b371988bcfa80cad84b84788e95b0a8745b5
   final String hour;
   final String image;
   final String name;
