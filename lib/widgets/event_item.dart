@@ -1,22 +1,83 @@
+import 'dart:io';
 import 'package:art_events/screens/event_details.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:art_events/models/user.dart';
+import 'package:art_events/widgets/user_profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart'as firebase_storage;
+import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
+//import 'user.dart';
 
-class EventItem extends StatelessWidget {
-  final String name;
-  final String date;
+
+
+class EventItem extends StatelessWidget{
+  // final String id;
+  final Timestamp date;
   final String hour;
-  final String place;
   final String image;
+  final String name;
+  final String place;
+  // final List<UserProf> participants;
+  // final UserProf responsable;
+    final String responsable;
+   // final Uuid id;
 
-  EventItem({
-    required this.name,
-    required this.image,
+  //final Uuid reference;
+
+
+
+   /* const */ EventItem({
+   // required this.id,
     required this.date,
     required this.hour,
-    required this.place,
+    required this.image,
+  required this.place,
+    // required this.participants,
+    // required this.responsable,
+    required this.name,
+    required this.responsable,
+  //  required this.reference,
+ // required this.id,
+
   });
 
-  @override
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+EventItem.fromJson(Map<String, Object?> json)
+      : this(
+          name: json['name']! as String,
+          date: json['date']! as Timestamp,
+          hour: json['hour']! as String,
+          place: json['place']! as String,
+          // participants: json['participants']! as List<UserProf>,
+          responsable: json['responsable']! as String,
+          image: json['image']! as String,
+        //  reference: json['reference']! as Uuid,
+      //    id: json['id'] as Uuid,
+        );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'date': date,
+ //     'hour': hour,
+      'place': place,
+//      'participants': participants,
+      // 'responsable': responsable,
+  //     'image': image,
+       'responsable': responsable,
+    //   'id': id,
+    };
+  }
+
+
+
+
+@override
   Widget build(BuildContext context) {
     // final mediaQuery = MediaQuery.of(context);
     // var widthFav, heightFav;
@@ -27,7 +88,7 @@ class EventItem extends StatelessWidget {
         Navigator.pushNamed(
           context,
           ExtractArgumentsScreen.routeName,
-          arguments: ScreenArguments(name, date, hour, place, image),
+          arguments: ScreenArguments(name, date.toString(), /* hour, */ place, image),
         );
       },
       child: Card(
@@ -45,13 +106,14 @@ class EventItem extends StatelessWidget {
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                   ),
-                  child: Image.asset(
-                    image,
-                    height: 250,
-                    //width: widthFav*0.7,
-                    width: double.infinity,
-                    fit: BoxFit.none
-                  ),
+                ),
+                CachedNetworkImage(
+                 imageUrl: image,
+                 fit: BoxFit.fill,
+                 placeholder: (context, url) => Padding(
+                   child: CircularProgressIndicator(),
+                   padding: EdgeInsets.all(20.0),
+                 ),
                 ),
                 Positioned(
                   bottom: 20,
@@ -117,4 +179,5 @@ class EventItem extends StatelessWidget {
       ),
     );
   }
+
 }

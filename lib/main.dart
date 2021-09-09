@@ -4,8 +4,14 @@ import 'package:art_events/screens/eventslist_screen.dart';
 import 'package:art_events/screens/home_screen.dart';
 import 'package:art_events/screens/event_details.dart';
 import 'package:art_events/screens/profile.dart';
+import 'package:art_events/service/authentificationService.dart';
+import 'package:art_events/widgets/widget_groundwork.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:art_events/widgets/header.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 
 
@@ -16,6 +22,7 @@ import 'package:firebase_core/firebase_core.dart';
 //   );
 // }
 
+
  Future <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -23,6 +30,17 @@ import 'package:firebase_core/firebase_core.dart';
     App(),
   );
 }
+
+// void main() {
+//   // Modify from here
+//   runApp(
+//     ChangeNotifierProvider(
+//       create: (context) => ApplicationState(),
+//       builder: (context, _) => App(),
+//     ),
+//   );
+// }
+
 
  class App extends StatefulWidget {
   _AppState createState() => _AppState();
@@ -86,7 +104,7 @@ class MyArtEvents extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => Home(),
+        '/': (ctx) => /* const HomePage(), */ Home(),
         '/eventslist_screen': (ctx) => EventsListScreen(),
         '/extractArguments': (ctx) =>  ExtractArgumentsScreen(),
         '/create_account': (ctx) => CreateAccountScreen(),
@@ -98,4 +116,5 @@ class MyArtEvents extends StatelessWidget {
   }
 
 }
+
 
