@@ -19,8 +19,6 @@ final eventsRef = FirebaseFirestore.instance.collection('event')
 
 enum EventQuery {
   date,
-   place,
-  // name,
   nameAsc,
 }
 
@@ -28,11 +26,6 @@ extension on Query<Event> {
   /// Create a firebase query from a [MovieQuery]
    Query<Event> queryBy(EventQuery eventquery, String wanted) {
     switch (eventquery) {
-      // case EventQuery.name:
-      //   return where('name', arrayContainsAny: [wanted]);
-
-       case EventQuery.place:
-         return where(Uuid, isEqualTo: [wanted]);
 
       case EventQuery.date:
         return orderBy('date', descending: true);
@@ -88,7 +81,20 @@ class _EventsListState extends State<EventsListScreen> {
     addEventScreen(BuildContext context){
       Navigator.of(context).pushNamed('/add_event');
     }
-    
+    if(valueSort == 'nameAsc')
+    {
+  //    eventList.sort((a,b) => a.name.compareTo(b.name));
+     eventsRef.queryBy(EventQuery.nameAsc, "");
+    }
+
+    //On trie par date
+    if(valueSort == 'date')
+    {
+     // eventsList.sort((a,b) => a.date.compareTo(b.date));
+      //eventList.sort((a,b) => a.date.compareTo(b.date));
+      eventsRef.queryBy(EventQuery.date, "");
+    }
+
           eventsList = snapshot.data!.docs              
               .map((doc) => 
               Event(date: DateTime.parse(doc['date'].toDate().toString()),

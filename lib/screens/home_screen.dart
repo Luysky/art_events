@@ -20,9 +20,12 @@ class _HomeState extends State<Home> {
   final AuthentificationService _auth = AuthentificationService();
   TextEditingController emailController = new TextEditingController(text: "bretzlouise@gmail.com");
   TextEditingController passwordController = new TextEditingController(text: "123456");
+  bool _obscureText = false;
+
   @override
   void initState() {
     super.initState();
+    _obscureText = !_obscureText;
   }
 
   Scaffold buildAuthScreen() {
@@ -117,6 +120,8 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 20,
             ),
+            Stack(
+              children: [
             TextFormField(
               controller: passwordController,
               decoration: InputDecoration(
@@ -138,6 +143,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               textInputAction: TextInputAction.next,
+              obscureText: _obscureText,
               cursorColor: Theme.of(context).backgroundColor,
               validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -145,6 +151,22 @@ class _HomeState extends State<Home> {
                               }
                               return null;
                             }),
+                // Button hidde/visible password text
+                Positioned(
+                top: 2,
+                right: 10,
+                child: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    }),
+               ),
+              ],
+              ),
             SizedBox(
               height: 20,
             ),
