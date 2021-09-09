@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:art_events/models/user.dart';
+import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
@@ -15,11 +15,6 @@ import 'dart:async';
 
 class AddEventScreen extends StatefulWidget {
   static const routeName = '/add_event';
-
-
- /* final User currentUser;
-
-  AddEventScreen({this.currentUser}); */
 
 
 

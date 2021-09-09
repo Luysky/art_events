@@ -3,14 +3,14 @@ import 'package:uuid/uuid.dart';
 
 import 'event.dart';
 
-class User {
+class modelUser {
   final String username;
   final String email;
   final bool isServiceProvider;
   final bool isSubscribed;
   final Uuid id;
 
-  User({
+  modelUser({
     required this.username,
     required this.email,
     required this.isServiceProvider,
@@ -23,7 +23,7 @@ class User {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-User.fromJson(Map<String, Object?> json)
+modelUser.fromJson(Map<String, Object?> json)
       : this(
           username: json['username']! as String,
           email: json['email']! as String,          
@@ -46,8 +46,8 @@ User.fromJson(Map<String, Object?> json)
   }
 
 final eventsRef =
-    FirebaseFirestore.instance.collection('user').withConverter<User>(
-          fromFirestore: (snapshot, _) => User.fromJson(snapshot.data()!),
+    FirebaseFirestore.instance.collection('user').withConverter<modelUser>(
+          fromFirestore: (snapshot, _) => modelUser.fromJson(snapshot.data()!),
           toFirestore: (user, _) => user.toJson(),
         );
 

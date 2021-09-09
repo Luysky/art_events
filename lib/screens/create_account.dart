@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:art_events/widgets/progress.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:art_events/models/user.dart';
+import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
