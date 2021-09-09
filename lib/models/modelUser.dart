@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 
 class ModelUser {
-    String id;
+  String id;
    String username;
    String? email;
    bool isServiceProvider;
@@ -9,13 +10,14 @@ class ModelUser {
    List listEvent = [];
 
   ModelUser({
-     this.id ="",
+     this.id = "",
      this.username ="",
      this.email ="",
      this.isServiceProvider = false,
      this.isSubscribed = false,
+     this.listEvent = const [],
   });
-  
+
 
 
 
@@ -33,9 +35,9 @@ Future<void> populateFirestore() async {
     DocumentSnapshot<Map<String, dynamic>> snap =
         await FirebaseFirestore.instance.collection("user").doc(id).get();
     if (snap.exists) {
-      username = (snap.data()!["username"] != null 
+      username = (snap.data()!["username"] != null
           ? snap.data()!["username"] : "");
-      email = (snap.data()!["email"] != null 
+      email = (snap.data()!["email"] != null
           ? snap.data()!["email"] : "");
       isServiceProvider = (snap.data()!["isServiceProvider"] != null
           ? snap.data()!["isServiceProvider"]
@@ -67,45 +69,23 @@ Future<void> save() async {
   void setEmail(String email) { this.email = email; }
 
 
-/*  User.fromJson(json)
-    : this(
-      id: json.id,
-      username: (json.data()['username'] != null
-      ? json.data()['username']
-      : "emptyUsername") as String,
-      email: (json.data()['email'] != null
-      ? json.data()['email']
-      : "emptyEmail") as String,
-      isServiceProvider: (json.data()['isServiceProvider'] != null
-      ? json.data()['isServiceProvider']
-      : "emptyIsServiceProvider") as bool,
-      isSubscribed: (json.data()['isSubscribed'] != null
-      ? json.data()['isSubscribed']
-      : "emptyIsSubscribed") as bool,
-      password: (json.data()['password'] != null
-      ? json.data()['password']
-      : "emptyPassword") as String,);
+    ModelUser.fromJson(Map<String, Object?> json)
+        : this(
+      username: json['username']! as String,
+      email: json['email']! as String,
+      listEvent: json['events']! as List<dynamic>,
+      isServiceProvider: json['isServiceProvider']! as bool,
+      isSubscribed: json['isSubscribed']! as bool,
+      //  reference: json['reference']! as Uuid,
+      id: json['id'] as String,
+    );
 
-Map<String, Object?> toJson() {
-  return {
-    'username' : username,
-    'email' : email,
-    'isServiceProvider' : isServiceProvider,
-    'isSubscribed' : isSubscribed,
-    'password' : password 
-  };
-
-
-@override
-String toString() {
-  return 'User{id: $id, email: $email, username: $username, password: $password, isServiceProvider: $isServiceProvider, isSubscribed: $isSubscribed}';
-}
 
 
 }
 
 
-*/
 
-}
+
+
 
