@@ -1,3 +1,4 @@
+import 'package:art_events/screens/about_screen.dart';
 import 'package:art_events/screens/add_event.dart';
 import 'package:art_events/screens/create_account.dart';
 import 'package:art_events/screens/eventslist_screen.dart';
@@ -107,6 +108,7 @@ class MyArtEvents extends StatelessWidget {
         '/create_account': (ctx) => CreateAccountScreen(),
         '/profile' : (ctx) => ProfilScreen(),
         '/add_event' : (ctx) => AddEventScreen(),
+        '/about_screen' : (ctx) => AboutScreen(),
       },
     );
 
