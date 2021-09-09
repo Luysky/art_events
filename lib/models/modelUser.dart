@@ -1,13 +1,27 @@
+<<<<<<< HEAD
 import 'event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelUser {
   late final String id;
+=======
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
+
+import 'event.dart';
+
+class ModelUser {
+    late final String id;
+>>>>>>> develop
    String username;
    String? email;
    bool isServiceProvider;
    bool isSubscribed;
+<<<<<<< HEAD
   List listEvent = [];
+=======
+   List listEvent = [];
+>>>>>>> develop
 
   ModelUser({
      this.id ="",
@@ -16,9 +30,17 @@ class ModelUser {
      this.isServiceProvider = false,
      this.isSubscribed = false,
   });
+<<<<<<< HEAD
 
 
   Map<String, Object?> toJson() {
+=======
+  
+
+
+
+Map<String, Object?> toJson() {
+>>>>>>> develop
   return {
     'username' : username,
     'email' : email,
@@ -48,6 +70,26 @@ Future<void> populateFirestore() async {
     }
   }
 
+<<<<<<< HEAD
+=======
+Future<void> save() async {
+    await FirebaseFirestore.instance.collection("user").doc(id).set(toJson());
+  }
+
+  removeEvent(String eventId) async {
+    listEvent.remove(eventId);
+    save();
+  }
+
+  addEvent(String eventId) async {
+    listEvent.add(eventId);
+    save();
+  }
+
+  void setId(String id) {this.id = id;}
+  void setEmail(String email) { this.email = email; }
+
+>>>>>>> develop
 
 /*  User.fromJson(json)
     : this(
@@ -68,6 +110,18 @@ Future<void> populateFirestore() async {
       ? json.data()['password']
       : "emptyPassword") as String,);
 
+<<<<<<< HEAD
+=======
+Map<String, Object?> toJson() {
+  return {
+    'username' : username,
+    'email' : email,
+    'isServiceProvider' : isServiceProvider,
+    'isSubscribed' : isSubscribed,
+    'password' : password 
+  };
+
+>>>>>>> develop
 
 @override
 String toString() {
@@ -80,6 +134,7 @@ String toString() {
 
 */
 
+<<<<<<< HEAD
 Future<void> save() async {
     await FirebaseFirestore.instance.collection("user").doc(id).set(toJson());
   }
@@ -97,5 +152,7 @@ Future<void> save() async {
   void setId(String id) {this.id = id;}
   void setEmail(String email) { this.email = email; }
 
+=======
+>>>>>>> develop
 }
 

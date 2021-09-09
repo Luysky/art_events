@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:art_events/widgets/progress.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:art_events/models/modelUser.dart';
-import 'package:art_events/service/authentificationService.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -22,7 +21,7 @@ class CreateAccountScreen extends StatefulWidget {
 class _CreateAccountState extends State<CreateAccountScreen> {
   bool isServiceProvider = false;
   final _key = GlobalKey<FormState>();
-  final AuthenticationService _auth = AuthenticationService();
+  //final AuthenticationService _auth = AuthenticationService();
   
   bool isChecked = false;
   bool isUploading = false;
@@ -218,7 +217,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
             SizedBox(
               height: 20,
             ),
-            MaterialButton(
+            /*MaterialButton(
                 minWidth: 300.0,
                 height: 40.0,
                 color: Theme.of(context).primaryColor,
@@ -248,7 +247,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                                     // gérer l'erreur
                                 }
                               }
-                            },   ),
+                            },   ),*/
             /*CustomButton(
               
               () => createProfile(context),

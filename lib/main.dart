@@ -7,6 +7,11 @@ import 'package:art_events/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> develop
  Future <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -14,6 +19,7 @@ import 'package:firebase_core/firebase_core.dart';
     App(),
   );
 }
+
 
  class App extends StatefulWidget {
   _AppState createState() => _AppState();
@@ -77,7 +83,7 @@ class MyArtEvents extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => Home(),
+        '/': (ctx) => /* const HomePage(), */ Home(),
         '/eventslist_screen': (ctx) => EventsListScreen(),
         '/extractArguments': (ctx) =>  ExtractArgumentsScreen(),
         '/create_account': (ctx) => CreateAccountScreen(),
@@ -89,4 +95,5 @@ class MyArtEvents extends StatelessWidget {
   }
 
 }
+
 
