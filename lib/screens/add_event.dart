@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:art_events/models/user.dart';
+import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';

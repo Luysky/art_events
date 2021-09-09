@@ -26,6 +26,7 @@ class _EventsListState extends State<EventsListScreen> {
   Widget build(context){
 
     //Crée la liste d'event avec DummyEvent
+    var DUMMY_EVENTS;
     List<Event> eventList = DUMMY_EVENTS.toList();
 
     //Récupère la donnée valueSort définit dans la page "header"

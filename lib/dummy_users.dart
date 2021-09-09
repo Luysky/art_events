@@ -1,18 +1,17 @@
-import 'package:art_events/dummy_events.dart';
+/*import 'package:art_events/dummy_events.dart';
 import 'package:art_events/models/event.dart';
 
-import './models/user.dart';
+import 'models/modelUser.dart';
 
-const DUMMY_USERS = [
-  User(
-    id: 'u1',
+DUMMY_USERS = [
+  ModelUser(
+    final id: 'u1',
     username: 'Luysky',
     email: 'luysky@gmail.com',
     isServiceProvider: true,
     isSubscribed: true,
-    password: '123',
   ),
-  User(
+  ModelUser(
     id: 'u2',
     username: 'Marshasha',
     email: 'marsha@gmail.com',
@@ -20,7 +19,7 @@ const DUMMY_USERS = [
     isSubscribed: true,
     password: '456',
   ),
-  User(
+  ModelUser(
     id: 'u3',
     username: 'DoggoBestie',
     email: 'bestie@gmail.com',
@@ -28,7 +27,7 @@ const DUMMY_USERS = [
     isSubscribed: true,
     password: '789',
   ),
-  User(
+  UsModelUserer(
     id: 'u4',
     username: 'Silverhand',
     email: 'samurai@gmail.com',
@@ -38,7 +37,7 @@ const DUMMY_USERS = [
   ),
 ];
 
-const ORGA = User(
+const ORGA = ModelUser(
     id: 'u0',
     username: 'Odin',
     email: 'odin@gmail.com',
@@ -46,19 +45,18 @@ const ORGA = User(
     isSubscribed: true,
     password: 'pass');
 
-User findOrga(List<User> userlist, String id) {
+ModelUser findOrga(List<ModelUser> userlist, String id) {
   for (var i = 0; i < userlist.length; i++) {
     if (userlist[i].id == id) {
-      User foundUser = new User(
+      ModelUser foundUser = new ModelUser(
           id: userlist[i].id,
           username: userlist[i].username,
           email: userlist[i].email,
           isServiceProvider: userlist[i].isServiceProvider,
-          isSubscribed: userlist[i].isSubscribed,
-          password: userlist[i].password);
+          isSubscribed: userlist[i].isSubscribed,);
       return foundUser;
     }
   }
   ;
   return ORGA;
-}
+}*/
