@@ -13,7 +13,7 @@ import 'user.dart';
 
 
 
-class Event extends StatelessWidget{
+class Event {
   // final String id;
   final Timestamp date;
   final String hour;
@@ -24,8 +24,6 @@ class Event extends StatelessWidget{
   // final UserProf responsable;
     final String responsable;
    // final Uuid id;
-
-  //final Uuid reference;
 
 
 
@@ -79,110 +77,4 @@ final eventsRef =
           fromFirestore: (snapshot, _) => Event.fromJson(snapshot.data()!),
           toFirestore: (Event, _) => Event.toJson(),
         );
-
-
-
-@override
-  Widget build(BuildContext context) {
-    // final mediaQuery = MediaQuery.of(context);
-    // var widthFav, heightFav;
-    // widthFav = mediaQuery.size.width;
-    // heightFav = mediaQuery.size.height;
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          ExtractArgumentsScreen.routeName,
-          arguments: ScreenArguments(name, date.toString(), /* hour, */ place, image),
-        );
-      },
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        elevation: 4,
-        margin: EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                ),
-                CachedNetworkImage(
-                 imageUrl: image,
-                 fit: BoxFit.fill,
-                 placeholder: (context, url) => Padding(
-                   child: CircularProgressIndicator(),
-                   padding: EdgeInsets.all(20.0),
-                 ),
-                ),
-                Positioned(
-                  bottom: 20,
-                  right: 10,
-                  child: Container(
-                    width: 300,
-                    color: Colors.black54,
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                    child: Text(
-                      name,
-                      style: TextStyle(fontSize: 26, color: Colors.white),
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.place,
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                      SizedBox(
-                        width: 6,
-                      ),
-                      Text(
-                        '$place',
-                        style: TextStyle(
-                          color: Theme.of(context).backgroundColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.calendar_today,
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                      SizedBox(
-                        width: 6,
-                      ),
-                      Text(
-                        '$date',
-                        style: TextStyle(
-                          color: Theme.of(context).backgroundColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
 }

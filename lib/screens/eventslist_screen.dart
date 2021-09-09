@@ -117,7 +117,7 @@ class _EventsListState extends State<EventsListScreen> {
           return Container(
             child: ListView.builder(itemBuilder: (ctx,index,)
             {
-              return Event(
+              return EventItem(
                 name: eventsList[index].name,
                 image: eventsList[index].image,
                 date: eventsList[index].date,
