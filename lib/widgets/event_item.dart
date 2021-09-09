@@ -1,21 +1,14 @@
-import 'dart:io';
 import 'package:art_events/screens/event_details.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:art_events/models/modelUser.dart';
-import 'package:art_events/widgets/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart'as firebase_storage;
 import 'package:flutter/widgets.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
-//import 'user.dart';
 
 
 
 class EventItem extends StatelessWidget{
   // final String id;
-  final Timestamp date;
+  final DateTime date;
   final String hour;
   final String image;
   final String name;
@@ -50,7 +43,7 @@ class EventItem extends StatelessWidget{
 EventItem.fromJson(Map<String, Object?> json)
       : this(
           name: json['name']! as String,
-          date: json['date']! as Timestamp,
+          date: json['date']! as DateTime,
           hour: json['hour']! as String,
           place: json['place']! as String,
           // participants: json['participants']! as List<UserProf>,
@@ -86,7 +79,7 @@ EventItem.fromJson(Map<String, Object?> json)
         Navigator.pushNamed(
           context,
           ExtractArgumentsScreen.routeName,
-          arguments: ScreenArguments(name, date.toString(), /* hour, */ place, image),
+          arguments: ScreenArguments(name, date.toString().substring(0, 10), hour, place, image),
         );
       },
       child: Card(
@@ -162,7 +155,7 @@ EventItem.fromJson(Map<String, Object?> json)
                         width: 6,
                       ),
                       Text(
-                        '$date',
+                        '$date'.substring(0,10),
                         style: TextStyle(
                           color: Theme.of(context).backgroundColor,
                         ),

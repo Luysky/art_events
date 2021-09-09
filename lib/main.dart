@@ -4,23 +4,9 @@ import 'package:art_events/screens/eventslist_screen.dart';
 import 'package:art_events/screens/home_screen.dart';
 import 'package:art_events/screens/event_details.dart';
 import 'package:art_events/screens/profile.dart';
-import 'package:art_events/service/authentificationService.dart';
-import 'package:art_events/widgets/widget_groundwork.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:art_events/widgets/header.dart';
-import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
-
-
-//   void main() {
-//   runApp(
-    
-//     MyArtEvents(),
-//   );
-// }
 
 
  Future <void> main() async {
@@ -30,16 +16,6 @@ import 'package:uuid/uuid.dart';
     App(),
   );
 }
-
-// void main() {
-//   // Modify from here
-//   runApp(
-//     ChangeNotifierProvider(
-//       create: (context) => ApplicationState(),
-//       builder: (context, _) => App(),
-//     ),
-//   );
-// }
 
 
  class App extends StatefulWidget {
@@ -92,6 +68,23 @@ class _AppState extends State<App> {
 
 class MyArtEvents extends StatelessWidget {
 
+  static const MaterialColor primaryRed = MaterialColor(
+    _redPrimaryValue,
+    <int, Color>{
+      50: Color(0xFFCC0022),
+      100: Color(0xFFCC0022),
+      200: Color(0xFFCC0022),
+      300: Color(0xFFCC0022),
+      400: Color(0xFFCC0022),
+      500: Color(0xFFCC0022),
+      600: Color(0xFFCC0022),
+      700: Color(0xFFCC0022),
+      800: Color(0xFFCC0022),
+      900: Color(0xFFCC0022),
+    },
+  );
+  static const int _redPrimaryValue = 0xFFCC0022;
+
   @override
   Widget build(BuildContext context){
     return MaterialApp(
@@ -101,6 +94,10 @@ class MyArtEvents extends StatelessWidget {
         primaryColor: Color(0xffFFF1F1),
         backgroundColor: Color(0xFFCC0022),
         scaffoldBackgroundColor: Color(0xffFFF1F1),
+        primarySwatch: primaryRed,
+        timePickerTheme: TimePickerThemeData(
+          backgroundColor: Color(0xffFFF1F1),
+        )
       ),
       initialRoute: '/',
       routes: {

@@ -1,14 +1,11 @@
 
 import 'package:art_events/models/event.dart';
-import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:art_events/dummy_events.dart';
 
-import 'add_event.dart';
 
 final eventsRef = FirebaseFirestore.instance.collection('event')
       .withConverter<Event>(
@@ -16,11 +13,6 @@ final eventsRef = FirebaseFirestore.instance.collection('event')
       toFirestore: (event, _) => event.toJson(),
     );
 
-final attendeesRef = FirebaseFirestore.instance.collection('user')
-      .withConverter<modelUser>(
-      fromFirestore: (snapshots, _) => modelUser.fromJson(snapshots.data()!),
-      toFirestore: (user, _) => user.toJson(),
-    );    
 
 enum EventQuery {
   date,
@@ -96,7 +88,9 @@ class _EventsListState extends State<EventsListScreen> {
     
           eventsList = snapshot.data!.docs              
               .map((doc) => 
-              Event(date: doc['date'], hour:"ICI sera l'HEURE", 
+              Event(
+                date: DateTime.parse(doc['date'].toDate().toString())   ,
+                hour: doc['hour'].toString(),// doc['date'], hour: doc['hour'],
                     image:  doc['image'],  name: doc['name'], 
                     place: doc['place'], responsable: doc['responsable'],
                     /* id: doc['Uuid']*/))

@@ -1,43 +1,26 @@
-import 'dart:io';
-import 'package:art_events/screens/event_details.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:art_events/models/modelUser.dart';
-import 'package:art_events/widgets/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart'as firebase_storage;
-import 'package:flutter/widgets.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
-import 'modelUser.dart';
-
-
 
 class Event {
   // final String id;
-  final Timestamp date;
+  final DateTime date;
   final String hour;
   final String image;
   final String name;
   final String place;
-  // final modelUser responsable;
-    final String responsable;
-   // final Uuid id;
+  final String responsable;
 
 
 
-   /* const */ Event({
-   // required this.id,
+
+ Event({
+
     required this.date,
     required this.hour,
     required this.image,
-  required this.place,
-    // required this.participants,
-    // required this.responsable,
+    required this.place,
     required this.name,
     required this.responsable,
-  //  required this.reference,
- // required this.id,
+
 
   });
 
@@ -47,7 +30,7 @@ class Event {
 Event.fromJson(Map<String, Object?> json)
       : this(
           name: json['name']! as String,
-          date: json['date']! as Timestamp,
+          date: json['date']! as DateTime,
           hour: json['hour']! as String,
           place: json['place']! as String,
           // participants: json['participants']! as List<UserProf>,

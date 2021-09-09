@@ -1,74 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 
-import 'event.dart';
+class ModelUser {
+  String id;
+   String username;
+   String? email;
+   bool isServiceProvider;
+   bool isSubscribed;
+   List listEvent = [];
 
-class modelUser {
-  final String username;
-  final String email;
-  final bool isServiceProvider;
-  final bool isSubscribed;
-  final Uuid id;
-
-  modelUser({
-    required this.username,
-    required this.email,
-    required this.isServiceProvider,
-    required this.isSubscribed,
-    required this.id,
+  ModelUser({
+     this.id = "",
+     this.username ="",
+     this.email ="",
+     this.isServiceProvider = false,
+     this.isSubscribed = false,
+     this.listEvent = const [],
   });
-  
 
 
 
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-modelUser.fromJson(Map<String, Object?> json)
-      : this(
-          username: json['username']! as String,
-          email: json['email']! as String,          
-          // Evènement auxquels il participe: json['events']! as List<UserProf>,
-          isServiceProvider: json['isServiceProvider']! as bool,
-          isSubscribed: json['isSubscribed']! as bool,
-        //  reference: json['reference']! as Uuid,
-          id: json['id'] as Uuid,
-        );
-
-  Map<String, dynamic> toJson() {
-    return {
-      'username': username,
-      'email': email,
-//      'participants': participants,
-      'isServiceProvider': isServiceProvider,
-      'isSubscribed': isSubscribed,
-       'id': id,
-    };
-  }
-
-final eventsRef =
-    FirebaseFirestore.instance.collection('user').withConverter<modelUser>(
-          fromFirestore: (snapshot, _) => modelUser.fromJson(snapshot.data()!),
-          toFirestore: (user, _) => user.toJson(),
-        );
-
-/*  User.fromJson(json)
-    : this(
-      id: json.id,
-      username: (json.data()['username'] != null
-      ? json.data()['username']
-      : "emptyUsername") as String,
-      email: (json.data()['email'] != null
-      ? json.data()['email']
-      : "emptyEmail") as String,
-      isServiceProvider: (json.data()['isServiceProvider'] != null
-      ? json.data()['isServiceProvider']
-      : "emptyIsServiceProvider") as bool,
-      isSubscribed: (json.data()['isSubscribed'] != null
-      ? json.data()['isSubscribed']
-      : "emptyIsSubscribed") as bool,
-      password: (json.data()['password'] != null
-      ? json.data()['password']
-      : "emptyPassword") as String,);
 
 Map<String, Object?> toJson() {
   return {
@@ -76,20 +27,65 @@ Map<String, Object?> toJson() {
     'email' : email,
     'isServiceProvider' : isServiceProvider,
     'isSubscribed' : isSubscribed,
-    'password' : password 
-  };
+    'listEvent': listEvent,
+      };
+  }
+
+Future<void> populateFirestore() async {
+    DocumentSnapshot<Map<String, dynamic>> snap =
+        await FirebaseFirestore.instance.collection("user").doc(id).get();
+    if (snap.exists) {
+      username = (snap.data()!["username"] != null
+          ? snap.data()!["username"] : "");
+      email = (snap.data()!["email"] != null
+          ? snap.data()!["email"] : "");
+      isServiceProvider = (snap.data()!["isServiceProvider"] != null
+          ? snap.data()!["isServiceProvider"]
+          : false);
+      isSubscribed = (snap.data()!["isSubscribed"] != null
+          ? snap.data()!["isSubscribed"]
+          : false);
+      listEvent = (snap.data()!['listEvent'] != null
+          ? List.from(snap.data()!['listEvent'].toSet())
+          : []);
+    }
+  }
+
+Future<void> save() async {
+    await FirebaseFirestore.instance.collection("user").doc(id).set(toJson());
+  }
+
+  removeEventToUser(String eventId) async {
+    listEvent.remove(eventId);
+    save();
+  }
+
+  addEventToUser(String eventId) async {
+    listEvent.add(eventId);
+    save();
+  }
+
+  void setId(String id) {this.id = id;}
+  void setEmail(String email) { this.email = email; }
 
 
-@override
-String toString() {
-  return 'User{id: $id, email: $email, username: $username, password: $password, isServiceProvider: $isServiceProvider, isSubscribed: $isSubscribed}';
+    ModelUser.fromJson(Map<String, Object?> json)
+        : this(
+      username: json['username']! as String,
+      email: json['email']! as String,
+      listEvent: json['events']! as List<dynamic>,
+      isServiceProvider: json['isServiceProvider']! as bool,
+      isSubscribed: json['isSubscribed']! as bool,
+      //  reference: json['reference']! as Uuid,
+      id: json['id'] as String,
+    );
+
+
+
 }
 
 
-}
 
 
-*/
 
-}
 
