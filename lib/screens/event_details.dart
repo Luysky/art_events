@@ -9,10 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 
-// Before  >> for us in this app
- //Firestore firestore = Firestore();
-// Actual with higher dependencies' version
- FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 final eventsRef = FirebaseFirestore.instance.collection('user')
     .withConverter<ModelUser>(
@@ -52,18 +50,10 @@ class ScreenArguments {
   final String hour;
   final String place;
   final String image;
-
- 
-
   ScreenArguments(this.name, this.date, this.hour, this.place, this.image);
-
-//  final eventsRef = FirebaseFirestore.instance.collection('event');
-//          Event targetEvent = await eventsRef.doc.where; 
 }
 
 
-// A Widget that extracts the necessary arguments from
-// the ModalRoute.
  class ExtractArgumentsScreen extends StatefulWidget {
    // const ExtractArgumentsScreen({Key? key}) : super(key: key);
   static const routeName = '/extractArguments';

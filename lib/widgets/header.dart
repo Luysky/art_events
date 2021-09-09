@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-
+/*
+* Widget de l'app bar / header
+* Définit le design pour toute l'app
+*/
 AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
 
   return AppBar(

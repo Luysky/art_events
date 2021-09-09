@@ -3,11 +3,12 @@ import 'package:art_events/widgets/button_create.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:flutter/material.dart';
 
+/*
+* Classe qui gère le screen du profil + version app
+* Reliée par le bouton info dans la navigation bar
+*/
 class AboutScreen extends StatefulWidget {
   static const routeName = '/about_screen';
-
-
-
 
 
   @override
@@ -28,7 +29,7 @@ class _AboutState extends State<AboutScreen> {
   }
 
   contactHelpCenter(){
-    // ici il faut ecrire la methode qui envoi un email
+    // TODO : ici il faut ecrire la methode qui envoi un email
   }
 
   @override

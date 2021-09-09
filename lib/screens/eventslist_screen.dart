@@ -41,6 +41,9 @@ extension on Query<Event> {
   }
 }
 
+/*
+* Classe pour l'écran de la liste des évenements
+*/
 class EventsListScreen extends StatefulWidget{
 
    static const routeName = '/eventslist_screen';
@@ -97,7 +100,6 @@ class _EventsListState extends State<EventsListScreen> {
               .toList();
     if(valueSort == 'nameAsc')
     {
-  //    eventList.sort((a,b) => a.name.compareTo(b.name));
      eventsList.sort((a,b) => a.name.compareTo(b.name));
     }
 
@@ -105,7 +107,6 @@ class _EventsListState extends State<EventsListScreen> {
     if(valueSort == 'date')
     {
       eventsList.sort((a,b) => a.date.compareTo(b.date));
-      //eventList.sort((a,b) => a.date.compareTo(b.date));
     }
 
           return Container(
