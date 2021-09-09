@@ -16,11 +16,6 @@ final eventsRef = FirebaseFirestore.instance.collection('event')
       toFirestore: (event, _) => event.toJson(),
     );
 
-final attendeesRef = FirebaseFirestore.instance.collection('user')
-      .withConverter<modelUser>(
-      fromFirestore: (snapshots, _) => modelUser.fromJson(snapshots.data()!),
-      toFirestore: (user, _) => user.toJson(),
-    );    
 
 enum EventQuery {
   date,

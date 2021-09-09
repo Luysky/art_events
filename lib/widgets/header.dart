@@ -24,6 +24,10 @@ AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
 
     //Affichage du bouton de tri
     actions: <Widget>[
+      Icon(
+      // Navigator.of(context).pushAndRemoveUntil(newRoute, (route) => false), // TO CORRECT WITH LOGOUT FUNCTION
+          Icons.logout, color: Colors.white, size: 40.0,
+      ),
       //Si on est sur la page actualité
       if (titleText == 'Actualité')
         //On affiche le bouton de tri
@@ -38,6 +42,8 @@ AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
               arguments: value,
             );
           },
+
+
             padding: EdgeInsets.only(right:40.0),
           //Définit l'icon de tri
             icon: Icon(Icons.filter_list, color: Colors.white, size: 40.0,),
@@ -46,8 +52,11 @@ AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
               //2 choix en appuyant sur l'icone de tri
               PopupMenuItem(child: Text('Trier par date'), value: 'date'),
               PopupMenuItem(child: Text('Trier par nom'), value: 'nameAsc'),
+              
             ],
         )
+
+
     ],
   );
 }

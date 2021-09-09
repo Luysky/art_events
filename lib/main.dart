@@ -4,23 +4,9 @@ import 'package:art_events/screens/eventslist_screen.dart';
 import 'package:art_events/screens/home_screen.dart';
 import 'package:art_events/screens/event_details.dart';
 import 'package:art_events/screens/profile.dart';
-import 'package:art_events/service/authentificationService.dart';
-import 'package:art_events/widgets/widget_groundwork.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:art_events/widgets/header.dart';
-import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
-
-
-//   void main() {
-//   runApp(
-    
-//     MyArtEvents(),
-//   );
-// }
 
 
  Future <void> main() async {
@@ -30,16 +16,6 @@ import 'package:uuid/uuid.dart';
     App(),
   );
 }
-
-// void main() {
-//   // Modify from here
-//   runApp(
-//     ChangeNotifierProvider(
-//       create: (context) => ApplicationState(),
-//       builder: (context, _) => App(),
-//     ),
-//   );
-// }
 
 
  class App extends StatefulWidget {

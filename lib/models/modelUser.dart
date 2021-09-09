@@ -3,53 +3,72 @@ import 'package:uuid/uuid.dart';
 
 import 'event.dart';
 
-class modelUser {
-  final String username;
-  final String email;
-  final bool isServiceProvider;
-  final bool isSubscribed;
-  final Uuid id;
+class ModelUser {
+    late final String id;
+   String username;
+   String? email;
+   bool isServiceProvider;
+   bool isSubscribed;
+   List listEvent = [];
 
-  modelUser({
-    required this.username,
-    required this.email,
-    required this.isServiceProvider,
-    required this.isSubscribed,
-    required this.id,
+  ModelUser({
+     this.id ="",
+     this.username ="",
+     this.email ="",
+     this.isServiceProvider = false,
+     this.isSubscribed = false,
   });
   
 
 
 
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-modelUser.fromJson(Map<String, Object?> json)
-      : this(
-          username: json['username']! as String,
-          email: json['email']! as String,          
-          // Evènement auxquels il participe: json['events']! as List<UserProf>,
-          isServiceProvider: json['isServiceProvider']! as bool,
-          isSubscribed: json['isSubscribed']! as bool,
-        //  reference: json['reference']! as Uuid,
-          id: json['id'] as Uuid,
-        );
-
-  Map<String, dynamic> toJson() {
-    return {
-      'username': username,
-      'email': email,
-//      'participants': participants,
-      'isServiceProvider': isServiceProvider,
-      'isSubscribed': isSubscribed,
-       'id': id,
-    };
+Map<String, Object?> toJson() {
+  return {
+    'username' : username,
+    'email' : email,
+    'isServiceProvider' : isServiceProvider,
+    'isSubscribed' : isSubscribed,
+    'listEvent': listEvent,
+      };
   }
 
-final eventsRef =
-    FirebaseFirestore.instance.collection('user').withConverter<modelUser>(
-          fromFirestore: (snapshot, _) => modelUser.fromJson(snapshot.data()!),
-          toFirestore: (user, _) => user.toJson(),
-        );
+Future<void> populateFirestore() async {
+    DocumentSnapshot<Map<String, dynamic>> snap =
+        await FirebaseFirestore.instance.collection("user").doc(id).get();
+    if (snap.exists) {
+      username =
+          (snap.data()!["username"] != null ? snap.data()!["username"] : "");
+      email =
+          (snap.data()!["email"] != null ? snap.data()!["email"] : "");
+      isServiceProvider = (snap.data()!["isServiceProvider"] != null
+          ? snap.data()!["isServiceProvider"]
+          : false);
+      isSubscribed = (snap.data()!["isSubscribed"] != null
+          ? snap.data()!["isSubscribed"]
+          : false);
+      listEvent = (snap.data()!['listEvent'] != null
+          ? List.from(snap.data()!['listEvent'].toSet())
+          : []);
+    }
+  }
+
+Future<void> save() async {
+    await FirebaseFirestore.instance.collection("user").doc(id).set(toJson());
+  }
+
+  removeEvent(String eventId) async {
+    listEvent.remove(eventId);
+    save();
+  }
+
+  addEvent(String eventId) async {
+    listEvent.add(eventId);
+    save();
+  }
+
+  void setId(String id) {this.id = id;}
+  void setEmail(String email) { this.email = email; }
+
 
 /*  User.fromJson(json)
     : this(
