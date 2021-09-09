@@ -51,7 +51,7 @@ AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
         ),
       IconButton(
         onPressed: () => Navigator.pushNamed(context, '/about_screen'),
-        icon: Icon(Icons.info_outline_rounded, color: Colors.white, size: 40.0,),
+        icon: Icon(Icons.info_outline_rounded, color: Colors.white, size: 40.0, ),
       ) ,
     ],
   );
