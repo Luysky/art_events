@@ -1,3 +1,4 @@
+import 'package:art_events/widgets/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Event {
@@ -7,6 +8,7 @@ class Event {
   final String image;
   final String name;
   final String place;
+  final List<UserProf> participants;
   final String responsable;
 
 
@@ -19,6 +21,7 @@ class Event {
     required this.image,
     required this.place,
     required this.name,
+    required this.participants,
     required this.responsable,
 
 
@@ -33,7 +36,7 @@ Event.fromJson(Map<String, Object?> json)
           date: json['date']! as DateTime,
           hour: json['hour']! as String,
           place: json['place']! as String,
-          // participants: json['participants']! as List<UserProf>,
+          participants: json['participants']! as List<UserProf>,
           responsable: json['responsable']! as String,
           image: json['image']! as String,
         //  reference: json['reference']! as Uuid,
@@ -46,7 +49,7 @@ Event.fromJson(Map<String, Object?> json)
       'date': date,
  //     'hour': hour,
       'place': place,
-//      'participants': participants,
+      'participants': participants,
       // 'responsable': responsable,
   //     'image': image,
        'responsable': responsable,

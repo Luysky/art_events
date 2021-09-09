@@ -1,11 +1,15 @@
 
 import 'package:art_events/models/event.dart';
+import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:art_events/dummy_events.dart';
+import 'package:uuid/uuid.dart';
 
+import 'add_event.dart';
 
 final eventsRef = FirebaseFirestore.instance.collection('event')
       .withConverter<Event>(
@@ -13,10 +17,15 @@ final eventsRef = FirebaseFirestore.instance.collection('event')
       toFirestore: (event, _) => event.toJson(),
     );
 
+final attendeesRef = FirebaseFirestore.instance.collection('user')
+      .withConverter<ModelUser>(
+      fromFirestore: (snapshots, _) => ModelUser.fromJson(snapshots.data()!),
+      toFirestore: (user, _) => user.toJson(),
+    );    
 
 enum EventQuery {
   date,
-  // place,
+   place,
   // name,
   nameAsc,
 }
@@ -28,8 +37,8 @@ extension on Query<Event> {
       // case EventQuery.name:
       //   return where('name', arrayContainsAny: [wanted]);
 
-      // case EventQuery.place:
-      //   return where('place', arrayContainsAny: [wanted]).orderBy('place', descending: true);
+       case EventQuery.place:
+         return where(Uuid, isEqualTo: [wanted]);
 
       case EventQuery.date:
         return orderBy('date', descending: true);
@@ -88,24 +97,24 @@ class _EventsListState extends State<EventsListScreen> {
     
           eventsList = snapshot.data!.docs              
               .map((doc) => 
-              Event(
-                date: DateTime.parse(doc['date'].toDate().toString())   ,
-                hour: doc['hour'].toString(),// doc['date'], hour: doc['hour'],
+              Event(date: doc['date'], hour:"ICI sera l'HEURE", 
                     image:  doc['image'],  name: doc['name'], 
-                    place: doc['place'], responsable: doc['responsable'],
+                    place: doc['place'], participants: doc['participants'], 
+                    responsable: doc['responsable'],
                     /* id: doc['Uuid']*/))
               .toList();
     if(valueSort == 'nameAsc')
     {
   //    eventList.sort((a,b) => a.name.compareTo(b.name));
-     eventsList.sort((a,b) => a.name.compareTo(b.name));
+     eventsRef.queryBy(EventQuery.nameAsc, "");
     }
 
     //On trie par date
     if(valueSort == 'date')
     {
-      eventsList.sort((a,b) => a.date.compareTo(b.date));
+     // eventsList.sort((a,b) => a.date.compareTo(b.date));
       //eventList.sort((a,b) => a.date.compareTo(b.date));
+      eventsRef.queryBy(EventQuery.date, "");
     }
 
           return Container(
@@ -114,11 +123,11 @@ class _EventsListState extends State<EventsListScreen> {
               return EventItem(
                 name: eventsList[index].name,
                 image: eventsList[index].image,
-                date: eventsList[index].date,
+                date: eventsList[index].date.toString(),
                 hour: eventsList[index].hour,
                 place: eventsList[index].place,
+                participants: eventsList[index].participants,                
                 responsable: eventsList[index].responsable,
-                //id: eventsList[index].id,
               );
             }, itemCount: eventsList.length,),
           );

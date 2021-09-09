@@ -14,7 +14,7 @@ import 'package:uuid/uuid.dart';
 // Actual with higher dependencies' version
  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-final eventsRef = FirebaseFirestore.instance.collection('user')
+final usersRef = FirebaseFirestore.instance.collection('user')
     .withConverter<ModelUser>(
   fromFirestore: (snapshots, _) => ModelUser.fromJson(snapshots.data()!),
   toFirestore: (event, _) => event.toJson(),
@@ -42,9 +42,8 @@ extension on Query<ModelUser> {
   }
 }
 
-
-final usersRef = firestore.collection('user');
-
+List<ModelUser> attendees = [];
+List<UserProf> participants = [];
 
 class ScreenArguments {
   final String name;
@@ -52,10 +51,10 @@ class ScreenArguments {
   final String hour;
   final String place;
   final String image;
-
+  final List<UserProf> participants;
  
 
-  ScreenArguments(this.name, this.date, this.hour, this.place, this.image);
+  ScreenArguments(this.name, this.date, this.hour, this.place, this.image, this.participants);
 
 //  final eventsRef = FirebaseFirestore.instance.collection('event');
 //          Event targetEvent = await eventsRef.doc.where; 
@@ -232,7 +231,31 @@ class ScreenArguments {
                       return circularProgress();
                       // return Text("no DATA here !!!");
                     }
+                    
+                    attendees;
 
+                    args.participants.forEach((uuid) { usersRef.queryBy(UserQuery.uid, uuid.toString());
+
+                      attendees =  snapshot.data!.docs              
+              .map((doc) => 
+              ModelUser.fromJson(doc.get(uuid).data()) ).toList();
+
+              participants =  snapshot.data!.docs              
+              .map((doc) => 
+              UserProf(doc['username']) ).toList();
+              
+              // (date: doc['date'], hour:"ICI sera l'HEURE", 
+              //       image:  doc['image'],  name: doc['name'], 
+              //       place: doc['place'], participants: doc['participants'], 
+              //       responsable: doc['responsable'],
+              //       /* id: doc['Uuid']*/))
+              // .toList();
+
+                    });
+                    
+                     //args.participants.map( (uuid) => usersRef.queryBy(UserQuery.uid, uuid.toString()).snapshots() ).toList();
+                    
+                    
                     final List<UserProf> children = snapshot.data!.docs
                         .map((doc) => UserProf(doc['username']))
                         .toList();
