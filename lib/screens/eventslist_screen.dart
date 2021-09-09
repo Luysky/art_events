@@ -1,6 +1,7 @@
 
 import 'package:art_events/models/EventFirBz.dart';
 import 'package:art_events/models/event.dart';
+import 'package:art_events/models/user.dart';
 import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
@@ -10,7 +11,44 @@ import 'package:art_events/dummy_events.dart';
 
 import 'add_event.dart';
 
-final eventsRef = FirebaseFirestore.instance.collection('event');
+final eventsRef = FirebaseFirestore.instance.collection('event')
+      .withConverter<Event>(
+      fromFirestore: (snapshots, _) => Event.fromJson(snapshots.data()!),
+      toFirestore: (event, _) => event.toJson(),
+    );
+
+final attendeesRef = FirebaseFirestore.instance.collection('user')
+      .withConverter<User>(
+      fromFirestore: (snapshots, _) => User.fromJson(snapshots.data()!),
+      toFirestore: (user, _) => user.toJson(),
+    );    
+
+enum EventQuery {
+  date,
+  // place,
+  // name,
+  nameAsc,
+}
+
+extension on Query<Event> {
+  /// Create a firebase query from a [MovieQuery]
+   Query<Event> queryBy(EventQuery eventquery, String wanted) {
+    switch (eventquery) {
+      // case EventQuery.name:
+      //   return where('name', arrayContainsAny: [wanted]);
+
+      // case EventQuery.place:
+      //   return where('place', arrayContainsAny: [wanted]).orderBy('place', descending: true);
+
+      case EventQuery.date:
+        return orderBy('date', descending: true);
+
+      case EventQuery.nameAsc:
+        return orderBy('name');
+
+    }
+  }
+}
 
 class EventsListScreen extends StatefulWidget{
 
@@ -34,7 +72,7 @@ class _EventsListState extends State<EventsListScreen> {
      List<Event> eventsList;
 
     //Crée la liste d'event avec DummyEvent
-    List<EventItem> eventList = DUMMY_EVENTS.toList();
+    // List<EventItem> eventList = DUMMY_EVENTS.toList();
 
     //Récupère la donnée valueSort définit dans la page "header"
     final valueSort = ModalRoute.of(context)?.settings.arguments;
@@ -60,7 +98,10 @@ class _EventsListState extends State<EventsListScreen> {
     
           eventsList = snapshot.data!.docs              
               .map((doc) => 
-              Event(date: doc['date'], hour:"ICI sera l'HEURE", image:  doc['image'],  name: doc['name'], place: doc['place'], responsable: doc['responsable']))
+              Event(date: doc['date'], hour:"ICI sera l'HEURE", 
+                    image:  doc['image'],  name: doc['name'], 
+                    place: doc['place'], responsable: doc['responsable'],
+                    id: doc['Uuid']))
               .toList();
     if(valueSort == 'nameAsc')
     {
@@ -82,11 +123,12 @@ class _EventsListState extends State<EventsListScreen> {
                 name: eventsList[index].name,
                 image: eventsList[index].image,
                 date: eventsList[index].date,
-                hour: eventList[index].hour,
+                hour: eventsList[index].hour,
                 place: eventsList[index].place,
                 responsable: eventsList[index].responsable,
+                id: eventsList[index].id,
               );
-            }, itemCount: eventList.length,),
+            }, itemCount: eventsList.length,),
           );
         },
       ),

@@ -11,7 +11,7 @@ import 'add_event.dart';
 final eventsRef = FirebaseFirestore.instance.collection('event')
       .withConverter<Event>(
       fromFirestore: (snapshots, _) => Event.fromJson(snapshots.data()!),
-      toFirestore: (movie, _) => movie.toJson(),
+      toFirestore: (event, _) => event.toJson(),
     );
 
 enum EventQuery {
@@ -128,7 +128,10 @@ class _EventsListState extends State<EventslistFireBz> {
     }
           eventsList = snapshot.data!.docs              
               .map((doc) => 
-              Event(date: doc['date'], hour:"ICI sera l'HEURE", image:  doc['image'], name: doc['name'], place: doc['place'], responsable: doc['responsable']))
+              Event(date: doc['date'], hour:"ICI sera l'HEURE", 
+                    image:  doc['image'], name: doc['name'], 
+                    place: doc['place'], responsable: doc['responsable'],
+                    id: doc['Uuid']))
               .toList();
 
     if(valueSort == 'nameAsc')
@@ -157,8 +160,9 @@ class _EventsListState extends State<EventslistFireBz> {
                 hour: eventsList[index].hour,
                 place: eventsList[index].place,
                 responsable: eventsList[index].responsable,
+                id: eventsList[index].id,
               );
-            }, itemCount: eventList.length,),
+            }, itemCount: eventsList.length,),
           );
         },
       ),

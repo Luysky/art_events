@@ -120,7 +120,7 @@ Widget build(BuildContext context) {
             Text('Est-ce bien ici que ça se passe ?'),
             Padding(
               ////////// Button LOGOUT    ////////////////
-              padding: const EdgeInsets.only(left: 200, bottom: 200),
+              padding: const EdgeInsets.only(left: 100, bottom: 100),
               child: OutlinedButton(
         style: OutlinedButton.styleFrom(
             side: const BorderSide(color: Colors.deepPurple)),

@@ -23,6 +23,7 @@ class Event extends StatelessWidget{
   // final List<UserProf> participants;
   // final UserProf responsable;
     final String responsable;
+    final Uuid id;
 
   //final Uuid reference;
 
@@ -39,6 +40,7 @@ class Event extends StatelessWidget{
     required this.name,
     required this.responsable,
   //  required this.reference,
+  required this.id,
 
   });
 
@@ -55,6 +57,7 @@ Event.fromJson(Map<String, Object?> json)
           responsable: json['responsable']! as String,
           image: json['image']! as String,
         //  reference: json['reference']! as Uuid,
+          id: json['id'] as Uuid,
         );
 
   Map<String, dynamic> toJson() {
@@ -67,6 +70,7 @@ Event.fromJson(Map<String, Object?> json)
       // 'responsable': responsable,
   //     'image': image,
        'responsable': responsable,
+    //   'id': id,
     };
   }
 

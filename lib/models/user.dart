@@ -1,22 +1,56 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
+
 import 'event.dart';
 
 class User {
-  final String id;
   final String username;
   final String email;
   final bool isServiceProvider;
   final bool isSubscribed;
-  final String password;
+  final Uuid id;
 
-  const User({
-    required this.id,
+  User({
     required this.username,
     required this.email,
     required this.isServiceProvider,
     required this.isSubscribed,
-    required this.password,
+    required this.id,
   });
   
+
+
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+User.fromJson(Map<String, Object?> json)
+      : this(
+          username: json['username']! as String,
+          email: json['email']! as String,          
+          // Evènement auxquels il participe: json['events']! as List<UserProf>,
+          isServiceProvider: json['isServiceProvider']! as bool,
+          isSubscribed: json['isSubscribed']! as bool,
+        //  reference: json['reference']! as Uuid,
+          id: json['id'] as Uuid,
+        );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'username': username,
+      'email': email,
+//      'participants': participants,
+      'isServiceProvider': isServiceProvider,
+      'isSubscribed': isSubscribed,
+       'id': id,
+    };
+  }
+
+final eventsRef =
+    FirebaseFirestore.instance.collection('user').withConverter<User>(
+          fromFirestore: (snapshot, _) => User.fromJson(snapshot.data()!),
+          toFirestore: (user, _) => user.toJson(),
+        );
+
 /*  User.fromJson(json)
     : this(
       id: json.id,
