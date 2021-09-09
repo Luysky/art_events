@@ -92,7 +92,7 @@ class _EventsListState extends State<EventsListScreen> {
                 date: DateTime.parse(doc['date'].toDate().toString())   ,
                 hour: doc['hour'].toString(),// doc['date'], hour: doc['hour'],
                     image:  doc['image'],  name: doc['name'], 
-                    place: doc['place'], responsable: doc['responsable'],
+                    place: doc['place'], responsable: doc['responsable'], participants: [],
                     /* id: doc['Uuid']*/))
               .toList();
     if(valueSort == 'nameAsc')
@@ -118,6 +118,7 @@ class _EventsListState extends State<EventsListScreen> {
                 hour: eventsList[index].hour,
                 place: eventsList[index].place,
                 responsable: eventsList[index].responsable,
+                // participants // faut récuperer 
                 //id: eventsList[index].id,
               );
             }, itemCount: eventsList.length,),

@@ -76,11 +76,8 @@ EventItem.fromJson(Map<String, Object?> json)
     // heightFav = mediaQuery.size.height;
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          ExtractArgumentsScreen.routeName,
-          arguments: ScreenArguments(name, date.toString().substring(0, 10), hour, place, image),
-        );
+       
+         Navigator.of(context).pushNamed(ExtractArgumentsScreen.routeName);
       },
       child: Card(
         shape: RoundedRectangleBorder(

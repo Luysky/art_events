@@ -53,12 +53,12 @@ Future<void> save() async {
     await FirebaseFirestore.instance.collection("user").doc(id).set(toJson());
   }
 
-  removeEventToUser(String eventId) async {
+  removeEvent(String eventId) async {
     listEvent.remove(eventId);
     save();
   }
 
-  addEventToUser(String eventId) async {
+  addEvent(String eventId) async {
     listEvent.add(eventId);
     save();
   }
@@ -66,46 +66,6 @@ Future<void> save() async {
   void setId(String id) {this.id = id;}
   void setEmail(String email) { this.email = email; }
 
-
-/*  User.fromJson(json)
-    : this(
-      id: json.id,
-      username: (json.data()['username'] != null
-      ? json.data()['username']
-      : "emptyUsername") as String,
-      email: (json.data()['email'] != null
-      ? json.data()['email']
-      : "emptyEmail") as String,
-      isServiceProvider: (json.data()['isServiceProvider'] != null
-      ? json.data()['isServiceProvider']
-      : "emptyIsServiceProvider") as bool,
-      isSubscribed: (json.data()['isSubscribed'] != null
-      ? json.data()['isSubscribed']
-      : "emptyIsSubscribed") as bool,
-      password: (json.data()['password'] != null
-      ? json.data()['password']
-      : "emptyPassword") as String,);
-
-Map<String, Object?> toJson() {
-  return {
-    'username' : username,
-    'email' : email,
-    'isServiceProvider' : isServiceProvider,
-    'isSubscribed' : isSubscribed,
-    'password' : password 
-  };
-
-
-@override
-String toString() {
-  return 'User{id: $id, email: $email, username: $username, password: $password, isServiceProvider: $isServiceProvider, isSubscribed: $isSubscribed}';
-}
-
-
-}
-
-
-*/
 
 }
 
