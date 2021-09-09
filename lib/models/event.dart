@@ -15,7 +15,7 @@ import 'modelUser.dart';
 
 class Event {
   // final String id;
-  final Timestamp date;
+  final DateTime date;
   final String hour;
   final String image;
   final String name;
@@ -47,7 +47,7 @@ class Event {
 Event.fromJson(Map<String, Object?> json)
       : this(
           name: json['name']! as String,
-          date: json['date']! as Timestamp,
+          date: json['date']! as DateTime,
           hour: json['hour']! as String,
           place: json['place']! as String,
           // participants: json['participants']! as List<UserProf>,

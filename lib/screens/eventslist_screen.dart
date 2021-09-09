@@ -91,7 +91,9 @@ class _EventsListState extends State<EventsListScreen> {
     
           eventsList = snapshot.data!.docs              
               .map((doc) => 
-              Event(date: doc['date'], hour:"ICI sera l'HEURE", 
+              Event(
+                date: DateTime.parse(doc['date'].toDate().toString())   ,
+                hour: doc['hour'].toString(),// doc['date'], hour: doc['hour'],
                     image:  doc['image'],  name: doc['name'], 
                     place: doc['place'], responsable: doc['responsable'],
                     /* id: doc['Uuid']*/))

@@ -68,6 +68,23 @@ class _AppState extends State<App> {
 
 class MyArtEvents extends StatelessWidget {
 
+  static const MaterialColor primaryRed = MaterialColor(
+    _redPrimaryValue,
+    <int, Color>{
+      50: Color(0xFFCC0022),
+      100: Color(0xFFCC0022),
+      200: Color(0xFFCC0022),
+      300: Color(0xFFCC0022),
+      400: Color(0xFFCC0022),
+      500: Color(0xFFCC0022),
+      600: Color(0xFFCC0022),
+      700: Color(0xFFCC0022),
+      800: Color(0xFFCC0022),
+      900: Color(0xFFCC0022),
+    },
+  );
+  static const int _redPrimaryValue = 0xFFCC0022;
+
   @override
   Widget build(BuildContext context){
     return MaterialApp(
@@ -77,6 +94,10 @@ class MyArtEvents extends StatelessWidget {
         primaryColor: Color(0xffFFF1F1),
         backgroundColor: Color(0xFFCC0022),
         scaffoldBackgroundColor: Color(0xffFFF1F1),
+        primarySwatch: primaryRed,
+        timePickerTheme: TimePickerThemeData(
+          backgroundColor: Color(0xffFFF1F1),
+        )
       ),
       initialRoute: '/',
       routes: {
