@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
@@ -115,7 +113,7 @@ class _AddEventState extends State<AddEventScreen> {
 
   handleChooseFromGallery() async {
     Navigator.pop(context);
-    File file = File(await ImagePicker().getImage(source: ImageSource.gallery).then((pickedFile) => pickedFile!.path));
+    File file = File(await ImagePicker().pickImage(source: ImageSource.gallery).then((pickedFile) => pickedFile!.path));
   //  File file = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       this.file = file;
@@ -143,12 +141,12 @@ class _AddEventState extends State<AddEventScreen> {
         context: parentContext,
         builder: (context) {
           return SimpleDialog(
-            title: Text("Choisissez l'image de votre evenement"),
+            title: Text("Choisissez l'image de votre événement"),
             children: <Widget>[
              /* SimpleDialogOption(
                   child: Text("Photo with Camera"), onPressed: handleTakePhoto),*/
               SimpleDialogOption(
-                  child: Text("Image de la Gallery"),
+                  child: Text("Image de votre galerie"),
                   onPressed: handleChooseFromGallery),
               SimpleDialogOption(
                 child: Text("Annuler"),
@@ -164,13 +162,13 @@ class _AddEventState extends State<AddEventScreen> {
     return Container(
       color: Theme.of(context).primaryColor,
       child: Scaffold(
-        appBar:  header(context, titleText: "Ajout") ,
+        appBar:  header(context, titleText: "Ajout - Évènement") ,
         body: ListView(
           padding: EdgeInsets.all(30),
           children: <Widget>[
             isUploading ? linearProgress() : Text(""),
             Text(
-              "Entrez les information pour votre art event",
+              "Entrez les informations pour votre évènement d'art",
               style: TextStyle(
                 fontFamily: "Raleway-Regular",
                 fontSize: 30.0,
@@ -180,7 +178,7 @@ class _AddEventState extends State<AddEventScreen> {
             TextFormField(
               controller: eventNameController,
               decoration: InputDecoration(
-                labelText: 'Nom de l''exposition',
+                labelText: "Nom de l'exposition",
                 labelStyle: TextStyle(
                   fontFamily: "Raleway-Regular",
                   fontSize: 14.0,
@@ -206,7 +204,7 @@ class _AddEventState extends State<AddEventScreen> {
             TextFormField(
               controller: eventLocationController,
               decoration: InputDecoration(
-                labelText: 'Lieu',
+                labelText: "Lieu de l'évènement",
                 labelStyle: TextStyle(
                   fontFamily: "Raleway-Regular",
                   fontSize: 14.0,
@@ -239,7 +237,7 @@ class _AddEventState extends State<AddEventScreen> {
             SizedBox(height: 20.0,),
             CustomButton(
                () => _selectDate(context),
-              'Select date'),
+              'Sélectionner la date'),
             /*TextFormField(
               controller: eventDateController,
               decoration: InputDecoration(
@@ -266,7 +264,7 @@ class _AddEventState extends State<AddEventScreen> {
             SizedBox(
               height: 20,
             ),
-           CustomButton(() => isUploading ? null : selectImage(context), 'AJOUTER UNE IMAGE'),
+           CustomButton(() => isUploading ? null : selectImage(context), 'Ajouter une image'),
           ],
         ),
       ),

@@ -1,18 +1,13 @@
-import 'dart:io';
+import 'package:art_events/service/AuthentificationService.dart';
 import 'package:art_events/widgets/progress.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:art_events/models/modelUser.dart';
-import 'package:art_events/widgets/button_create.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:art_events/screens/home_screen.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   static const routeName = '/create_account';
-//  final User currentUser;
-//  User testUser = const User(id: "01", username: "testUser", email: "email", password: "123", isSubscribed: false, isServiceProvider: false);
 
-//  CreateAccountScreen({this.currentUser = const testUser});
 
   @override
   _CreateAccountState createState() => _CreateAccountState();
@@ -21,7 +16,7 @@ class CreateAccountScreen extends StatefulWidget {
 class _CreateAccountState extends State<CreateAccountScreen> {
   bool isServiceProvider = false;
   final _key = GlobalKey<FormState>();
-  //final AuthenticationService _auth = AuthenticationService();
+  final AuthentificationService _auth = AuthentificationService();
   
   bool isChecked = false;
   bool isUploading = false;
@@ -77,6 +72,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Form(
+        key: _key,
         child: ListView(
           padding: EdgeInsets.all(50),
           children: <Widget>[
@@ -208,7 +204,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                   onChanged: (bool ?value) {
                     setState(() {
                       isChecked == value;
-
+                      buildServiceProvider();
                     });
                   },
                 ),
@@ -217,19 +213,14 @@ class _CreateAccountState extends State<CreateAccountScreen> {
             SizedBox(
               height: 20,
             ),
-            /*MaterialButton(
-                minWidth: 300.0,
-                height: 40.0,
-                color: Theme.of(context).primaryColor,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Theme.of(context).backgroundColor, width: 1),
-                ),
-                child: Text("S'inscrire",
-                    style: TextStyle(
-                      fontFamily: "Raleway-Bold",
-                      fontSize: 13.0,
-                      color: Theme.of(context).backgroundColor,
-                    )),
+            ElevatedButton(
+            
+
+              style: ElevatedButton.styleFrom(
+                primary: Theme.of(context).backgroundColor,
+                textStyle: TextStyle(fontFamily: "Raleway-Regular",
+                  fontSize: 14.0)
+              ),
                  onPressed: () async {
                               if (_key.currentState!.validate()) {
                                 ModelUser modelUser = ModelUser(
@@ -241,13 +232,14 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                                     password: passwordController.text,
                                     modelUser: modelUser);
                                 if (result is ModelUser) {
-                                  print("User " + result.toString());
+                                  print("User CREATE" + result.toString());
                                   Navigator.of(context).pushNamed('/eventslist_screen');;
                                 } else {
                                     // gérer l'erreur
                                 }
                               }
-                            },   ),*/
+                            },            
+                            child: Text('Register')),   
             /*CustomButton(
               
               () => createProfile(context),
@@ -266,4 +258,13 @@ class _CreateAccountState extends State<CreateAccountScreen> {
       ),
     );
   }
+
+
+    Widget buildServiceProvider() => Transform.scale(
+        scale: 1,
+        child: Switch(
+          value: isServiceProvider,
+          onChanged: (value) => setState(() => this.isServiceProvider = value),
+        ),
+      );
 }

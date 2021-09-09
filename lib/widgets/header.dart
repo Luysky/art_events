@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:art_events/models/event.dart';
-import 'package:art_events/dummy_events.dart';
-
 
 
 AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {

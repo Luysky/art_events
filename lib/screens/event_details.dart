@@ -1,12 +1,10 @@
 
-import 'package:art_events/models/event.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:art_events/widgets/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../dummy_users.dart';
 
 // Before  >> for us in this app
  //Firestore firestore = Firestore();

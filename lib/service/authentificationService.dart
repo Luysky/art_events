@@ -7,7 +7,6 @@ class AuthentificationService {
   AuthentificationService();
 
   ModelUser? _userFromFirebaseUser(User user) {
-    if(user == null) return null;
     ModelUser modelUser = ModelUser();
     modelUser.setEmail(_auth.currentUser!.email.toString());
     modelUser.setId(user.uid);
@@ -15,6 +14,7 @@ class AuthentificationService {
     return modelUser;
   }
 
+  // ignore: unused_element
   Future _populateUserInfoFromCollection(User user) async {
     return null;
   }
@@ -25,6 +25,7 @@ class AuthentificationService {
     });
   }
 
+  // Methode de connexion a l'app
   Future signIn({required String email, required String password}) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
@@ -35,11 +36,12 @@ class AuthentificationService {
       //tmp!.setEmail(email);
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (e) {
-      print("FireBaseAuthException message = " +e.message.toString());
+      print("FireBaseAuthException Message derreur = " +e.message.toString());
       return e.message;
     }
   }
 
+  // Methode pour quitter a l'app
   Future signOut() async {
     try {
       return await _auth.signOut();
@@ -48,6 +50,7 @@ class AuthentificationService {
     }
   }
 
+// Methode pour s'inscire sur l'app => créer un ModelUser avec le Uid d'authentification
 Future signUp({required String email, required String password, required ModelUser modelUser}) async{
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
