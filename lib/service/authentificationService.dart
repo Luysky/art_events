@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/modelUser.dart';
 
-class AuthenticationService {
+class AuthentificationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  AuthenticationService();
+  AuthentificationService();
 
   ModelUser? _userFromFirebaseUser(User user) {
     if(user == null) return null;
@@ -30,12 +30,12 @@ class AuthenticationService {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
-      print("AuthenticationService - signIn - returned user uid = " + user!.uid);
+      print("User uid = " + user!.uid);
       //MyUser? tmp = ;
       //tmp!.setEmail(email);
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (e) {
-      print("AuthenticationService - signIn - FireBaseAuthException message = " +e.message.toString());
+      print("FireBaseAuthException message = " +e.message.toString());
       return e.message;
     }
   }

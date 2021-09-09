@@ -1,3 +1,4 @@
+import 'package:art_events/service/authentificationService.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +21,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool isAuth = false;
-
+  final _formKey = GlobalKey<FormState>();
+  final AuthentificationService _auth = AuthentificationService();
+  TextEditingController emailController = new TextEditingController(text: "bretzlouise@gmail.com");
+  TextEditingController passwordController = new TextEditingController(text: "1234");
   @override
   void initState() {
     super.initState();
@@ -86,6 +90,7 @@ class _HomeState extends State<Home> {
             ),
 
             TextFormField(
+              controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Adresse mail',
                 labelStyle: TextStyle(
@@ -106,11 +111,17 @@ class _HomeState extends State<Home> {
               ),
               textInputAction: TextInputAction.next,
               cursorColor: Theme.of(context).backgroundColor,
-            ),
+              validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Entrez votre adresse mail correct';
+                              }
+                              return null;
+                            }),
             SizedBox(
               height: 20,
             ),
             TextFormField(
+              controller: passwordController,
               decoration: InputDecoration(
                 labelText: 'Mot de passe',
                 labelStyle: TextStyle(
@@ -131,7 +142,12 @@ class _HomeState extends State<Home> {
               ),
               textInputAction: TextInputAction.next,
               cursorColor: Theme.of(context).backgroundColor,
-            ),
+              validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Entrez votre mot de passe correct';
+                              }
+                              return null;
+                            }),
             SizedBox(
               height: 20,
             ),

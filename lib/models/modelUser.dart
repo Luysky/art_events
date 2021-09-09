@@ -36,10 +36,10 @@ Future<void> populateFirestore() async {
     DocumentSnapshot<Map<String, dynamic>> snap =
         await FirebaseFirestore.instance.collection("user").doc(id).get();
     if (snap.exists) {
-      username =
-          (snap.data()!["username"] != null ? snap.data()!["username"] : "");
-      email =
-          (snap.data()!["email"] != null ? snap.data()!["email"] : "");
+      username = (snap.data()!["username"] != null 
+          ? snap.data()!["username"] : "");
+      email = (snap.data()!["email"] != null 
+          ? snap.data()!["email"] : "");
       isServiceProvider = (snap.data()!["isServiceProvider"] != null
           ? snap.data()!["isServiceProvider"]
           : false);
@@ -56,12 +56,12 @@ Future<void> save() async {
     await FirebaseFirestore.instance.collection("user").doc(id).set(toJson());
   }
 
-  removeEvent(String eventId) async {
+  removeEventToUser(String eventId) async {
     listEvent.remove(eventId);
     save();
   }
 
-  addEvent(String eventId) async {
+  addEventToUser(String eventId) async {
     listEvent.add(eventId);
     save();
   }
