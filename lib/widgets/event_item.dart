@@ -8,7 +8,7 @@ import 'package:flutter/widgets.dart';
 
 class EventItem extends StatelessWidget{
   // final String id;
-  final Timestamp date;
+  final DateTime date;
   final String hour;
   final String image;
   final String name;
@@ -43,7 +43,7 @@ class EventItem extends StatelessWidget{
 EventItem.fromJson(Map<String, Object?> json)
       : this(
           name: json['name']! as String,
-          date: json['date']! as Timestamp,
+          date: json['date']! as DateTime,
           hour: json['hour']! as String,
           place: json['place']! as String,
           // participants: json['participants']! as List<UserProf>,
@@ -79,7 +79,7 @@ EventItem.fromJson(Map<String, Object?> json)
         Navigator.pushNamed(
           context,
           ExtractArgumentsScreen.routeName,
-          arguments: ScreenArguments(name, date.toString(), /* hour, */ place, image),
+          arguments: ScreenArguments(name, date.toString().substring(0, 10), hour, place, image),
         );
       },
       child: Card(
@@ -155,7 +155,7 @@ EventItem.fromJson(Map<String, Object?> json)
                         width: 6,
                       ),
                       Text(
-                        '$date',
+                        '$date'.substring(0,10),
                         style: TextStyle(
                           color: Theme.of(context).backgroundColor,
                         ),

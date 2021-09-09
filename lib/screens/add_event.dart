@@ -30,6 +30,7 @@ class _AddEventState extends State<AddEventScreen> {
   TextEditingController eventDateController = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
+  String selectedTime = "10:00";
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -37,9 +38,21 @@ class _AddEventState extends State<AddEventScreen> {
         initialDate: selectedDate,
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
+
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
+      });
+  }
+
+  Future<void>_selectTime(BuildContext context) async {
+    final TimeOfDay ? time = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if(time != null && time != selectedTime)
+      setState((){
+        selectedTime = time.format(context);
       });
   }
 
@@ -69,10 +82,12 @@ class _AddEventState extends State<AddEventScreen> {
   }
 
   createPostInFirestore(
-      {required String mediaUrl, required String eventName, required String location, required DateTime dateTime}) {
+      {required String mediaUrl, required String eventName, required String location,
+  required DateTime dateTime, required String hour}) {
     eventsRef
        .add({
       "date" : dateTime,
+      "hour" : hour,
       "image" : mediaUrl,
       "name" : eventName,
       "place" : location,
@@ -96,14 +111,20 @@ class _AddEventState extends State<AddEventScreen> {
 
     await compressImage();
 
+    print(selectedTime);
+
     String mediaUrl = await uploadImage(file);
     createPostInFirestore(
       mediaUrl: mediaUrl,
       eventName: eventNameController.text,
       location: eventLocationController.text,
       dateTime: selectedDate,
+      hour: selectedTime,
     );
     eventNameController.clear();
+    eventLocationController.clear();
+    selectedDate = DateTime.now();
+    selectedTime = "10:00";
     setState(() {
       file = null;
       isUploading = false;
@@ -237,6 +258,7 @@ class _AddEventState extends State<AddEventScreen> {
             SizedBox(height: 20.0,),
             CustomButton(
                () => _selectDate(context),
+<<<<<<< HEAD
               'Sélectionner la date'),
             /*TextFormField(
               controller: eventDateController,
@@ -261,6 +283,12 @@ class _AddEventState extends State<AddEventScreen> {
               textInputAction: TextInputAction.next,
               cursorColor: Theme.of(context).backgroundColor,
             ), */
+=======
+              'Choisissez la date date'),
+            CustomButton(
+                () => _selectTime(context), "Choisissez l'heur",
+            ),
+>>>>>>> 6940b371988bcfa80cad84b84788e95b0a8745b5
             SizedBox(
               height: 20,
             ),
