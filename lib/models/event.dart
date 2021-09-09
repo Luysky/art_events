@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import 'package:art_events/models/modelUser.dart';
-import 'modelUser.dart';
-
-class Event {
-  final String idEvent;
-  final String name;
-  final String place;
-  final String date;
-  final String hour;
-  //final List<modelUser> participants;
-  //final modelUser responsable;
-=======
 import 'dart:io';
 import 'package:art_events/screens/event_details.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -30,7 +17,6 @@ class Event {
   // final String id;
   final Timestamp date;
   final String hour;
->>>>>>> develop
   final String image;
   final String name;
   final String place;
@@ -39,21 +25,11 @@ class Event {
    // final Uuid id;
 
 
-<<<<<<< HEAD
-    required this.idEvent,
-    required this.name,
-    required this.place,
-    required this.date,
-    required this.hour,
-   // required this.participants,
-    //required this.responsable,
-=======
 
    /* const */ Event({
    // required this.id,
     required this.date,
     required this.hour,
->>>>>>> develop
     required this.image,
   required this.place,
     // required this.participants,

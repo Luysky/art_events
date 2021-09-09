@@ -65,12 +65,7 @@ class _EventsListState extends State<EventsListScreen> {
      List<Event> eventsList;
 
     //Crée la liste d'event avec DummyEvent
-<<<<<<< HEAD
-    var DUMMY_EVENTS;
-    List<Event> eventList = DUMMY_EVENTS.toList();
-=======
     // List<EventItem> eventList = DUMMY_EVENTS.toList();
->>>>>>> develop
 
     //Récupère la donnée valueSort définit dans la page "header"
     final valueSort = ModalRoute.of(context)?.settings.arguments;
