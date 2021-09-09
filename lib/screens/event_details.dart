@@ -1,50 +1,20 @@
 
-import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:art_events/widgets/user_profile.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
+import '../dummy_users.dart';
 
 // Before  >> for us in this app
  //Firestore firestore = Firestore();
 // Actual with higher dependencies' version
  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-final eventsRef = FirebaseFirestore.instance.collection('user')
-    .withConverter<ModelUser>(
-  fromFirestore: (snapshots, _) => ModelUser.fromJson(snapshots.data()!),
-  toFirestore: (event, _) => event.toJson(),
-);
-
-
-enum UserQuery {
-  uid,
-  username,
-
-}
-
-extension on Query<ModelUser> {
-  /// Create a firebase query from a [MovieQuery]
-  Query<ModelUser> queryBy(UserQuery userquery, String wanted) {
-    switch (userquery) {
-
-      case UserQuery.uid:
-        return where(Uuid, isEqualTo: [wanted]);
-
-      case UserQuery.username:
-        return orderBy('username');
-
-    }
-  }
-}
 
 
 final usersRef = firestore.collection('user');
-
 
 class ScreenArguments {
   final String name;
@@ -53,20 +23,16 @@ class ScreenArguments {
   final String place;
   final String image;
 
- 
-
   ScreenArguments(this.name, this.date, this.hour, this.place, this.image);
 
-//  final eventsRef = FirebaseFirestore.instance.collection('event');
-//          Event targetEvent = await eventsRef.doc.where; 
+  
 }
-
 
 // A Widget that extracts the necessary arguments from
 // the ModalRoute.
  class ExtractArgumentsScreen extends StatefulWidget {
    // const ExtractArgumentsScreen({Key? key}) : super(key: key);
-  static const routeName = '/extractArguments';
+   static const routeName = '/extractArguments';
 
    @override
    _ExtractArgumentsState createState() => _ExtractArgumentsState();
@@ -75,14 +41,28 @@ class ScreenArguments {
 
  class _ExtractArgumentsState extends State<ExtractArgumentsScreen> {
 
+   @override
+   void initState() {
+     getUserById();
+     super.initState();
+   }
+
+   getUserById() async {
+     final String id = "tn5JSYircKOqEQldIr1A";
+     final DocumentSnapshot doc = await usersRef.doc(id).get();
+     print(doc.data);
+     print(doc.id);
+     print(doc.exists);
+   }
+
+
+
   @override
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     
-//Event targetEvent = eventsRef.doc.where; 
-
     return Scaffold(
       appBar: header(context, titleText: "Détails"),
       body: Center(
@@ -91,12 +71,13 @@ class ScreenArguments {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CachedNetworkImage(
-              imageUrl: args.image,
-              fit: BoxFit.fill,
-              placeholder: (context, url) => Padding(
-                child: CircularProgressIndicator(),
-                padding: EdgeInsets.all(20.0),
+            Container(
+              height: 300,
+              child: Image.asset(
+                args.image,
+                height: 250,
+                width: double.infinity,
+                fit: BoxFit.none,
               ),
             ),
             Container(
@@ -155,8 +136,7 @@ class ScreenArguments {
                           width: 5,
                         ),
                         Text(
-                          //args.date,
-                          "${args.date}",
+                          args.date,
                           style: TextStyle(
                             //fontSize: 20,
                             color: Theme.of(context).backgroundColor,
@@ -181,7 +161,7 @@ class ScreenArguments {
                           width: 5,
                         ),
                         Text(
-                          "${args.hour}",
+                          args.hour,
                           style: TextStyle(
                             //fontSize: 20,
                             color: Theme.of(context).backgroundColor,
@@ -232,18 +212,15 @@ class ScreenArguments {
                       return circularProgress();
                       // return Text("no DATA here !!!");
                     }
-
-                    final List<UserProf> children = snapshot.data!.docs
-                        .map((doc) => UserProf(doc['username']))
+                    final List<Text> children = snapshot.data!.docs
+                        .map((doc) => Text(doc['username']))
                         .toList();
-                    //final List<UserProf> children = snapshot.data!.docs
-                      //  .map((doc) => UserProf(doc['id'], doc['username']))
-                        //.toList();
                     return Container(
                       child: ListView(
                         children: children,
                       ),
                     );
+
                   },
                 ),
               ),

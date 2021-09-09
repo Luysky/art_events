@@ -21,7 +21,6 @@ class CustomButton extends StatelessWidget {
             color: Theme.of(context).backgroundColor,
           )),
       onPressed: onPressed,
-      
     );
   }
 }

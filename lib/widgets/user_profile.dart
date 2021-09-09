@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class UserProf extends StatelessWidget {
- //final String id;
+  final String id;
   final String username;
 
-  UserProf(this.username);
+  UserProf(this.id, this.username);
 
   @override
   Widget build(BuildContext context) {
