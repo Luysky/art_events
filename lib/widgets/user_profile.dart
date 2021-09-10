@@ -1,10 +1,14 @@
+import 'package:art_events/models/modelUser.dart';
 import 'package:flutter/material.dart';
 
 class UserProf extends StatelessWidget {
  //final String id;
-  final String username;
+//  final String username;
 
-  UserProf(this.username);
+  final ModelUser user;
+
+  UserProf(this.user);
+//  UserProf(this.username);
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +31,16 @@ class UserProf extends StatelessWidget {
                     Icons.account_circle,
                 color: Colors.white,
                 size: 35,),
-          /*      const CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage(
-                    'assets/images/Pseudo.png',
-                  ),
-                ), */
                 SizedBox(width: 10,),
                 Text(
-                  username,
+                  user.username,
                   style: TextStyle(
                     fontFamily: "Raleway-Regular",
                     fontSize: 20.0,
                     color: Colors.white,
                   ),
                 ),
+                SizedBox(width: 10,),                 
               ],
             ),
           ),

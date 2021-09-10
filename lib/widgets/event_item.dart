@@ -1,8 +1,15 @@
+import 'dart:io';
 import 'package:art_events/screens/event_details.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:art_events/models/modelUser.dart';
+import 'package:art_events/widgets/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
+//import 'user.dart';
 
 
 /*
@@ -10,12 +17,12 @@ import 'package:flutter/widgets.dart';
 */
 class EventItem extends StatelessWidget{
   // final String id;
-  final DateTime date;
+  final  /* Timestamp */ DateTime date;
   final String hour;
   final String image;
   final String name;
   final String place;
-  // final List<UserProf> participants;
+  final List<dynamic> participants;
   // final UserProf responsable;
     final String responsable;
    // final Uuid id;
@@ -29,8 +36,8 @@ class EventItem extends StatelessWidget{
     required this.date,
     required this.hour,
     required this.image,
-  required this.place,
-    // required this.participants,
+   required this.place,
+   required this.participants,
     // required this.responsable,
     required this.name,
     required this.responsable,
@@ -45,10 +52,10 @@ class EventItem extends StatelessWidget{
 EventItem.fromJson(Map<String, Object?> json)
       : this(
           name: json['name']! as String,
-          date: json['date']! as DateTime,
+          date: json['date']! as  /* Timestamp */ DateTime,
           hour: json['hour']! as String,
           place: json['place']! as String,
-          // participants: json['participants']! as List<UserProf>,
+          participants: json['participants']! as List<dynamic>,
           responsable: json['responsable']! as String,
           image: json['image']! as String,
         //  reference: json['reference']! as Uuid,
@@ -59,9 +66,9 @@ EventItem.fromJson(Map<String, Object?> json)
     return {
       'name': name,
       'date': date,
- //     'hour': hour,
+      'hour': hour,
       'place': place,
-//      'participants': participants,
+      'participants': participants,
       // 'responsable': responsable,
   //     'image': image,
        'responsable': responsable,
@@ -81,7 +88,7 @@ EventItem.fromJson(Map<String, Object?> json)
         Navigator.pushNamed(
           context,
           ExtractArgumentsScreen.routeName,
-          arguments: ScreenArguments(name, date.toString().substring(0, 10), hour, place, image),
+          arguments: ScreenArguments(name, date.toString().substring(0, 10), hour, place, image, participants),
         );
       },
       child: Card(
@@ -100,14 +107,18 @@ EventItem.fromJson(Map<String, Object?> json)
                     topRight: Radius.circular(10),
                   ),
                 ),
-                CachedNetworkImage(
-                 imageUrl: image,
-                 fit: BoxFit.fill,
-                 placeholder: (context, url) => Padding(
-                   child: CircularProgressIndicator(),
-                   padding: EdgeInsets.all(20.0),
-                 ),
+                Image.network(
+                  image,
+                  fit: BoxFit.fill,                 
                 ),
+                // CachedNetworkImage(
+                //  imageUrl: image,
+                //  fit: BoxFit.fill,
+                //  placeholder: (context, url) => Padding(
+                //    child: CircularProgressIndicator(),
+                //    padding: EdgeInsets.all(20.0),
+                //  ),
+                // ),
                 Positioned(
                   bottom: 20,
                   right: 10,
@@ -174,3 +185,4 @@ EventItem.fromJson(Map<String, Object?> json)
   }
 
 }
+

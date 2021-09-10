@@ -1,3 +1,4 @@
+import 'package:art_events/screens/eventslist_screen.dart';
 import 'package:flutter/material.dart';
 
 /*
@@ -46,7 +47,7 @@ AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
             itemBuilder: (context) => [
               //2 choix en appuyant sur l'icone de tri
               PopupMenuItem(child: Text('Trier par date'), value: 'date'),
-              PopupMenuItem(child: Text('Trier par nom'), value: 'nameAsc'),
+              PopupMenuItem(child: Text('Trier par nom'), value: 'nameAsc'),             
             ],
         ),
       IconButton(

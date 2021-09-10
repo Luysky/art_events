@@ -25,9 +25,12 @@ class _HomeState extends State<Home> {
   final AuthentificationService _auth = AuthentificationService();
   TextEditingController emailController = new TextEditingController(text: "bretzlouise@gmail.com"); // texte ajouté pour facilité le travail 
   TextEditingController passwordController = new TextEditingController(text: "123456");
+  bool _obscureText = false;
+
   @override
   void initState() {
     super.initState();
+    _obscureText = !_obscureText;
   }
 
   Scaffold buildAuthScreen() {
@@ -128,6 +131,7 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 20,
             ),
+    
             TextFormField(
               controller: passwordController,
               obscureText: true,
@@ -157,6 +161,8 @@ class _HomeState extends State<Home> {
                               }
                               return null;
                             }),
+           
+           
             SizedBox(
               height: 50,
             ),

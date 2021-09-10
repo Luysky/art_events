@@ -12,36 +12,11 @@ import 'package:uuid/uuid.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-final eventsRef = FirebaseFirestore.instance.collection('user')
+final usersRef = FirebaseFirestore.instance.collection('user')
     .withConverter<ModelUser>(
   fromFirestore: (snapshots, _) => ModelUser.fromJson(snapshots.data()!),
-  toFirestore: (event, _) => event.toJson(),
+  toFirestore: (modelUser, _) => modelUser.toJson(),
 );
-
-
-enum UserQuery {
-  uid,
-  username,
-
-}
-
-extension on Query<ModelUser> {
-  /// Create a firebase query from a [MovieQuery]
-  Query<ModelUser> queryBy(UserQuery userquery, String wanted) {
-    switch (userquery) {
-
-      case UserQuery.uid:
-        return where(Uuid, isEqualTo: [wanted]);
-
-      case UserQuery.username:
-        return orderBy('username');
-
-    }
-  }
-}
-
-
-final usersRef = firestore.collection('user');
 
 
 class ScreenArguments {
@@ -50,7 +25,13 @@ class ScreenArguments {
   final String hour;
   final String place;
   final String image;
-  ScreenArguments(this.name, this.date, this.hour, this.place, this.image);
+  final List<dynamic> participants;
+ 
+
+  ScreenArguments(this.name, this.date, this.hour, this.place, this.image, this.participants);
+
+//  final eventsRef = FirebaseFirestore.instance.collection('event');
+//          Event targetEvent = await eventsRef.doc.where; 
 }
 
 
@@ -70,7 +51,8 @@ class ScreenArguments {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
-    
+    List<ModelUser> attendees = [];
+    List<UserProf> participants = [];    
 //Event targetEvent = eventsRef.doc.where; 
 
     return Scaffold(
@@ -200,6 +182,7 @@ class ScreenArguments {
                       print('ok');
                       //A remplir
                     },
+                    /*** attendees list ***/
                     child: Text(
                       'Participants',
                       style: TextStyle(
@@ -217,21 +200,38 @@ class ScreenArguments {
                 body: StreamBuilder<QuerySnapshot>(
                   stream: usersRef.snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    
 
                     if (snapshot.data == null) {
                       return circularProgress();
-                      // return Text("no DATA here !!!");
                     }
+                    
+                    if (args.participants.length >0){
+                      attendees = [];
+                      participants = [];
 
-                    final List<UserProf> children = snapshot.data!.docs
-                        .map((doc) => UserProf(doc['username']))
-                        .toList();
-                    //final List<UserProf> children = snapshot.data!.docs
-                      //  .map((doc) => UserProf(doc['id'], doc['username']))
-                        //.toList();
+                      args.participants.forEach((uuid) {               
+                                        
+                        for (var doc in snapshot.data!.docs) {
+                          if(doc.reference.id == uuid){
+                            attendees.add(ModelUser(username: doc['username'],
+                                  email: doc['email'],
+                                  isServiceProvider: doc['isServiceProvider'],
+                                  listEvent: doc['listEvent'],),
+                              );
+                          };
+
+                        };          
+                      },);
+                    };
+
+                    attendees.forEach((element) {
+                      participants.add(
+                        UserProf(element));},);
+                    
                     return Container(
                       child: ListView(
-                        children: children,
+                        children: participants,
                       ),
                     );
                   },

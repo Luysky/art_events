@@ -11,7 +11,7 @@ class ModelUser {
    String? email;
    bool isServiceProvider;
    bool isSubscribed;
-   List listEvent = [];
+   List<dynamic> listEvent = [];
 
   ModelUser({
      this.id = "",
@@ -92,7 +92,7 @@ Future<void> populateFirestore() async {
       isServiceProvider: json['isServiceProvider']! as bool,
       isSubscribed: json['isSubscribed']! as bool,
       //  reference: json['reference']! as Uuid,
-      id: json['id'] as String,
+      //id: json['id'] as String,
     );
 
 
