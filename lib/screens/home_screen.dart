@@ -151,7 +151,7 @@ class _HomeState extends State<Home> {
                               }
                               return null;
                             }),
-                // Button hidde/visible password text
+                /**** Button hidde/display password text ****/
                 Positioned(
                 top: 2,
                 right: 10,

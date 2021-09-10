@@ -1,6 +1,7 @@
 
 import 'package:art_events/models/event.dart';
 import 'package:art_events/models/modelUser.dart';
+import 'package:art_events/screens/event_details.dart';
 import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
@@ -24,21 +25,21 @@ enum EventQuery {
 
 extension on Query<Event> {
   /// Create a firebase query from a [MovieQuery]
-   Query<Event> queryBy(EventQuery eventquery, String wanted) {
+   Query<Event> queryBy(EventQuery eventquery) {
     switch (eventquery) {
 
       case EventQuery.date:
-        return orderBy('date', descending: true);
+        return orderBy('date', descending: false);
 
       case EventQuery.nameAsc:
-        return orderBy('name');
+        return orderBy('name'.toUpperCase(), descending: false);
 
     }
   }
 }
 
 class EventsListScreen extends StatefulWidget{
-
+  const EventsListScreen({Key? key}) : super(key: key);
    static const routeName = '/eventslist_screen';
 
   @override
@@ -47,18 +48,18 @@ class EventsListScreen extends StatefulWidget{
 }
 
 class _EventsListState extends State<EventsListScreen> {
+     Query<Event> query = eventsRef.queryBy(EventQuery.date);
+
   @override
   initState() {
     super.initState();
   }
 
+
   @override
   Widget build(context){
 
      List<Event> eventsList;
-
-    //Crée la liste d'event avec DummyEvent
-    // List<EventItem> eventList = DUMMY_EVENTS.toList();
 
     //Récupère la donnée valueSort définit dans la page "header"
     final valueSort = ModalRoute.of(context)?.settings.arguments;
@@ -66,7 +67,7 @@ class _EventsListState extends State<EventsListScreen> {
     addEventScreen(BuildContext context){
       Navigator.of(context).pushNamed('/add_event');
     }
-
+    
     return Scaffold(
       appBar: header(context, titleText: 'Actualité', ),
       body: StreamBuilder<QuerySnapshot>(
@@ -81,47 +82,29 @@ class _EventsListState extends State<EventsListScreen> {
     addEventScreen(BuildContext context){
       Navigator.of(context).pushNamed('/add_event');
     }
-    if(valueSort == 'nameAsc')
-    {
-  //    eventList.sort((a,b) => a.name.compareTo(b.name));
-     eventsRef.queryBy(EventQuery.nameAsc, "");
-    }
 
-    //On trie par date
-    if(valueSort == 'date')
-    {
-     // eventsList.sort((a,b) => a.date.compareTo(b.date));
-      //eventList.sort((a,b) => a.date.compareTo(b.date));
-      eventsRef.queryBy(EventQuery.date, "");
-    }
-
-          eventsList = snapshot.data!.docs              
-              .map((doc) => 
-              Event(date: DateTime.parse(doc['date'].toDate().toString()),
-                    hour: doc['hour'].toString(), 
-                    image:  doc['image'],  name: doc['name'], 
-                    place: doc['place'], participants: doc['participants'], 
-                    responsable: doc['responsable'],
-              // Event(date: DateTime.parse(doc['date'].toDate().toString()),
-              //       hour: doc['hour'].toString(), 
-              //       image:  doc['image'],  name: doc['name'], 
-              //       place: doc['place'], participants: doc['participants'], 
-              //       responsable: doc['responsable'],
-                    /* id: doc['Uuid']*/))
-              .toList();
-    if(valueSort == 'nameAsc')
-    {
-  //    eventList.sort((a,b) => a.name.compareTo(b.name));
-     eventsRef.queryBy(EventQuery.nameAsc, "");
-    }
-
-    //On trie par date
-    if(valueSort == 'date')
-    {
-     // eventsList.sort((a,b) => a.date.compareTo(b.date));
-      //eventList.sort((a,b) => a.date.compareTo(b.date));
-      eventsRef.queryBy(EventQuery.date, "");
-    }
+    eventsList = snapshot.data!.docs              
+        .map((doc) => 
+        
+        Event(date: DateTime.parse(doc['date'].toDate().toString()),
+              hour: doc['hour'].toString(), 
+              image:  doc['image'],  name: doc['name'], 
+              place: doc['place'], participants: doc['participants'], 
+              responsable: doc['responsable'],
+              /* id: doc['Uuid']*/))
+        .toList();
+  
+      /**** List sort  ****/
+      if(valueSort == 'nameAsc')
+        {
+          // 'name' sort
+          query = eventsRef.queryBy(EventQuery.nameAsc);
+        }
+          // 'date' sort
+      if(valueSort == 'date')
+        {
+          query = eventsRef.queryBy(EventQuery.date);
+        }
 
           return Container(
             child: ListView.builder(itemBuilder: (ctx,index,)
