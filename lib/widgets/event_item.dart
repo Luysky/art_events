@@ -1,20 +1,13 @@
 import 'dart:io';
 import 'package:art_events/models/event.dart';
 import 'package:art_events/screens/event_details.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:art_events/models/modelUser.dart';
-import 'package:art_events/widgets/user_profile.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
-//import 'user.dart';
+
 
 
 /*
-* TODO : expliquer pourquoi cette classe ?
+* Classe representant chaque évenement dans la liste d'event
 */
 class EventItem extends StatelessWidget{
 
@@ -24,10 +17,6 @@ class EventItem extends StatelessWidget{
 
 @override
   Widget build(BuildContext context) {
-    // final mediaQuery = MediaQuery.of(context);
-    // var widthFav, heightFav;
-    // widthFav = mediaQuery.size.width;
-    // heightFav = mediaQuery.size.height;
     return InkWell(
       onTap: () {
         Navigator.pushNamed(
@@ -56,14 +45,6 @@ class EventItem extends StatelessWidget{
                   event.image,
                   fit: BoxFit.fill,                 
                 ),
-                // CachedNetworkImage(
-                //  imageUrl: image,
-                //  fit: BoxFit.fill,
-                //  placeholder: (context, url) => Padding(
-                //    child: CircularProgressIndicator(),
-                //    padding: EdgeInsets.all(20.0),
-                //  ),
-                // ),
                 Positioned(
                   bottom: 20,
                   right: 10,
@@ -130,4 +111,3 @@ class EventItem extends StatelessWidget{
   }
 
 }
-

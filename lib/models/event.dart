@@ -1,4 +1,3 @@
-import 'package:art_events/widgets/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -51,8 +50,6 @@ Event.fromJson(json)
       'place': place,
       'participants': participants,
       'responsable': responsable,
-      'responsable': responsable,
-      //'id': id,
     };
   }
 

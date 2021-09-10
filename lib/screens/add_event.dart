@@ -144,22 +144,6 @@ class _AddEventState extends State<AddEventScreen> {
     });
   }
 
- /* handleTakePhoto() async {
-    Navigator.pop(context);
-    File file = File(await ImagePicker().getImage(source: ImageSource.camera).then((pickedFile) => pickedFile!.path),
-      maxHeight: 675,
-      maxWidth: 960,);
-    File file = await ImagePicker.pickImage(
-      source: ImageSource.camera,
-      maxHeight: 675,
-      maxWidth: 960,
-    );
-    setState(() {
-      this.file = file;
-    });
-  } */
-
-
   selectImage(parentContext) {
     return showDialog(
         context: parentContext,
@@ -180,7 +164,6 @@ class _AddEventState extends State<AddEventScreen> {
           );
         });
   }
-
 
   Container buildAddEventForm(){
     return Container(

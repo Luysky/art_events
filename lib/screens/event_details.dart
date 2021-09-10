@@ -24,13 +24,11 @@ final usersRef = FirebaseFirestore.instance.collection('user')
   toFirestore: (modelUser, _) => modelUser.toJson(),
 );
 
-
 enum UsersQuery {
   search,
   username,
   every,
 }
-
 
 class ScreenArguments {
   final String id;
@@ -41,15 +39,12 @@ class ScreenArguments {
   final String image;
   final List<dynamic> participants;
  
-
   ScreenArguments(this.id, this.name, this.date, this.hour, this.place, this.image, this.participants);
-
-
 }
 
 
+
  class ExtractArgumentsScreen extends StatefulWidget {
-   // const ExtractArgumentsScreen({Key? key}) : super(key: key);
   static const routeName = '/extractArguments';
 
 
@@ -59,12 +54,11 @@ class ScreenArguments {
  }
 
  class _ExtractArgumentsState extends State<ExtractArgumentsScreen> {
-
+      final user = FirebaseAuth.instance.currentUser;
+      var collection = FirebaseFirestore.instance.collection('event');
 
    final user = FirebaseAuth.instance.currentUser;
    var collection = FirebaseFirestore.instance.collection('event');
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +66,8 @@ class ScreenArguments {
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     List<ModelUser> attendees = [];
-    List<UserProf> participantsToShow = [];
 
+    List<UserProf> participantsToShow = [];
 
       Future<void> _showPopUpMessage() async {
         return showDialog<void>(
@@ -102,7 +96,6 @@ class ScreenArguments {
           },
         );
       }
-
 
     return Scaffold(
       appBar: header(context, titleText: "Détails"),
@@ -228,13 +221,9 @@ class ScreenArguments {
                       onPrimary: Colors.white, // foreground
                     ),
                     onPressed: () {
-
-                      print(args.participants.contains(user!.uid));
-
-                      if(args.participants.contains(user!.uid)){
+                        if(args.participants.contains(user!.uid)){
                         _showPopUpMessage();
                       }else {
-
                         args.participants.add(user!.uid);
 
                         collection
@@ -286,25 +275,27 @@ class ScreenArguments {
                                         
                         for (var doc in snapshot.data!.docs) {
                           if(doc.reference.id == uuid){
-                            attendees.add(new ModelUser(username: doc['username'],
+                            attendees.add(ModelUser(username: doc['username'],
                                   email: doc['email'],
                                   isServiceProvider: doc['isServiceProvider'],
                                   listEvent: doc['listEvent'],),
                               );
                           };
+
                         };          
                       },
                       );
                     };
 
                     attendees.forEach((element) {
+
                       participantsToShow.add(
                           UserProf(element));},);
-
                     
                     return Container(
                       child: ListView(
                         children: participantsToShow,
+
                       ),
                     );
                   },

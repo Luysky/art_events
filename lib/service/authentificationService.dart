@@ -11,16 +11,17 @@ class AuthentificationService {
 
   AuthentificationService();
 
-  ModelUser? _userFromFirebaseUser(User user) {
+  ModelUser? _userFromFirebaseUser(User user)  {
     ModelUser modelUser = ModelUser();
     modelUser.setEmail(_auth.currentUser!.email.toString());
     modelUser.setId(user.uid);
     modelUser.populateFirestore();
+    print(modelUser.toJson());
     return modelUser;
   }
 
   // ignore: unused_element
-  Future _populateUserInfoFromCollection(User user) async {
+  Future _populateFirestore(User user) async {
     return null;
   }
 
@@ -37,8 +38,6 @@ class AuthentificationService {
           email: email, password: password);
       User? user = result.user;
       print("User uid = " + user!.uid);
-      //MyUser? tmp = ;
-      //tmp!.setEmail(email);
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (e) {
       print("FireBaseAuthException " +e.message.toString());
@@ -59,7 +58,6 @@ class AuthentificationService {
 Future signUp({required String email, required String password, required ModelUser modelUser}) async{
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      //MyUser user = MyUser(uid: result.user!.uid);
       modelUser.setId(result.user!.uid);
       print(modelUser);
       await modelUser.save();

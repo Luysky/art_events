@@ -23,7 +23,6 @@ import 'package:firebase_core/firebase_core.dart';
  }
 
 class _AppState extends State<App> {
-  // Set default `_initialized` and `_error` state to false
   bool _initialized = false;
   bool _error = false;
 
@@ -58,7 +57,6 @@ class _AppState extends State<App> {
 
     // Show a loader until FlutterFire is initialized
     if (!_initialized) {
-      //return Loading();
     }
 
     return MyArtEvents();

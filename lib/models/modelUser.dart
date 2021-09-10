@@ -11,7 +11,7 @@ class ModelUser {
    String? email;
    bool isServiceProvider;
    bool isSubscribed;
-   List listEvent = [];
+   List<dynamic> listEvent = [];
 
   ModelUser({
      this.id = "",
@@ -21,6 +21,15 @@ class ModelUser {
      this.isSubscribed = false,
      this.listEvent = const [],
   });
+
+
+void setIsServiceProvider(bool isServiceProvid){
+  this.isServiceProvider =isServiceProvider;
+}
+
+bool getIsServiceProvider(){
+  return this.isServiceProvider;
+}
 
 
 
@@ -42,9 +51,10 @@ Map<String, Object?> toJson() {
 Future<void> populateFirestore() async {
     DocumentSnapshot<Map<String, dynamic>> snap =
         await FirebaseFirestore.instance.collection("user").doc(id).get();
+    print(snap.data());
+    print(snap.data()!['username']);
     if (snap.exists) {
-      username = (snap.data()!["username"] != null
-          ? snap.data()!["username"] : "");
+      username = snap.data()!['username'];
       email = (snap.data()!["email"] != null
           ? snap.data()!["email"] : "");
       isServiceProvider = (snap.data()!["isServiceProvider"] != null
@@ -81,6 +91,7 @@ Future<void> populateFirestore() async {
 
   // Différents setters dont nous avons besoin pour la création de ModelUser
   void setId(String id) {this.id = id;}
+
   void setEmail(String email) { this.email = email; }
 
 
@@ -91,8 +102,6 @@ Future<void> populateFirestore() async {
       listEvent: json['events']! as List<dynamic>,
       isServiceProvider: json['isServiceProvider']! as bool,
       isSubscribed: json['isSubscribed']! as bool,
-      //  reference: json['reference']! as Uuid,
-      //id: json['id'] as String,
     );
 
 
