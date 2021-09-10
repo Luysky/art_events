@@ -1,8 +1,11 @@
 import 'package:art_events/widgets/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
+/*
+* Classe modèle pour la gestion des évenements
+*/
 class Event {
-  // final String id;
   final DateTime date;
   final String hour;
   final String image;
@@ -11,11 +14,7 @@ class Event {
   final List<dynamic> participants;
   final String responsable;
 
-
-
-
  Event({
-
     required this.date,
     required this.hour,
     required this.image,
@@ -23,12 +22,10 @@ class Event {
     required this.name,
     required this.participants,
     required this.responsable,
-
-
   });
 
 
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 Event.fromJson(Map<String, Object?> json)
       : this(
@@ -36,24 +33,28 @@ Event.fromJson(Map<String, Object?> json)
           date: json['date']! as DateTime,
           hour: json['hour']! as String,
           place: json['place']! as String,
+<<<<<<< HEAD
           participants: json['participants']! as List<dynamic>,
+=======
+>>>>>>> develop
           responsable: json['responsable']! as String,
           image: json['image']! as String,
-        //  reference: json['reference']! as Uuid,
-      //    id: json['id'] as Uuid,
         );
 
   Map<String, dynamic> toJson() {
     return {
       'name': name,
       'date': date,
- //     'hour': hour,
       'place': place,
+<<<<<<< HEAD
       'participants': participants,
       // 'responsable': responsable,
   //     'image': image,
        'responsable': responsable,
     //   'id': id,
+=======
+      'responsable': responsable,
+>>>>>>> develop
     };
   }
 

@@ -12,7 +12,9 @@ import 'package:uuid/uuid.dart';
 //import 'user.dart';
 
 
-
+/*
+* TODO : expliquer pourquoi cette classe ?
+*/
 class EventItem extends StatelessWidget{
   // final String id;
   final  /* Timestamp */ DateTime date;
