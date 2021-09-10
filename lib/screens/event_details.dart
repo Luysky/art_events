@@ -257,7 +257,7 @@ class ScreenArguments {
                     
                     return Container(
                       child: ListView(
-                        children: participants,
+                        children: participants, // TODO : chercher comment afficher uniquement le username
                       ),
                     );
                   },

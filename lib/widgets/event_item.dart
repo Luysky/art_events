@@ -88,7 +88,7 @@ EventItem.fromJson(Map<String, Object?> json)
         Navigator.pushNamed(
           context,
           ExtractArgumentsScreen.routeName,
-          arguments: ScreenArguments(name, date.toString(), hour, place, image, participants),
+          arguments: ScreenArguments(name, date.toString().substring(0, 10), hour, place, image, participants),
         );
       },
       child: Card(
@@ -168,7 +168,7 @@ EventItem.fromJson(Map<String, Object?> json)
                         width: 6,
                       ),
                       Text(
-                        '$date',
+                        '$date'.substring(0,10),
                         style: TextStyle(
                           color: Theme.of(context).backgroundColor,
                         ),
