@@ -131,8 +131,7 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 20,
             ),
-            Stack(
-              children: [
+    
             TextFormField(
               controller: passwordController,
               obscureText: true,
@@ -155,7 +154,6 @@ class _HomeState extends State<Home> {
                 ),
               ),
               textInputAction: TextInputAction.next,
-              obscureText: _obscureText,
               cursorColor: Theme.of(context).backgroundColor,
               validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -163,22 +161,8 @@ class _HomeState extends State<Home> {
                               }
                               return null;
                             }),
-                /**** Button hidde/display password text ****/
-                Positioned(
-                top: 2,
-                right: 10,
-                child: IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility : Icons.visibility_off,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    }),
-               ),
-              ],
-              ),
+           
+           
             SizedBox(
               height: 50,
             ),

@@ -33,10 +33,7 @@ Event.fromJson(Map<String, Object?> json)
           date: json['date']! as DateTime,
           hour: json['hour']! as String,
           place: json['place']! as String,
-<<<<<<< HEAD
           participants: json['participants']! as List<dynamic>,
-=======
->>>>>>> develop
           responsable: json['responsable']! as String,
           image: json['image']! as String,
         );
@@ -46,15 +43,12 @@ Event.fromJson(Map<String, Object?> json)
       'name': name,
       'date': date,
       'place': place,
-<<<<<<< HEAD
       'participants': participants,
       // 'responsable': responsable,
   //     'image': image,
        'responsable': responsable,
     //   'id': id,
-=======
       'responsable': responsable,
->>>>>>> develop
     };
   }
 
