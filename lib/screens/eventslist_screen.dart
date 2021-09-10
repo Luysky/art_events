@@ -59,24 +59,23 @@ class _EventsListState extends State<EventsListScreen> {
           }
           if (snapshot.data == null) {
             return circularProgress();
-          } 
-    
-    // ignore: unused_element
-    addEventScreen(BuildContext context){
-      Navigator.of(context).pushNamed('/add_event');
-    }
+          }
 
-    
-     eventsList = snapshot.data!.docs              
-              .map((doc) => 
+          addEventScreen(BuildContext context){
+          Navigator.of(context).pushNamed('/add_event');
+          }
+
+          eventsList = snapshot.data!.docs
+              .map((doc) =>
               Event(
-                date: DateTime.parse(doc['date'].toDate().toString())   ,
-                hour: doc['hour'].toString(),
-                    image:  doc['image'],  name: doc['name'], 
-                    place: doc['place'], responsable: doc['responsable'], 
-                    participants: doc['participants'],
-                    ),)
+                  date: DateTime.parse(doc['date'].toDate().toString())   ,
+                  hour: doc['hour'].toString(),
+                  image:  doc['image'],  name: doc['name'],
+                  place: doc['place'], responsable: doc['responsable'],
+                  participants: doc['participants'],
+                  id: doc.reference.id))
               .toList();
+
     if(valueSort == 'nameAsc')
     {
      eventsList.sort((a,b) => a.name.compareTo(b.name));
