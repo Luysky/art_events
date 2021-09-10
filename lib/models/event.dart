@@ -14,7 +14,7 @@ class Event {
   final String place;
   final List<dynamic> participants;
   final String responsable;
-  final String uid;
+  //final String uid;
 
  Event({
     required this.date,
@@ -24,7 +24,7 @@ class Event {
     required this.name,
     required this.participants,
     required this.responsable,
-    required this.uid,
+   // required this.uid,
   });
 
 
@@ -39,7 +39,7 @@ Event.fromJson(Map<String, Object?> json)
           participants: json['participants']! as List<dynamic>,
           responsable: json['responsable']! as String,
           image: json['image']! as String,
-          uid: json['uid']! as String,
+   //       uid: json['uid']! as String,
         );
 
   Map<String, dynamic> toJson() {
@@ -51,7 +51,7 @@ Event.fromJson(Map<String, Object?> json)
       // 'responsable': responsable,
        'image': image,
        'responsable': responsable,
-       'id': uid,
+  //     'id': uid,
     };
   }
 

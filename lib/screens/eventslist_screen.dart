@@ -63,7 +63,6 @@ class _EventsListState extends State<EventsListScreen> {
             return circularProgress();
           } 
     
-    //if(FirebaseAuth.instance.currentUser.)
     addEventScreen(BuildContext context){
       Navigator.of(context).pushNamed('/add_event');
     }
@@ -77,7 +76,7 @@ class _EventsListState extends State<EventsListScreen> {
                     image:  doc['image'],  name: doc['name'], 
                     place: doc['place'], responsable: doc['responsable'], 
                     participants: doc['participants'],
-                    uid: doc.reference.id))
+                    ),)
               .toList();
     if(valueSort == 'nameAsc')
     {
