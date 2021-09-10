@@ -11,16 +11,18 @@ class AuthentificationService {
 
   AuthentificationService();
 
-  ModelUser? _userFromFirebaseUser(User user) {
+  ModelUser? _userFromFirebaseUser(User user)  {
+    //print(user);
     ModelUser modelUser = ModelUser();
     modelUser.setEmail(_auth.currentUser!.email.toString());
     modelUser.setId(user.uid);
+    //modelUser.setIsServiceProvider(isServiceProvid)
     modelUser.populateFirestore();
+    print(modelUser.toJson());
     return modelUser;
   }
 
-  // ignore: unused_element
-  Future _populateUserInfoFromCollection(User user) async {
+  Future _populateFirestore(User user) async {
     return null;
   }
 

@@ -2,6 +2,7 @@ import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/service/authentificationService.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:art_events/widgets/header.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -34,10 +35,10 @@ class _AboutState extends State<AboutScreen> {
     launchEmail();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<ModelUser?>(context);
-    print(user); // user vide ! donc bug 
+   
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: header(context, titleText: 'A propos'),
@@ -102,7 +103,8 @@ class _AboutState extends State<AboutScreen> {
               fontFamily: "Raleway-Regular",
               fontSize: 15.0,
               color: Theme.of(context).backgroundColor,
-            ),),
+            ),
+          ),
         ],
       ),
     );
@@ -129,18 +131,6 @@ class _AboutState extends State<AboutScreen> {
           await launch(url);
         }
       }
-    _sendMail() async {
-    // Android and iOS
-    const uri =
-        'mailto:test@example.org?subject=Greetings&body=Hello%20World';
-    if (await canLaunch(uri)) {
-      await launch(uri);
-    } else {
-      throw 'Could not launch $uri';
-    }
-  }
-
-
 
 
 }

@@ -1,6 +1,7 @@
 import 'package:art_events/service/AuthentificationService.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:art_events/models/modelUser.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:art_events/screens/home_screen.dart';
@@ -74,6 +75,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
 
   @override
   Widget build(context) {
+    final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Form(
@@ -200,19 +202,10 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                     color: Theme.of(context).backgroundColor,
                   ),
                 ),
-                Checkbox(
-                  fillColor: MaterialStateProperty.all<Color>(
-                      Theme.of(context).backgroundColor),
-                  focusColor: Theme.of(context).backgroundColor,
-                  checkColor: Colors.white,
-                  value: isChecked,
-                  onChanged: (bool ?value) {
-                    setState(() {
-                      isChecked == value;
-                      buildServiceProvider();
-                    });
-                  },
-                ),
+                
+                Container(
+                   child: buildServiceProvider(),
+                  )
               ],
             ),
             SizedBox(
@@ -256,15 +249,17 @@ class _CreateAccountState extends State<CreateAccountScreen> {
           ],
         ),
       ),
+      
     );
+    
   }
-
-
-    Widget buildServiceProvider() => Transform.scale(
+ Widget buildServiceProvider() => Transform.scale(
         scale: 1,
         child: Switch(
           value: isServiceProvider,
           onChanged: (value) => setState(() => this.isServiceProvider = value),
         ),
       );
+
+   
 }
