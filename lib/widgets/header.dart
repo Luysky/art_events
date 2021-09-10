@@ -1,6 +1,10 @@
+import 'package:art_events/screens/eventslist_screen.dart';
 import 'package:flutter/material.dart';
 
-
+/*
+* Widget de l'app bar / header
+* Définit le design pour toute l'app
+*/
 AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
 
   return AppBar(
@@ -43,12 +47,12 @@ AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
             itemBuilder: (context) => [
               //2 choix en appuyant sur l'icone de tri
               PopupMenuItem(child: Text('Trier par date'), value: 'date'),
-              PopupMenuItem(child: Text('Trier par nom'), value: 'nameAsc'),
+              PopupMenuItem(child: Text('Trier par nom'), value: 'nameAsc'),             
             ],
         ),
       IconButton(
         onPressed: () => Navigator.pushNamed(context, '/about_screen'),
-        icon: Icon(Icons.info_outline_rounded, color: Colors.white, size: 40.0,),
+        icon: Icon(Icons.info_outline_rounded, color: Colors.white, size: 40.0, ),
       ) ,
     ],
   );

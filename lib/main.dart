@@ -4,12 +4,11 @@ import 'package:art_events/screens/create_account.dart';
 import 'package:art_events/screens/eventslist_screen.dart';
 import 'package:art_events/screens/home_screen.dart';
 import 'package:art_events/screens/event_details.dart';
-import 'package:art_events/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 
-
+// Méthode main pour initialiser la firebase + lancer l'app
  Future <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -106,7 +105,6 @@ class MyArtEvents extends StatelessWidget {
         '/eventslist_screen': (ctx) => EventsListScreen(),
         '/extractArguments': (ctx) =>  ExtractArgumentsScreen(),
         '/create_account': (ctx) => CreateAccountScreen(),
-        '/profile' : (ctx) => ProfilScreen(),
         '/add_event' : (ctx) => AddEventScreen(),
         '/about_screen' : (ctx) => AboutScreen(),
       },

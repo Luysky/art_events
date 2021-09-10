@@ -10,6 +10,11 @@ final firebase_storage.Reference storageRef = firebase_storage.FirebaseStorage.i
 final usersRef = FirebaseFirestore.instance.collection('user');
 final eventsRef = FirebaseFirestore.instance.collection('event');
 
+/*
+* Classe pour l'écran de la homepage
+* Lié directement avec la firebase Authentification
+* Possibilité de s'inscrire ou de se loguer
+*/
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -18,11 +23,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final _formKey = GlobalKey<FormState>();
   final AuthentificationService _auth = AuthentificationService();
-  TextEditingController emailController = new TextEditingController(text: "bretzlouise@gmail.com");
+  TextEditingController emailController = new TextEditingController(text: "bretzlouise@gmail.com"); // texte ajouté pour facilité le travail 
   TextEditingController passwordController = new TextEditingController(text: "123456");
+  bool _obscureText = false;
+
   @override
   void initState() {
     super.initState();
+    _obscureText = !_obscureText;
   }
 
   Scaffold buildAuthScreen() {
@@ -66,6 +74,9 @@ class _HomeState extends State<Home> {
             Padding(
               padding: EdgeInsets.only(top: 10.0),
             ),
+            SizedBox(
+              height: 50,
+            ),
             Text(
               'Bienvenue !',
               textAlign: TextAlign.left,
@@ -75,6 +86,9 @@ class _HomeState extends State<Home> {
                 fontSize: 30.0,
                 color: Theme.of(context).backgroundColor,
               ),
+            ),
+            SizedBox(
+              height: 20,
             ),
             Text(
               'Entrez votre login',
@@ -117,8 +131,10 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 20,
             ),
+    
             TextFormField(
               controller: passwordController,
+              obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Mot de passe',
                 labelStyle: TextStyle(
@@ -145,8 +161,10 @@ class _HomeState extends State<Home> {
                               }
                               return null;
                             }),
+           
+           
             SizedBox(
-              height: 20,
+              height: 50,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -172,9 +190,12 @@ class _HomeState extends State<Home> {
                               }
                             },
                             child: Text('Se connecter')),
+            SizedBox(
+              height: 10,
+            ),
             CustomButton(
               () => createAccountScreen(context),
-              "S'incrire",
+              "S'inscrire",
             ),
           ],
         ),
