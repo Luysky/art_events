@@ -1,20 +1,23 @@
 
+import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:art_events/widgets/user_profile.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import '../dummy_users.dart';
-
-// Before  >> for us in this app
- //Firestore firestore = Firestore();
-// Actual with higher dependencies' version
- FirebaseFirestore firestore = FirebaseFirestore.instance;
+import 'package:uuid/uuid.dart';
 
 
 
-final usersRef = firestore.collection('user');
+FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+final usersRef = FirebaseFirestore.instance.collection('user')
+    .withConverter<ModelUser>(
+  fromFirestore: (snapshots, _) => ModelUser.fromJson(snapshots.data()!),
+  toFirestore: (modelUser, _) => modelUser.toJson(),
+);
+
 
 class ScreenArguments {
   final String name;
@@ -22,17 +25,19 @@ class ScreenArguments {
   final String hour;
   final String place;
   final String image;
+  final List<dynamic> participants;
+ 
 
-  ScreenArguments(this.name, this.date, this.hour, this.place, this.image);
+  ScreenArguments(this.name, this.date, this.hour, this.place, this.image, this.participants);
 
-  
+//  final eventsRef = FirebaseFirestore.instance.collection('event');
+//          Event targetEvent = await eventsRef.doc.where; 
 }
 
-// A Widget that extracts the necessary arguments from
-// the ModalRoute.
+
  class ExtractArgumentsScreen extends StatefulWidget {
    // const ExtractArgumentsScreen({Key? key}) : super(key: key);
-   static const routeName = '/extractArguments';
+  static const routeName = '/extractArguments';
 
    @override
    _ExtractArgumentsState createState() => _ExtractArgumentsState();
@@ -41,29 +46,15 @@ class ScreenArguments {
 
  class _ExtractArgumentsState extends State<ExtractArgumentsScreen> {
 
-   @override
-   void initState() {
-     getUserById();
-     super.initState();
-   }
-
-   getUserById() async {
-     final String id = "tn5JSYircKOqEQldIr1A";
-     final DocumentSnapshot doc = await usersRef.doc(id).get();
-     print(doc.data);
-     print(doc.toString());
-     print(doc.id);
-     print(doc.exists);
-   }
-
-
-
   @override
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
-    
+    List<ModelUser> attendees = [];
+    List<UserProf> participants = [];    
+//Event targetEvent = eventsRef.doc.where; 
+
     return Scaffold(
       appBar: header(context, titleText: "Détails"),
       body: Center(
@@ -72,13 +63,12 @@ class ScreenArguments {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              height: 300,
-              child: Image.asset(
-                args.image,
-                height: 250,
-                width: double.infinity,
-                fit: BoxFit.none,
+            CachedNetworkImage(
+              imageUrl: args.image,
+              fit: BoxFit.fill,
+              placeholder: (context, url) => Padding(
+                child: CircularProgressIndicator(),
+                padding: EdgeInsets.all(20.0),
               ),
             ),
             Container(
@@ -137,7 +127,8 @@ class ScreenArguments {
                           width: 5,
                         ),
                         Text(
-                          args.date,
+                          //args.date,
+                          "${args.date}",
                           style: TextStyle(
                             //fontSize: 20,
                             color: Theme.of(context).backgroundColor,
@@ -162,7 +153,7 @@ class ScreenArguments {
                           width: 5,
                         ),
                         Text(
-                          args.hour,
+                          "${args.hour}",
                           style: TextStyle(
                             //fontSize: 20,
                             color: Theme.of(context).backgroundColor,
@@ -191,6 +182,7 @@ class ScreenArguments {
                       print('ok');
                       //A remplir
                     },
+                    /*** attendees list ***/
                     child: Text(
                       'Participants',
                       style: TextStyle(
@@ -208,20 +200,38 @@ class ScreenArguments {
                 body: StreamBuilder<QuerySnapshot>(
                   stream: usersRef.snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    
 
                     if (snapshot.data == null) {
                       return circularProgress();
-                      // return Text("no DATA here !!!");
                     }
-                    final List<UserProf> children = snapshot.data!.docs
-                        .map((doc) => UserProf(doc['username']))
-                        .toList();
-                    //final List<UserProf> children = snapshot.data!.docs
-                      //  .map((doc) => UserProf(doc['id'], doc['username']))
-                        //.toList();
+                    
+                    if (args.participants.length >0){
+                      attendees = [];
+                      participants = [];
+
+                      args.participants.forEach((uuid) {               
+                                        
+                        for (var doc in snapshot.data!.docs) {
+                          if(doc.reference.id == uuid){
+                            attendees.add(ModelUser(username: doc['username'],
+                                  email: doc['email'],
+                                  isServiceProvider: doc['isServiceProvider'],
+                                  listEvent: doc['listEvent'],),
+                              );
+                          };
+
+                        };          
+                      },);
+                    };
+
+                    attendees.forEach((element) {
+                      participants.add(
+                        UserProf(element));},);
+                    
                     return Container(
                       child: ListView(
-                        children: children,
+                        children: participants,
                       ),
                     );
                   },

@@ -1,21 +1,14 @@
+import 'package:art_events/screens/about_screen.dart';
 import 'package:art_events/screens/add_event.dart';
 import 'package:art_events/screens/create_account.dart';
 import 'package:art_events/screens/eventslist_screen.dart';
 import 'package:art_events/screens/home_screen.dart';
 import 'package:art_events/screens/event_details.dart';
-import 'package:art_events/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 
-
-//   void main() {
-//   runApp(
-    
-//     MyArtEvents(),
-//   );
-// }
-
+// Méthode main pour initialiser la firebase + lancer l'app
  Future <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -23,6 +16,7 @@ import 'package:firebase_core/firebase_core.dart';
     App(),
   );
 }
+
 
  class App extends StatefulWidget {
   _AppState createState() => _AppState();
@@ -74,6 +68,23 @@ class _AppState extends State<App> {
 
 class MyArtEvents extends StatelessWidget {
 
+  static const MaterialColor primaryRed = MaterialColor(
+    _redPrimaryValue,
+    <int, Color>{
+      50: Color(0xFFCC0022),
+      100: Color(0xFFCC0022),
+      200: Color(0xFFCC0022),
+      300: Color(0xFFCC0022),
+      400: Color(0xFFCC0022),
+      500: Color(0xFFCC0022),
+      600: Color(0xFFCC0022),
+      700: Color(0xFFCC0022),
+      800: Color(0xFFCC0022),
+      900: Color(0xFFCC0022),
+    },
+  );
+  static const int _redPrimaryValue = 0xFFCC0022;
+
   @override
   Widget build(BuildContext context){
     return MaterialApp(
@@ -83,19 +94,24 @@ class MyArtEvents extends StatelessWidget {
         primaryColor: Color(0xffFFF1F1),
         backgroundColor: Color(0xFFCC0022),
         scaffoldBackgroundColor: Color(0xffFFF1F1),
+        primarySwatch: primaryRed,
+        timePickerTheme: TimePickerThemeData(
+          backgroundColor: Color(0xffFFF1F1),
+        )
       ),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => Home(),
+        '/': (ctx) => /* const HomePage(), */ Home(),
         '/eventslist_screen': (ctx) => EventsListScreen(),
         '/extractArguments': (ctx) =>  ExtractArgumentsScreen(),
         '/create_account': (ctx) => CreateAccountScreen(),
-        '/profile' : (ctx) => ProfilScreen(),
         '/add_event' : (ctx) => AddEventScreen(),
+        '/about_screen' : (ctx) => AboutScreen(),
       },
     );
 
   }
 
 }
+
 

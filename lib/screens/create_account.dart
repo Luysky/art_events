@@ -1,29 +1,33 @@
-import 'dart:io';
+import 'package:art_events/service/AuthentificationService.dart';
 import 'package:art_events/widgets/progress.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:art_events/models/user.dart';
-import 'package:art_events/widgets/button_create.dart';
+import 'package:art_events/models/modelUser.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:art_events/screens/home_screen.dart';
 
+
+/*
+* Classe pour l'écran de création d'un nouveau compte 
+* Lié directement avec la firebase Authentification
+*/
 class CreateAccountScreen extends StatefulWidget {
   static const routeName = '/create_account';
-//  final User currentUser;
-//  User testUser = const User(id: "01", username: "testUser", email: "email", password: "123", isSubscribed: false, isServiceProvider: false);
 
-//  CreateAccountScreen({this.currentUser = const testUser});
 
   @override
   _CreateAccountState createState() => _CreateAccountState();
 }
 
 class _CreateAccountState extends State<CreateAccountScreen> {
+  bool isServiceProvider = false; // TODO : gérer le serviceProvider
+  final _key = GlobalKey<FormState>();
+  final AuthentificationService _auth = AuthentificationService(); // app du service d'autentification pour ensuite appeler la méthode signIn()
+  
   bool isChecked = false;
   bool isUploading = false;
-  TextEditingController pseudoController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController pseudoController = TextEditingController(); // controlleur du username
+  TextEditingController emailController = TextEditingController(); // controlleur du email
+  TextEditingController passwordController = TextEditingController();// controlleur du password
   String userId = Uuid().v4();
 
   @override
@@ -73,6 +77,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Form(
+        key: _key,
         child: ListView(
           padding: EdgeInsets.all(50),
           children: <Widget>[
@@ -91,6 +96,12 @@ class _CreateAccountState extends State<CreateAccountScreen> {
             ),
             TextFormField(
               controller: pseudoController,
+              validator: (value) {
+                          if (value == null) {
+                            return 'Pseudo ne peut pas etre vide';
+                          } else
+                            return null;
+                        },
               decoration: InputDecoration(
                 labelText: 'Pseudo',
                 labelStyle: TextStyle(
@@ -117,6 +128,12 @@ class _CreateAccountState extends State<CreateAccountScreen> {
             ),
             TextFormField(
               controller: emailController,
+               validator: (value) {
+                          if (value == null) {
+                            return 'Email ne peut pas etre vide';
+                          } else
+                            return null;
+                        },
               decoration: InputDecoration(
                 labelText: 'Adresse mail',
                 labelStyle: TextStyle(
@@ -143,6 +160,12 @@ class _CreateAccountState extends State<CreateAccountScreen> {
             ),
             TextFormField(
               controller: passwordController,
+               validator: (value) {
+                          if (value == null) {
+                            return 'Mot de passe ne peut pas etre vide';
+                          } else
+                            return null;
+                        },
               decoration: InputDecoration(
                 labelText: 'Mot de passe',
                 labelStyle: TextStyle(
@@ -186,7 +209,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                   onChanged: (bool ?value) {
                     setState(() {
                       isChecked == value;
-
+                      buildServiceProvider();
                     });
                   },
                 ),
@@ -195,10 +218,33 @@ class _CreateAccountState extends State<CreateAccountScreen> {
             SizedBox(
               height: 20,
             ),
-            CustomButton(
-              () => createProfile(context),
-              'CRÉER',
-            ),
+            ElevatedButton(
+            
+
+              style: ElevatedButton.styleFrom(
+                primary: Theme.of(context).backgroundColor,
+                textStyle: TextStyle(fontFamily: "Raleway-Regular",
+                  fontSize: 14.0)
+              ),
+                 onPressed: () async { // ici on gère si l'entrée est valide ou non et on crée le User, puis le modelUser
+                              if (_key.currentState!.validate()) {
+                                ModelUser modelUser = ModelUser(
+                                    username: pseudoController.text,
+                                    email: emailController.text,
+                                    isServiceProvider: isServiceProvider);
+                                Object? result = await _auth.signUp(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                    modelUser: modelUser);
+                                if (result is ModelUser) {
+                                  print("User CREATE" + result.toString());
+                                  Navigator.of(context).pushNamed('/eventslist_screen');;
+                                } else {
+                                    // gérer l'erreur
+                                }
+                              }
+                            },            
+                            child: Text("S'inscrire")),   
             SizedBox(
               height: 20,
             ),
@@ -212,4 +258,13 @@ class _CreateAccountState extends State<CreateAccountScreen> {
       ),
     );
   }
+
+
+    Widget buildServiceProvider() => Transform.scale(
+        scale: 1,
+        child: Switch(
+          value: isServiceProvider,
+          onChanged: (value) => setState(() => this.isServiceProvider = value),
+        ),
+      );
 }

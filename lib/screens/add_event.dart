@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:art_events/models/user.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
@@ -11,16 +9,13 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:image/image.dart' as Im;
 import 'package:art_events/screens/home_screen.dart';
+import 'dart:async';
 
+/*
+* Classe qui gère l'ajout d'évenement 
+*/
 class AddEventScreen extends StatefulWidget {
   static const routeName = '/add_event';
-
-
- /* final User currentUser;
-
-  AddEventScreen({this.currentUser}); */
-
-
 
   @override
   _AddEventState createState() => _AddEventState();
@@ -32,6 +27,35 @@ class _AddEventState extends State<AddEventScreen> {
   String eventId = Uuid().v4();
   File ? file;
   TextEditingController eventNameController = TextEditingController();
+  TextEditingController eventLocationController = TextEditingController();
+  TextEditingController eventDateController = TextEditingController();
+
+  DateTime selectedDate = DateTime.now();
+  String selectedTime = "10:00";
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+
+  Future<void>_selectTime(BuildContext context) async {
+    final TimeOfDay ? time = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if(time != null && time != selectedTime)
+      setState((){
+        selectedTime = time.format(context);
+      });
+  }
 
 
   @override
@@ -59,14 +83,17 @@ class _AddEventState extends State<AddEventScreen> {
   }
 
   createPostInFirestore(
-      {required String mediaUrl, required String eventName}) {
+      {required String mediaUrl, required String eventName, required String location,
+  required DateTime dateTime, required String hour}) {
     eventsRef
        .add({
-      "date" : DateTime.now(),
+      "date" : dateTime,
+      "hour" : hour,
       "image" : mediaUrl,
       "name" : eventName,
-      "place" : "Sion",
+      "place" : location,
       "responsable": "managertest",
+      "participants" : null,
 
     });
   }
@@ -85,12 +112,20 @@ class _AddEventState extends State<AddEventScreen> {
 
     await compressImage();
 
+    print(selectedTime);
+
     String mediaUrl = await uploadImage(file);
     createPostInFirestore(
       mediaUrl: mediaUrl,
       eventName: eventNameController.text,
+      location: eventLocationController.text,
+      dateTime: selectedDate,
+      hour: selectedTime,
     );
     eventNameController.clear();
+    eventLocationController.clear();
+    selectedDate = DateTime.now();
+    selectedTime = "10:00";
     setState(() {
       file = null;
       isUploading = false;
@@ -100,7 +135,7 @@ class _AddEventState extends State<AddEventScreen> {
 
   handleChooseFromGallery() async {
     Navigator.pop(context);
-    File file = File(await ImagePicker().getImage(source: ImageSource.gallery).then((pickedFile) => pickedFile!.path));
+    File file = File(await ImagePicker().pickImage(source: ImageSource.gallery).then((pickedFile) => pickedFile!.path));
   //  File file = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       this.file = file;
@@ -128,12 +163,12 @@ class _AddEventState extends State<AddEventScreen> {
         context: parentContext,
         builder: (context) {
           return SimpleDialog(
-            title: Text("Choisissez l'image de votre evenement"),
+            title: Text("Choisissez l'image de votre événement"),
             children: <Widget>[
              /* SimpleDialogOption(
                   child: Text("Photo with Camera"), onPressed: handleTakePhoto),*/
               SimpleDialogOption(
-                  child: Text("Image de la Gallery"),
+                  child: Text("Image de votre galerie"),
                   onPressed: handleChooseFromGallery),
               SimpleDialogOption(
                 child: Text("Annuler"),
@@ -144,18 +179,28 @@ class _AddEventState extends State<AddEventScreen> {
         });
   }
 
+
   Container buildAddEventForm(){
     return Container(
       color: Theme.of(context).primaryColor,
       child: Scaffold(
-        body: Column(
+        appBar:  header(context, titleText: "Ajout - Évènement") ,
+        body: ListView(
+          padding: EdgeInsets.all(30),
           children: <Widget>[
-            header(context, titleText: "Ajout"),
             isUploading ? linearProgress() : Text(""),
+            Text(
+              "Entrez les informations pour votre évènement d'art",
+              style: TextStyle(
+                fontFamily: "Raleway-Regular",
+                fontSize: 30.0,
+                color: Theme.of(context).backgroundColor,
+              ),
+            ),
             TextFormField(
               controller: eventNameController,
               decoration: InputDecoration(
-                labelText: 'Nom de l''exposition',
+                labelText: "Nom de l'exposition",
                 labelStyle: TextStyle(
                   fontFamily: "Raleway-Regular",
                   fontSize: 14.0,
@@ -178,7 +223,50 @@ class _AddEventState extends State<AddEventScreen> {
             SizedBox(
               height: 20,
             ),
-           CustomButton(() => isUploading ? null : selectImage(context), 'AJOUTER UNE IMAGE'),
+            TextFormField(
+              controller: eventLocationController,
+              decoration: InputDecoration(
+                labelText: "Lieu de l'évènement",
+                labelStyle: TextStyle(
+                  fontFamily: "Raleway-Regular",
+                  fontSize: 14.0,
+                  color: Theme.of(context).backgroundColor,
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              textInputAction: TextInputAction.next,
+              cursorColor: Theme.of(context).backgroundColor,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text("${selectedDate.toLocal()}".split(' ')[0],
+              style: TextStyle(
+                fontFamily: "Raleway-Regular",
+                fontSize: 15.0,
+                color: Theme.of(context).backgroundColor,
+              ),
+            ),
+            SizedBox(height: 20.0,),
+            CustomButton(
+               () => _selectDate(context),
+              'Choisissez la date'),
+            CustomButton(
+                () => _selectTime(context), "Choisissez l'heure",
+            ),
+            SizedBox(
+              height: 20,
+            ),
+           CustomButton(() => isUploading ? null : selectImage(context), 'Ajouter une image'),
           ],
         ),
       ),
