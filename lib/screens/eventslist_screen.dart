@@ -1,16 +1,12 @@
 
 import 'package:art_events/models/event.dart';
-import 'package:art_events/models/modelUser.dart';
-import 'package:art_events/screens/event_details.dart';
 import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
-import 'add_event.dart';
 
 final eventsRef = FirebaseFirestore.instance.collection('event')
       .withConverter<Event>(

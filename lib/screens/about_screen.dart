@@ -2,9 +2,7 @@ import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/service/authentificationService.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:art_events/widgets/header.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /*
