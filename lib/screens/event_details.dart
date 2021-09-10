@@ -5,9 +5,8 @@ import 'package:art_events/widgets/progress.dart';
 import 'package:art_events/widgets/user_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
-
 
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -18,8 +17,14 @@ final usersRef = FirebaseFirestore.instance.collection('user')
   toFirestore: (modelUser, _) => modelUser.toJson(),
 );
 
+enum UsersQuery {
+  search,
+  username,
+  every,
+}
 
 class ScreenArguments {
+  final String id;
   final String name;
   final String date;
   final String hour;
@@ -27,16 +32,11 @@ class ScreenArguments {
   final String image;
   final List<dynamic> participants;
  
-
-  ScreenArguments(this.name, this.date, this.hour, this.place, this.image, this.participants);
-
-//  final eventsRef = FirebaseFirestore.instance.collection('event');
-//          Event targetEvent = await eventsRef.doc.where; 
-}
+  ScreenArguments(this.id, this.name, this.date, this.hour, this.place, this.image, this.participants);
+  }
 
 
  class ExtractArgumentsScreen extends StatefulWidget {
-   // const ExtractArgumentsScreen({Key? key}) : super(key: key);
   static const routeName = '/extractArguments';
 
    @override
@@ -45,6 +45,9 @@ class ScreenArguments {
  }
 
  class _ExtractArgumentsState extends State<ExtractArgumentsScreen> {
+      final user = FirebaseAuth.instance.currentUser;
+      var collection = FirebaseFirestore.instance.collection('event');
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,6 @@ class ScreenArguments {
     final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     List<ModelUser> attendees = [];
     List<UserProf> participants = [];    
-//Event targetEvent = eventsRef.doc.where; 
 
     return Scaffold(
       appBar: header(context, titleText: "Détails"),
@@ -179,12 +181,18 @@ class ScreenArguments {
                       onPrimary: Colors.white, // foreground
                     ),
                     onPressed: () {
-                      print('ok');
-                      //A remplir
+                      args.participants.add(user!.uid);
+                      collection
+                          .doc(args.id) // <-- Doc ID where data should be updated.
+                          .update({'participants' : args.participants}) // <-- Nested value
+                          .then((_) => print('Updated'))
+                          .catchError((error) => print('Update failed: $error'));
+
+                      print(args.participants);
                     },
                     /*** attendees list ***/
                     child: Text(
-                      'Participants',
+                      'Participer',
                       style: TextStyle(
                         fontSize: 20,
                         color: Theme.of(context).backgroundColor,

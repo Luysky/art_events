@@ -19,7 +19,7 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccountScreen> {
-  bool isServiceProvider = false; // TODO : gérer le serviceProvider
+  bool isServiceProvider = false; 
   final _key = GlobalKey<FormState>();
   final AuthentificationService _auth = AuthentificationService(); // app du service d'autentification pour ensuite appeler la méthode signIn()
   
@@ -200,19 +200,10 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                     color: Theme.of(context).backgroundColor,
                   ),
                 ),
-                Checkbox(
-                  fillColor: MaterialStateProperty.all<Color>(
-                      Theme.of(context).backgroundColor),
-                  focusColor: Theme.of(context).backgroundColor,
-                  checkColor: Colors.white,
-                  value: isChecked,
-                  onChanged: (bool ?value) {
-                    setState(() {
-                      isChecked == value;
-                      buildServiceProvider();
-                    });
-                  },
-                ),
+                
+                Container(
+                   child: buildServiceProvider(),
+                  )
               ],
             ),
             SizedBox(
@@ -256,15 +247,17 @@ class _CreateAccountState extends State<CreateAccountScreen> {
           ],
         ),
       ),
+      
     );
+    
   }
-
-
-    Widget buildServiceProvider() => Transform.scale(
+ Widget buildServiceProvider() => Transform.scale(
         scale: 1,
         child: Switch(
           value: isServiceProvider,
           onChanged: (value) => setState(() => this.isServiceProvider = value),
         ),
       );
+
+   
 }

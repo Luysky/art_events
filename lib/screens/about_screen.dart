@@ -1,10 +1,8 @@
-import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/service/authentificationService.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:art_events/widgets/header.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 /*
 * Classe qui gère le screen du profil + version app
@@ -18,6 +16,7 @@ class AboutScreen extends StatefulWidget {
 
 class _AboutState extends State<AboutScreen> {
   final AuthentificationService _auth = AuthentificationService();
+  final user = FirebaseAuth.instance.currentUser;
   
   @override
   void initState() {
@@ -30,14 +29,9 @@ class _AboutState extends State<AboutScreen> {
    print('Out');
   }
 
-  contactHelpCenter() {
-    launchEmail();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<ModelUser?>(context);
-    print(user); // user vide ! donc bug 
+   
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: header(context, titleText: 'A propos'),
@@ -64,27 +58,15 @@ class _AboutState extends State<AboutScreen> {
                   color: Theme.of(context).backgroundColor,
                 ),
               ),
-               //buildName(user!),
+               Text(
+                 "${user!.email}",
+               ),
                ]
 
-          ),
-          Row(
-            children: [
-              Text(
-                'Evenements :  ',
-                style: TextStyle(
-                  fontFamily: "Raleway-Regular",
-                  fontSize: 15.0,
-                  color: Theme.of(context).backgroundColor,
-                ),
-              ),
-              Text('list des evenements'),
-            ],
           ),
           SizedBox(height: 120,),
           CustomButton(() => makeLogout(), 'Déconnexion'),
           SizedBox(height: 30,),
-          CustomButton(() => contactHelpCenter(), 'Contacter en cas de souci'),
           SizedBox(height: 50,),
           Text(
               'App - A voir',
@@ -102,45 +84,11 @@ class _AboutState extends State<AboutScreen> {
               fontFamily: "Raleway-Regular",
               fontSize: 15.0,
               color: Theme.of(context).backgroundColor,
-            ),),
+            ),
+          ),
         ],
       ),
     );
   }
-
-    Widget buildName(ModelUser user) => Column(
-        children: [
-          const SizedBox(height: 4),
-          Text(
-            user.email!+"",
-            style: TextStyle(color: Colors.grey),
-          )
-        ],
-      );
-    
-    Future launchEmail({
-      String toEmail = 'bretzlouise@gmail.com',
-      String subject = 'Yoyo',
-      String message = 'Yo le sang',
-      }) async {
-        final url = 'mailto:$toEmail?subject=$Uri.encodeFull(subject)}&body=${Uri.encodeFull(message)}' ;
-
-        if(await canLaunch(url)){
-          await launch(url);
-        }
-      }
-    _sendMail() async {
-    // Android and iOS
-    const uri =
-        'mailto:test@example.org?subject=Greetings&body=Hello%20World';
-    if (await canLaunch(uri)) {
-      await launch(uri);
-    } else {
-      throw 'Could not launch $uri';
-    }
-  }
-
-
-
 
 }
