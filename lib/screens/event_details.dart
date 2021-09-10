@@ -1,21 +1,48 @@
 
+import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:art_events/widgets/user_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 
-// Before  >> for us in this app
- //Firestore firestore = Firestore();
-// Actual with higher dependencies' version
- FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+final eventsRef = FirebaseFirestore.instance.collection('user')
+    .withConverter<ModelUser>(
+  fromFirestore: (snapshots, _) => ModelUser.fromJson(snapshots.data()!),
+  toFirestore: (event, _) => event.toJson(),
+);
+
+
+enum UserQuery {
+  uid,
+  username,
+
+}
+
+extension on Query<ModelUser> {
+  /// Create a firebase query from a [MovieQuery]
+  Query<ModelUser> queryBy(UserQuery userquery, String wanted) {
+    switch (userquery) {
+
+      case UserQuery.uid:
+        return where(Uuid, isEqualTo: [wanted]);
+
+      case UserQuery.username:
+        return orderBy('username');
+
+    }
+  }
+}
 
 
 final usersRef = firestore.collection('user');
-final eventsRef = firestore.collection('event');
+
 
 class ScreenArguments {
   final String name;
@@ -23,18 +50,11 @@ class ScreenArguments {
   final String hour;
   final String place;
   final String image;
-
- 
-
+  //List? participants;
   ScreenArguments(this.name, this.date, this.hour, this.place, this.image);
-
-//  final eventsRef = FirebaseFirestore.instance.collection('event');
-//          Event targetEvent = await eventsRef.doc.where; 
 }
 
 
-// A Widget that extracts the necessary arguments from
-// the ModalRoute.
  class ExtractArgumentsScreen extends StatefulWidget {
    // const ExtractArgumentsScreen({Key? key}) : super(key: key);
   static const routeName = '/extractArguments';
@@ -203,6 +223,7 @@ class ScreenArguments {
                       return circularProgress();
                       // return Text("no DATA here !!!");
                     }
+
                     final List<UserProf> children = snapshot.data!.docs
                         .map((doc) => UserProf(doc['username']))
                         .toList();

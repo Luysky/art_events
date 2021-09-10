@@ -5,7 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 
 
-
+/*
+* TODO : expliquer pourquoi cette classe ?
+*/
 class EventItem extends StatelessWidget{
   // final String id;
   final DateTime date;

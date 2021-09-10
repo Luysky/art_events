@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:art_events/screens/home_screen.dart';
 
+
+/*
+* Classe pour l'écran de création d'un nouveau compte 
+* Lié directement avec la firebase Authentification
+*/
 class CreateAccountScreen extends StatefulWidget {
   static const routeName = '/create_account';
 
@@ -14,15 +19,15 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccountScreen> {
-  bool isServiceProvider = false;
+  bool isServiceProvider = false; // TODO : gérer le serviceProvider
   final _key = GlobalKey<FormState>();
-  final AuthentificationService _auth = AuthentificationService();
+  final AuthentificationService _auth = AuthentificationService(); // app du service d'autentification pour ensuite appeler la méthode signIn()
   
   bool isChecked = false;
   bool isUploading = false;
-  TextEditingController pseudoController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController pseudoController = TextEditingController(); // controlleur du username
+  TextEditingController emailController = TextEditingController(); // controlleur du email
+  TextEditingController passwordController = TextEditingController();// controlleur du password
   String userId = Uuid().v4();
 
   @override
@@ -221,7 +226,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                 textStyle: TextStyle(fontFamily: "Raleway-Regular",
                   fontSize: 14.0)
               ),
-                 onPressed: () async {
+                 onPressed: () async { // ici on gère si l'entrée est valide ou non et on crée le User, puis le modelUser
                               if (_key.currentState!.validate()) {
                                 ModelUser modelUser = ModelUser(
                                     username: pseudoController.text,
@@ -239,12 +244,7 @@ class _CreateAccountState extends State<CreateAccountScreen> {
                                 }
                               }
                             },            
-                            child: Text('Register')),   
-            /*CustomButton(
-              
-              () => createProfile(context),
-              'CRÉER',
-            ),*/
+                            child: Text("S'inscrire")),   
             SizedBox(
               height: 20,
             ),
