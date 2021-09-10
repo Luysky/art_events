@@ -57,9 +57,6 @@ class ScreenArguments {
       final user = FirebaseAuth.instance.currentUser;
       var collection = FirebaseFirestore.instance.collection('event');
 
-   final user = FirebaseAuth.instance.currentUser;
-   var collection = FirebaseFirestore.instance.collection('event');
-
   @override
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
