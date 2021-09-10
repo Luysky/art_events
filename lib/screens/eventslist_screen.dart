@@ -42,8 +42,12 @@ class _EventsListState extends State<EventsListScreen> {
   @override
   Widget build(context){
 
+    final user = FirebaseAuth.instance.currentUser;
      List<Event> eventsList;
 
+    //Crée la liste d'event avec DummyEvent
+    // List<EventItem> eventList = DUMMY_EVENTS.toList();
+    
     //Récupère la donnée valueSort définit dans la page "header"
     final valueSort = ModalRoute.of(context)?.settings.arguments;
 
