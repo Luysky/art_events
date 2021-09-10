@@ -21,6 +21,31 @@ final usersRef = FirebaseFirestore.instance.collection('user')
 );
 
 
+enum UsersQuery {
+  search,
+  username,
+  every,
+}
+
+extension on Query<ModelUser> {
+  /// Create a firebase query from a [MovieQuery]
+  Query<ModelUser> queryUsersBy(UsersQuery usersquery, String ref, String ? wanted) {
+    switch (usersquery) {
+
+      case UsersQuery.search:
+        return where(ref, isEqualTo: [wanted]);
+        
+      case UsersQuery.username:
+        return orderBy('username');
+
+      case UsersQuery.every:
+        return usersRef;
+
+    }
+  }
+}
+
+
 class ScreenArguments {
   final String name;
   final String date;
@@ -32,6 +57,8 @@ class ScreenArguments {
 
   ScreenArguments(this.name, this.date, this.hour, this.place, this.image, this.participants);
 
+//  final eventsRef = FirebaseFirestore.instance.collection('event');
+//          Event targetEvent = await eventsRef.doc.where; 
 }
 
 
