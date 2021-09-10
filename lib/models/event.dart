@@ -50,7 +50,6 @@ Event.fromJson(json)
       'place': place,
       'participants': participants,
       'responsable': responsable,
-      //'id': id,
     };
   }
 

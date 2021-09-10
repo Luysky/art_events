@@ -35,7 +35,6 @@ class UserProf extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(width: 10,),                 
               ],
             ),
           ),
