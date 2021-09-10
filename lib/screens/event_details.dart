@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:art_events/screens/home_screen.dart';
@@ -30,24 +31,6 @@ enum UsersQuery {
   every,
 }
 
-/*extension on Query<ModelUser> {
-  /// Create a firebase query from a [MovieQuery]
-  Query<ModelUser> queryUsersBy(UsersQuery usersquery, String ref, String ? wanted) {
-    switch (usersquery) {
-
-      case UsersQuery.search:
-        return where(ref, isEqualTo: [wanted]);
-        
-      case UsersQuery.username:
-        return orderBy('username');
-
-      case UsersQuery.every:
-        return usersRef;
-
-    }
-  }
-} */
-
 
 class ScreenArguments {
   final String id;
@@ -61,8 +44,7 @@ class ScreenArguments {
 
   ScreenArguments(this.id, this.name, this.date, this.hour, this.place, this.image, this.participants);
 
-//  final eventsRef = FirebaseFirestore.instance.collection('event');
-//          Event targetEvent = await eventsRef.doc.where; 
+
 }
 
 
@@ -82,7 +64,6 @@ class ScreenArguments {
    final user = FirebaseAuth.instance.currentUser;
    var collection = FirebaseFirestore.instance.collection('event');
 
- //  final FirebaseDatabase mDatabase = FirebaseDatabase.instance;
 
 
   @override
@@ -91,10 +72,37 @@ class ScreenArguments {
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     List<ModelUser> attendees = [];
- //   List<UserProf> participants = [];
- //   List<User> participants = [];
- //   List<String> participants = [];
-//Event targetEvent = eventsRef.doc.where; 
+    List<UserProf> participantsToShow = [];
+
+
+      Future<void> _showPopUpMessage() async {
+        return showDialog<void>(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Salut !'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: const <Widget>[
+                    Text('Vous êtes déjà inscrit 😊'),
+
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+
 
     return Scaffold(
       appBar: header(context, titleText: "Détails"),
@@ -221,21 +229,33 @@ class ScreenArguments {
                     ),
                     onPressed: () {
 
-                      args.participants.add(user!.uid);
+                      print(args.participants.contains(user!.uid));
 
-                 //     var collection = FirebaseFirestore.instance.collection('event');
-                      collection
-                          .doc(args.id) // <-- Doc ID where data should be updated.
-                          .update({'participants' : args.participants}) // <-- Nested value
-                          .then((_) => print('Updated'))
-                          .catchError((error) => print('Update failed: $error'));
+                      if(args.participants.contains(user!.uid)){
+                        _showPopUpMessage();
+                      }else {
 
-                      print(args.participants);
+                        args.participants.add(user!.uid);
 
+                        collection
+                            .doc(args
+                            .id) // <-- Doc ID where data should be updated.
+                            .update({
+                          'participants': args.participants
+                        }) // <-- Nested value
+                            .then((_) => print('Updated'))
+                            .catchError((error) =>
+                            print('Update failed: $error'));
+
+                        print(args.participants);
+                        setState(() {});
+
+                      //  Navigator.of(context).pushNamed('/event_details');
+                      }
                     },
                     /*** attendees list ***/
                     child: Text(
-                      'Participants',
+                      'Participer',
                       style: TextStyle(
                         fontSize: 20,
                         color: Theme.of(context).backgroundColor,
@@ -260,7 +280,7 @@ class ScreenArguments {
                     if (args.participants.length >0){
 
                       attendees = [];
-                  //    participants = [];
+                      participantsToShow = [];
 
                       args.participants.forEach((uuid) {               
                                         
@@ -275,15 +295,16 @@ class ScreenArguments {
                         };          
                       },
                       );
-                    }
-                     final List<UserProf> children = attendees.cast<UserProf>().toList();
-                   /* attendees.forEach((element) {
-                      participants.add(
-                        new UserProf(element ));}); */
+                    };
+
+                    attendees.forEach((element) {
+                      participantsToShow.add(
+                          UserProf(element));},);
+
                     
                     return Container(
                       child: ListView(
-                        children: children,
+                        children: participantsToShow,
                       ),
                     );
                   },

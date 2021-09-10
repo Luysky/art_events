@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart'as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,6 +24,7 @@ class AddEventScreen extends StatefulWidget {
 
 class _AddEventState extends State<AddEventScreen> {
 
+  final user = FirebaseAuth.instance.currentUser;
   bool isUploading = false;
   String eventId = Uuid().v4();
   File ? file;
@@ -92,9 +94,9 @@ class _AddEventState extends State<AddEventScreen> {
       "image" : mediaUrl,
       "name" : eventName,
       "place" : location,
-      "responsable": "managertest",
-      "participants" : null,
-
+      "responsable": user!.uid,
+      "participants" : [],
+    //  "participants" : {"0": ' ',},
     });
   }
 
