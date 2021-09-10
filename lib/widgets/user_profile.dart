@@ -2,13 +2,8 @@ import 'package:art_events/models/modelUser.dart';
 import 'package:flutter/material.dart';
 
 class UserProf extends StatelessWidget {
- //final String id;
-//  final String username;
-
   final ModelUser user;
-
   UserProf(this.user);
-//  UserProf(this.username);
 
   @override
   Widget build(BuildContext context) {

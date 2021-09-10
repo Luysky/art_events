@@ -1,7 +1,6 @@
 import 'package:art_events/service/AuthentificationService.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:art_events/models/modelUser.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:art_events/screens/home_screen.dart';
@@ -20,7 +19,7 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccountScreen> {
-  bool isServiceProvider = false; // TODO : gérer le serviceProvider
+  bool isServiceProvider = false; 
   final _key = GlobalKey<FormState>();
   final AuthentificationService _auth = AuthentificationService(); // app du service d'autentification pour ensuite appeler la méthode signIn()
   
@@ -75,7 +74,6 @@ class _CreateAccountState extends State<CreateAccountScreen> {
 
   @override
   Widget build(context) {
-    final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Form(

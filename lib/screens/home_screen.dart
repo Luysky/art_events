@@ -23,8 +23,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final _formKey = GlobalKey<FormState>();
   final AuthentificationService _auth = AuthentificationService();
-  TextEditingController emailController = new TextEditingController(text: "bretzlouise@gmail.com"); // texte ajouté pour facilité le travail 
-  TextEditingController passwordController = new TextEditingController(text: "123456");
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
   bool _obscureText = false;
 
   @override

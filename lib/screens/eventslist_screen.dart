@@ -4,7 +4,6 @@ import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 
@@ -38,7 +37,6 @@ class _EventsListState extends State<EventsListScreen> {
   @override
   Widget build(context){
 
-    final user = FirebaseAuth.instance.currentUser;
      List<Event> eventsList;
 
     //Crée la liste d'event avec DummyEvent
@@ -63,6 +61,7 @@ class _EventsListState extends State<EventsListScreen> {
             return circularProgress();
           } 
     
+    // ignore: unused_element
     addEventScreen(BuildContext context){
       Navigator.of(context).pushNamed('/add_event');
     }
@@ -93,13 +92,7 @@ class _EventsListState extends State<EventsListScreen> {
             child: ListView.builder(itemBuilder: (ctx,index,)
             {
               return EventItem(
-                name: eventsList[index].name,
-                image: eventsList[index].image,
-                date: eventsList[index].date,
-                hour: eventsList[index].hour,
-                place: eventsList[index].place,
-                participants: eventsList[index].participants,                
-                responsable: eventsList[index].responsable,
+                    eventsList[index],
               );
             }, itemCount: eventsList.length,),
           );

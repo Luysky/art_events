@@ -1,92 +1,27 @@
-import 'dart:io';
+import 'package:art_events/models/event.dart';
 import 'package:art_events/screens/event_details.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:art_events/models/modelUser.dart';
-import 'package:art_events/widgets/user_profile.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 
-//import 'user.dart';
 
 
 /*
-* TODO : expliquer pourquoi cette classe ?
+* Classe representant chaque évenement dans la liste d'event
 */
 class EventItem extends StatelessWidget{
-  // final String id;
-  final  /* Timestamp */ DateTime date;
-  final String hour;
-  final String image;
-  final String name;
-  final String place;
-  final List<dynamic> participants;
-  // final UserProf responsable;
-    final String responsable;
-   // final Uuid id;
 
-  //final Uuid reference;
+  final Event event;
 
-
-
-   /* const */ EventItem({
-   // required this.id,
-    required this.date,
-    required this.hour,
-    required this.image,
-   required this.place,
-   required this.participants,
-    // required this.responsable,
-    required this.name,
-    required this.responsable,
-  //  required this.reference,
- // required this.id,
-
-  });
-
-
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-EventItem.fromJson(Map<String, Object?> json)
-      : this(
-          name: json['name']! as String,
-          date: json['date']! as  /* Timestamp */ DateTime,
-          hour: json['hour']! as String,
-          place: json['place']! as String,
-          participants: json['participants']! as List<dynamic>,
-          responsable: json['responsable']! as String,
-          image: json['image']! as String,
-        //  reference: json['reference']! as Uuid,
-      //    id: json['id'] as Uuid,
-        );
-
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'date': date,
-      'hour': hour,
-      'place': place,
-      'participants': participants,
-      // 'responsable': responsable,
-  //     'image': image,
-       'responsable': responsable,
-    //   'id': id,
-    };
-  }
-
+  EventItem(this.event);
 
 @override
   Widget build(BuildContext context) {
-    // final mediaQuery = MediaQuery.of(context);
-    // var widthFav, heightFav;
-    // widthFav = mediaQuery.size.width;
-    // heightFav = mediaQuery.size.height;
     return InkWell(
       onTap: () {
         Navigator.pushNamed(
           context,
           ExtractArgumentsScreen.routeName,
-          arguments: ScreenArguments(name, date.toString().substring(0, 10), hour, place, image, participants),
+          arguments: ScreenArguments(event.id, event.name, event.date.toString().substring(0, 10), event.hour, event.place, event.image, event.participants),
         );
       },
       child: Card(
@@ -106,17 +41,9 @@ EventItem.fromJson(Map<String, Object?> json)
                   ),
                 ),
                 Image.network(
-                  image,
+                  event.image,
                   fit: BoxFit.fill,                 
                 ),
-                // CachedNetworkImage(
-                //  imageUrl: image,
-                //  fit: BoxFit.fill,
-                //  placeholder: (context, url) => Padding(
-                //    child: CircularProgressIndicator(),
-                //    padding: EdgeInsets.all(20.0),
-                //  ),
-                // ),
                 Positioned(
                   bottom: 20,
                   right: 10,
@@ -125,7 +52,7 @@ EventItem.fromJson(Map<String, Object?> json)
                     color: Colors.black54,
                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                     child: Text(
-                      name,
+                      event.name,
                       style: TextStyle(fontSize: 26, color: Colors.white),
                       softWrap: true,
                       overflow: TextOverflow.fade,
@@ -149,7 +76,7 @@ EventItem.fromJson(Map<String, Object?> json)
                         width: 6,
                       ),
                       Text(
-                        '$place',
+                        '${event.place}',
                         style: TextStyle(
                           color: Theme.of(context).backgroundColor,
                         ),
@@ -166,7 +93,7 @@ EventItem.fromJson(Map<String, Object?> json)
                         width: 6,
                       ),
                       Text(
-                        '$date'.substring(0,10),
+                        '${event.date}'.substring(0,10),
                         style: TextStyle(
                           color: Theme.of(context).backgroundColor,
                         ),
@@ -183,4 +110,3 @@ EventItem.fromJson(Map<String, Object?> json)
   }
 
 }
-

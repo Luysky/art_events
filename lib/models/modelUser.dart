@@ -102,8 +102,6 @@ Future<void> populateFirestore() async {
       listEvent: json['events']! as List<dynamic>,
       isServiceProvider: json['isServiceProvider']! as bool,
       isSubscribed: json['isSubscribed']! as bool,
-      //  reference: json['reference']! as Uuid,
-      //id: json['id'] as String,
     );
 
 
