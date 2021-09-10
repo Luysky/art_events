@@ -47,23 +47,7 @@ class UserProf extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 10,),
-                Text(
-                  '${user.email}',
-                  style: TextStyle(
-                    fontFamily: "Raleway-Regular",
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(width: 10,),
-                Text(
-                  'Provider : ${user.isServiceProvider}',
-                  style: TextStyle(
-                    fontFamily: "Raleway-Regular",
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),
-                ),                
+                  
               ],
             ),
           ),
