@@ -1,12 +1,17 @@
 
+import 'package:art_events/models/event.dart';
 import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:art_events/widgets/user_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:art_events/screens/home_screen.dart';
 
 
 
@@ -25,7 +30,7 @@ enum UsersQuery {
   every,
 }
 
-extension on Query<ModelUser> {
+/*extension on Query<ModelUser> {
   /// Create a firebase query from a [MovieQuery]
   Query<ModelUser> queryUsersBy(UsersQuery usersquery, String ref, String ? wanted) {
     switch (usersquery) {
@@ -41,10 +46,11 @@ extension on Query<ModelUser> {
 
     }
   }
-}
+} */
 
 
 class ScreenArguments {
+  final String id;
   final String name;
   final String date;
   final String hour;
@@ -53,7 +59,7 @@ class ScreenArguments {
   final List<dynamic> participants;
  
 
-  ScreenArguments(this.name, this.date, this.hour, this.place, this.image, this.participants);
+  ScreenArguments(this.id, this.name, this.date, this.hour, this.place, this.image, this.participants);
 
 //  final eventsRef = FirebaseFirestore.instance.collection('event');
 //          Event targetEvent = await eventsRef.doc.where; 
@@ -64,6 +70,7 @@ class ScreenArguments {
    // const ExtractArgumentsScreen({Key? key}) : super(key: key);
   static const routeName = '/extractArguments';
 
+
    @override
    _ExtractArgumentsState createState() => _ExtractArgumentsState();
 
@@ -71,7 +78,12 @@ class ScreenArguments {
 
  class _ExtractArgumentsState extends State<ExtractArgumentsScreen> {
 
-   Query<ModelUser> query = usersRef.queryUsersBy(UsersQuery.every, "", "");
+
+   final user = FirebaseAuth.instance.currentUser;
+   var collection = FirebaseFirestore.instance.collection('event');
+
+ //  final FirebaseDatabase mDatabase = FirebaseDatabase.instance;
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +91,9 @@ class ScreenArguments {
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     List<ModelUser> attendees = [];
-    List<UserProf> participants = [];    
+ //   List<UserProf> participants = [];
+ //   List<User> participants = [];
+ //   List<String> participants = [];
 //Event targetEvent = eventsRef.doc.where; 
 
     return Scaffold(
@@ -206,8 +220,18 @@ class ScreenArguments {
                       onPrimary: Colors.white, // foreground
                     ),
                     onPressed: () {
-                      print('ok');
-                      //A remplir
+
+                      args.participants.add(user!.uid);
+
+                 //     var collection = FirebaseFirestore.instance.collection('event');
+                      collection
+                          .doc(args.id) // <-- Doc ID where data should be updated.
+                          .update({'participants' : args.participants}) // <-- Nested value
+                          .then((_) => print('Updated'))
+                          .catchError((error) => print('Update failed: $error'));
+
+                      print(args.participants);
+
                     },
                     /*** attendees list ***/
                     child: Text(
@@ -234,8 +258,9 @@ class ScreenArguments {
                     }
                     
                     if (args.participants.length >0){
+
                       attendees = [];
-                      participants = [];
+                  //    participants = [];
 
                       args.participants.forEach((uuid) {               
                                         
@@ -248,16 +273,17 @@ class ScreenArguments {
                               );
                           };
                         };          
-                      },);
-                    };
-
-                    attendees.forEach((element) {
+                      },
+                      );
+                    }
+                     final List<UserProf> children = attendees.cast<UserProf>().toList();
+                   /* attendees.forEach((element) {
                       participants.add(
-                        new UserProf(element ));});
+                        new UserProf(element ));}); */
                     
                     return Container(
                       child: ListView(
-                        children: participants, // TODO : chercher comment afficher uniquement le username
+                        children: children,
                       ),
                     );
                   },

@@ -2,6 +2,7 @@ import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/service/authentificationService.dart';
 import 'package:art_events/widgets/button_create.dart';
 import 'package:art_events/widgets/header.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,6 +19,7 @@ class AboutScreen extends StatefulWidget {
 
 class _AboutState extends State<AboutScreen> {
   final AuthentificationService _auth = AuthentificationService();
+  final user = FirebaseAuth.instance.currentUser;
   
   @override
   void initState() {
@@ -36,7 +38,7 @@ class _AboutState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<ModelUser?>(context);
+ //   final user = Provider.of<ModelUser?>(context);
     print(user); // user vide ! donc bug 
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
@@ -64,7 +66,9 @@ class _AboutState extends State<AboutScreen> {
                   color: Theme.of(context).backgroundColor,
                 ),
               ),
-               //buildName(user!),
+               Text(
+                 "${user!.email}",
+               ),//buildName(user!),
                ]
 
           ),

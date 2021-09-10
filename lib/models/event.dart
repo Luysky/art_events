@@ -1,11 +1,14 @@
 import 'package:art_events/widgets/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
 
 /*
 * Classe modèle pour la gestion des évenements
 */
+@immutable
 class Event {
+  late final String id;
   final DateTime date;
   final String hour;
   final String image;
@@ -15,6 +18,7 @@ class Event {
   final String responsable;
 
  Event({
+    this.id = "-1",
     required this.date,
     required this.hour,
     required this.image,
@@ -22,13 +26,15 @@ class Event {
     required this.name,
     required this.participants,
     required this.responsable,
+
   });
 
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-Event.fromJson(Map<String, Object?> json)
+Event.fromJson(json)
       : this(
+          id: json.id,
           name: json['name']! as String,
           date: json['date']! as DateTime,
           hour: json['hour']! as String,
@@ -44,11 +50,9 @@ Event.fromJson(Map<String, Object?> json)
       'date': date,
       'place': place,
       'participants': participants,
-      // 'responsable': responsable,
-  //     'image': image,
-       'responsable': responsable,
-    //   'id': id,
       'responsable': responsable,
+      'responsable': responsable,
+      //'id': id,
     };
   }
 
