@@ -6,6 +6,7 @@ import 'package:art_events/widgets/event_item.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -17,25 +18,6 @@ final eventsRef = FirebaseFirestore.instance.collection('event')
       toFirestore: (event, _) => event.toJson(),
     );  
 
-enum EventQuery {
-  date,
-  nameAsc,
-}
-
-extension on Query<Event> {
-  /// Create a firebase query from a [MovieQuery]
-   Query<Event> queryBy(EventQuery eventquery) {
-    switch (eventquery) {
-
-      case EventQuery.date:
-        return orderBy('date', descending: false);
-
-      case EventQuery.nameAsc:
-        return orderBy('name'.toUpperCase(), descending: false);
-
-    }
-  }
-}
 
 /*
 * Classe pour l'écran de la liste des évenements
@@ -50,7 +32,6 @@ class EventsListScreen extends StatefulWidget{
 }
 
 class _EventsListState extends State<EventsListScreen> {
-     Query<Event> query = eventsRef.queryBy(EventQuery.date);
 
   @override
   initState() {
@@ -81,6 +62,8 @@ class _EventsListState extends State<EventsListScreen> {
           if (snapshot.data == null) {
             return circularProgress();
           } 
+    
+    //if(FirebaseAuth.instance.currentUser.)
     addEventScreen(BuildContext context){
       Navigator.of(context).pushNamed('/add_event');
     }
@@ -90,10 +73,11 @@ class _EventsListState extends State<EventsListScreen> {
               .map((doc) => 
               Event(
                 date: DateTime.parse(doc['date'].toDate().toString())   ,
-                hour: doc['hour'].toString(),// doc['date'], hour: doc['hour'],
+                hour: doc['hour'].toString(),
                     image:  doc['image'],  name: doc['name'], 
-                    place: doc['place'], responsable: doc['responsable'], participants: doc['participants'],
-                    /* id: doc['Uuid']*/))
+                    place: doc['place'], responsable: doc['responsable'], 
+                    participants: doc['participants'],
+                    uid: doc.reference.id))
               .toList();
     if(valueSort == 'nameAsc')
     {

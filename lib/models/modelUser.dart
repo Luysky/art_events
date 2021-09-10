@@ -11,7 +11,7 @@ class ModelUser {
    String? email;
    bool isServiceProvider;
    bool isSubscribed;
-   List listEvent = [];
+   List<dynamic> listEvent = [];
 
   ModelUser({
      this.id = "",

@@ -19,31 +19,6 @@ final usersRef = FirebaseFirestore.instance.collection('user')
 );
 
 
-enum UsersQuery {
-  search,
-  username,
-  every,
-}
-
-extension on Query<ModelUser> {
-  /// Create a firebase query from a [MovieQuery]
-  Query<ModelUser> queryUsersBy(UsersQuery usersquery, String ref, String ? wanted) {
-    switch (usersquery) {
-
-      case UsersQuery.search:
-        return where(ref, isEqualTo: [wanted]);
-        
-      case UsersQuery.username:
-        return orderBy('username');
-
-      case UsersQuery.every:
-        return usersRef;
-
-    }
-  }
-}
-
-
 class ScreenArguments {
   final String name;
   final String date;
@@ -70,8 +45,6 @@ class ScreenArguments {
  }
 
  class _ExtractArgumentsState extends State<ExtractArgumentsScreen> {
-
-   Query<ModelUser> query = usersRef.queryUsersBy(UsersQuery.every, "", "");
 
   @override
   Widget build(BuildContext context) {
@@ -241,23 +214,24 @@ class ScreenArguments {
                                         
                         for (var doc in snapshot.data!.docs) {
                           if(doc.reference.id == uuid){
-                            attendees.add(new ModelUser(username: doc['username'],
+                            attendees.add(ModelUser(username: doc['username'],
                                   email: doc['email'],
                                   isServiceProvider: doc['isServiceProvider'],
                                   listEvent: doc['listEvent'],),
                               );
                           };
+
                         };          
                       },);
                     };
 
                     attendees.forEach((element) {
                       participants.add(
-                        new UserProf(element ));});
+                        UserProf(element));},);
                     
                     return Container(
                       child: ListView(
-                        children: participants, // TODO : chercher comment afficher uniquement le username
+                        children: participants,
                       ),
                     );
                   },

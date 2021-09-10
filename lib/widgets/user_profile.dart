@@ -31,12 +31,6 @@ class UserProf extends StatelessWidget {
                     Icons.account_circle,
                 color: Colors.white,
                 size: 35,),
-          /*      const CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage(
-                    'assets/images/Pseudo.png',
-                  ),
-                ), */
                 SizedBox(width: 10,),
                 Text(
                   user.username,
@@ -46,8 +40,7 @@ class UserProf extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(width: 10,),
-                  
+                SizedBox(width: 10,),                 
               ],
             ),
           ),

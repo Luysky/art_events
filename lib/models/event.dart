@@ -1,5 +1,6 @@
 import 'package:art_events/widgets/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 
 
 /*
@@ -13,6 +14,7 @@ class Event {
   final String place;
   final List<dynamic> participants;
   final String responsable;
+  final String uid;
 
  Event({
     required this.date,
@@ -22,6 +24,7 @@ class Event {
     required this.name,
     required this.participants,
     required this.responsable,
+    required this.uid,
   });
 
 
@@ -36,6 +39,7 @@ Event.fromJson(Map<String, Object?> json)
           participants: json['participants']! as List<dynamic>,
           responsable: json['responsable']! as String,
           image: json['image']! as String,
+          uid: json['uid']! as String,
         );
 
   Map<String, dynamic> toJson() {
@@ -45,10 +49,9 @@ Event.fromJson(Map<String, Object?> json)
       'place': place,
       'participants': participants,
       // 'responsable': responsable,
-  //     'image': image,
+       'image': image,
        'responsable': responsable,
-    //   'id': id,
-      'responsable': responsable,
+       'id': uid,
     };
   }
 
