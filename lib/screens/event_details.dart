@@ -9,10 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 
-// Before  >> for us in this app
- //Firestore firestore = Firestore();
-// Actual with higher dependencies' version
- FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 final usersRef = FirebaseFirestore.instance.collection('user')
     .withConverter<ModelUser>(
@@ -62,8 +60,6 @@ class ScreenArguments {
 }
 
 
-// A Widget that extracts the necessary arguments from
-// the ModalRoute.
  class ExtractArgumentsScreen extends StatefulWidget {
    // const ExtractArgumentsScreen({Key? key}) : super(key: key);
   static const routeName = '/extractArguments';
@@ -261,7 +257,7 @@ class ScreenArguments {
                     
                     return Container(
                       child: ListView(
-                        children: participants,
+                        children: participants, // TODO : chercher comment afficher uniquement le username
                       ),
                     );
                   },

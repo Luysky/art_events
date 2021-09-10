@@ -1,7 +1,10 @@
 import 'package:art_events/screens/eventslist_screen.dart';
 import 'package:flutter/material.dart';
 
-
+/*
+* Widget de l'app bar / header
+* Définit le design pour toute l'app
+*/
 AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
 
   return AppBar(
@@ -47,10 +50,10 @@ AppBar header(context, {bool isAppTitle = true, String titleText = "text"}) {
               PopupMenuItem(child: Text('Trier par nom'), value: 'nameAsc'),             
             ],
         ),
-      Icon(
-        // Navigator.of(context).pushAndRemoveUntil(newRoute, (route) => false), // TO CORRECT WITH LOGOUT FUNCTION
-        Icons.logout, color: Colors.white, size: 40.0,
-      ),
+      IconButton(
+        onPressed: () => Navigator.pushNamed(context, '/about_screen'),
+        icon: Icon(Icons.info_outline_rounded, color: Colors.white, size: 40.0, ),
+      ) ,
     ],
   );
 }

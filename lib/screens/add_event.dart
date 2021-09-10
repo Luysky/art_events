@@ -11,10 +11,11 @@ import 'package:image/image.dart' as Im;
 import 'package:art_events/screens/home_screen.dart';
 import 'dart:async';
 
+/*
+* Classe qui gère l'ajout d'évenement 
+*/
 class AddEventScreen extends StatefulWidget {
   static const routeName = '/add_event';
-
-
 
   @override
   _AddEventState createState() => _AddEventState();
@@ -258,9 +259,9 @@ class _AddEventState extends State<AddEventScreen> {
             SizedBox(height: 20.0,),
             CustomButton(
                () => _selectDate(context),
-              'Choisissez la date date'),
+              'Choisissez la date'),
             CustomButton(
-                () => _selectTime(context), "Choisissez l'heur",
+                () => _selectTime(context), "Choisissez l'heure",
             ),
             SizedBox(
               height: 20,

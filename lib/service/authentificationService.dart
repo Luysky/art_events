@@ -1,6 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/modelUser.dart';
 
+/*
+* Classe pour gérer et faire le lien avec la firebase
+* Différentes méthodes implémentées : signIn(), signUp(), logOut
+* Méthodes récupérées du tutoriel FireFlutter officiel
+*/
 class AuthentificationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -36,13 +41,13 @@ class AuthentificationService {
       //tmp!.setEmail(email);
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (e) {
-      print("FireBaseAuthException Message derreur = " +e.message.toString());
+      print("FireBaseAuthException " +e.message.toString());
       return e.message;
     }
   }
 
   // Methode pour quitter a l'app
-  Future signOut() async {
+  Future  logOut() async {
     try {
       return await _auth.signOut();
     } catch (e) {

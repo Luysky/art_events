@@ -7,7 +7,6 @@ import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:art_events/dummy_events.dart';
 import 'package:uuid/uuid.dart';
 
 import 'add_event.dart';
@@ -38,6 +37,9 @@ extension on Query<Event> {
   }
 }
 
+/*
+* Classe pour l'écran de la liste des évenements
+*/
 class EventsListScreen extends StatefulWidget{
   const EventsListScreen({Key? key}) : super(key: key);
    static const routeName = '/eventslist_screen';
@@ -83,28 +85,26 @@ class _EventsListState extends State<EventsListScreen> {
       Navigator.of(context).pushNamed('/add_event');
     }
 
-    eventsList = snapshot.data!.docs              
-        .map((doc) => 
-        
-        Event(date: DateTime.parse(doc['date'].toDate().toString()),
-              hour: doc['hour'].toString(), 
-              image:  doc['image'],  name: doc['name'], 
-              place: doc['place'], participants: doc['participants'], 
-              responsable: doc['responsable'],
-              /* id: doc['Uuid']*/))
-        .toList();
-  
-      /**** List sort  ****/
-      if(valueSort == 'nameAsc')
-        {
-          // 'name' sort
-          query = eventsRef.queryBy(EventQuery.nameAsc);
-        }
-          // 'date' sort
-      if(valueSort == 'date')
-        {
-          query = eventsRef.queryBy(EventQuery.date);
-        }
+    
+     eventsList = snapshot.data!.docs              
+              .map((doc) => 
+              Event(
+                date: DateTime.parse(doc['date'].toDate().toString())   ,
+                hour: doc['hour'].toString(),// doc['date'], hour: doc['hour'],
+                    image:  doc['image'],  name: doc['name'], 
+                    place: doc['place'], responsable: doc['responsable'], participants: doc['participants'],
+                    /* id: doc['Uuid']*/))
+              .toList();
+    if(valueSort == 'nameAsc')
+    {
+     eventsList.sort((a,b) => a.name.compareTo(b.name));
+    }
+
+    //On trie par date
+    if(valueSort == 'date')
+    {
+      eventsList.sort((a,b) => a.date.compareTo(b.date));
+    }
 
           return Container(
             child: ListView.builder(itemBuilder: (ctx,index,)

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  const Header(this.heading /*, this.popUpMenuItem */);
+  const Header(this.heading);
   final String heading;
-//  final List<Widget> popUpMenuItem;
 
   @override
   Widget build(BuildContext context) => AppBar(
 
     title: Align(alignment: Alignment.centerLeft,
       child: Text(
-      // isAppTitle ? heading : 'ErrorAppBar',
       heading,
       style: TextStyle(
         color: Theme.of(context).primaryColor,
@@ -21,33 +19,9 @@ class Header extends StatelessWidget {
     ),
     centerTitle: true,
     backgroundColor: Theme.of(context).backgroundColor,
-
-    //Displaying AppBar Button(s)
-/*    actions: BuildContext(
-        popUpMenuItem
-
-    );
-      //popUpMenuItem,
-    */
       );  
 }
-/*
-class PopUpAppBarButton extends StatelessWidget {
- const PopUpAppBarButton(this.popUpAppBarButton);
-  final List<Widget> popUpAppBarButton;
 
-@override
-  List<Widget> build(BuildContext context) => Widget[
-    
-        popUpAppBarButton,
-        
-  ]   
-      
-      );
-
-
-}
-*/
 class Paragraph extends StatelessWidget {
   const Paragraph(this.content);
   final String content;

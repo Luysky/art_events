@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/*
+* Classe pour définir le CustomButton utilisé à plusieurs endroits dans l'app 
+*/
 class CustomButton extends StatelessWidget {
   CustomButton(this.onPressed,this.buttonName);
   final String buttonName;
