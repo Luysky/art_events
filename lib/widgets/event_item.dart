@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:art_events/models/event.dart';
 import 'package:art_events/screens/event_details.dart';
 import 'package:flutter/material.dart';

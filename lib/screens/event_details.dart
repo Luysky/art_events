@@ -1,4 +1,5 @@
 
+import 'package:art_events/models/event.dart';
 import 'package:art_events/models/modelUser.dart';
 import 'package:art_events/widgets/header.dart';
 import 'package:art_events/widgets/progress.dart';
@@ -6,7 +7,13 @@ import 'package:art_events/widgets/user_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+import 'package:art_events/screens/home_screen.dart';
+
 
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -33,11 +40,13 @@ class ScreenArguments {
   final List<dynamic> participants;
  
   ScreenArguments(this.id, this.name, this.date, this.hour, this.place, this.image, this.participants);
-  }
+}
+
 
 
  class ExtractArgumentsScreen extends StatefulWidget {
   static const routeName = '/extractArguments';
+
 
    @override
    _ExtractArgumentsState createState() => _ExtractArgumentsState();
@@ -48,6 +57,8 @@ class ScreenArguments {
       final user = FirebaseAuth.instance.currentUser;
       var collection = FirebaseFirestore.instance.collection('event');
 
+   final user = FirebaseAuth.instance.currentUser;
+   var collection = FirebaseFirestore.instance.collection('event');
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +66,36 @@ class ScreenArguments {
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     List<ModelUser> attendees = [];
-    List<UserProf> participants = [];    
+
+    List<UserProf> participantsToShow = [];
+
+      Future<void> _showPopUpMessage() async {
+        return showDialog<void>(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Salut !'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: const <Widget>[
+                    Text('Vous êtes déjà inscrit 😊'),
+
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
 
     return Scaffold(
       appBar: header(context, titleText: "Détails"),
@@ -181,14 +221,26 @@ class ScreenArguments {
                       onPrimary: Colors.white, // foreground
                     ),
                     onPressed: () {
-                      args.participants.add(user!.uid);
-                      collection
-                          .doc(args.id) // <-- Doc ID where data should be updated.
-                          .update({'participants' : args.participants}) // <-- Nested value
-                          .then((_) => print('Updated'))
-                          .catchError((error) => print('Update failed: $error'));
+                        if(args.participants.contains(user!.uid)){
+                        _showPopUpMessage();
+                      }else {
+                        args.participants.add(user!.uid);
 
-                      print(args.participants);
+                        collection
+                            .doc(args
+                            .id) // <-- Doc ID where data should be updated.
+                            .update({
+                          'participants': args.participants
+                        }) // <-- Nested value
+                            .then((_) => print('Updated'))
+                            .catchError((error) =>
+                            print('Update failed: $error'));
+
+                        print(args.participants);
+                        setState(() {});
+
+                      //  Navigator.of(context).pushNamed('/event_details');
+                      }
                     },
                     /*** attendees list ***/
                     child: Text(
@@ -215,8 +267,9 @@ class ScreenArguments {
                     }
                     
                     if (args.participants.length >0){
+
                       attendees = [];
-                      participants = [];
+                      participantsToShow = [];
 
                       args.participants.forEach((uuid) {               
                                         
@@ -230,16 +283,19 @@ class ScreenArguments {
                           };
 
                         };          
-                      },);
+                      },
+                      );
                     };
 
                     attendees.forEach((element) {
-                      participants.add(
-                        UserProf(element));},);
+
+                      participantsToShow.add(
+                          UserProf(element));},);
                     
                     return Container(
                       child: ListView(
-                        children: participants,
+                        children: participantsToShow,
+
                       ),
                     );
                   },

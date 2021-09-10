@@ -31,7 +31,6 @@ class _AboutState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: header(context, titleText: 'A propos'),
